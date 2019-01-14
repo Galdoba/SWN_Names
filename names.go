@@ -4,6 +4,7 @@ type FullName struct {
 	firstName string
 	surName   string
 	female    bool
+	test      bool
 }
 
 func NewFullName(isfemale bool, names ...string) *FullName {
