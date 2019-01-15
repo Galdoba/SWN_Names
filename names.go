@@ -11,12 +11,26 @@ func NewFullName(isfemale bool, names ...string) *FullName {
 	fn := FullName{}
 	fn.female = isfemale
 	parts := names
+	site := ""
 	for i := range parts {
 		if i == 0 {
-			fn.firstName = parts[0]
+			site = parts[0]
 		}
 		if i == 1 {
-			fn.surName = parts[1]
+			fn.firstName = parts[1]
+			if fn.firstName == "" {
+				if !fn.female {
+					fn.firstName = GiveName(site, "Male", -1)
+				} else {
+					fn.firstName = GiveName(site, "Female", -1)
+				}
+			}
+		}
+		if i == 2 {
+			fn.surName = parts[2]
+			if fn.surName == "" {
+				fn.surName = GiveName(site, "Sur", -1)
+			}
 		}
 	}
 	return &fn
@@ -110,7 +124,7 @@ func arabicFemaleNames() []string {
 	return names
 }
 
-func arabicSurnames() []string {
+func arabicSurNames() []string {
 	names := []string{
 		"Abdel",
 		"Awad",
@@ -141,7 +155,7 @@ func arabicSurnames() []string {
 	return names
 }
 
-func arabicPlace() []string {
+func arabicPlaceNames() []string {
 	names := []string{
 		"Adan",
 		"Ahsa",
@@ -259,7 +273,7 @@ func chineseFemaleNames() []string {
 	return names
 }
 
-func chineseSurnames() []string {
+func chineseSurNames() []string {
 	names := []string{
 		"Bai",
 		"Cao",
@@ -290,7 +304,7 @@ func chineseSurnames() []string {
 	return names
 }
 
-func chinesePlace() []string {
+func chinesePlaceNames() []string {
 	names := []string{
 		"Andong",
 		"Anqing",
@@ -408,7 +422,7 @@ func englishFemaleNames() []string {
 	return names
 }
 
-func englishSurnames() []string {
+func englishSurNames() []string {
 	names := []string{
 		"Barker",
 		"Brown",
@@ -439,7 +453,7 @@ func englishSurnames() []string {
 	return names
 }
 
-func englishPlaces() []string {
+func englishPlaceNames() []string {
 	names := []string{
 		"Aldington",
 		"Appleton",
@@ -557,7 +571,7 @@ func greekFemaleNames() []string {
 	return names
 }
 
-func greekSurnames() []string {
+func greekSurNames() []string {
 	names := []string{
 		"Andreas",
 		"Argyros",
@@ -588,7 +602,7 @@ func greekSurnames() []string {
 	return names
 }
 
-func greekPlaces() []string {
+func greekPlaceNames() []string {
 	names := []string{
 		"Adramyttion",
 		"Ainos",
@@ -706,7 +720,7 @@ func indianFemaleNames() []string {
 	return names
 }
 
-func indianSurnames() []string {
+func indianSurNames() []string {
 	names := []string{
 		"Achari",
 		"Banerjee",
@@ -737,7 +751,7 @@ func indianSurnames() []string {
 	return names
 }
 
-func indianPlaces() []string {
+func indianPlaceNames() []string {
 	names := []string{
 		"Ahmedabad",
 		"Alipurduar",
@@ -855,7 +869,7 @@ func japaneseFemaleNames() []string {
 	return names
 }
 
-func japaneseSurnames() []string {
+func japaneseSurNames() []string {
 	names := []string{
 		"Abe",
 		"Arakaki",
@@ -886,7 +900,7 @@ func japaneseSurnames() []string {
 	return names
 }
 
-func japanesePlaces() []string {
+func japanesePlaceNames() []string {
 	names := []string{
 		"Bando",
 		"Chikuma",
@@ -1004,7 +1018,7 @@ func latinFemaleNames() []string {
 	return names
 }
 
-func latinSurnames() []string {
+func latinSurNames() []string {
 	names := []string{
 		"Antius",
 		"Aurius",
@@ -1035,7 +1049,7 @@ func latinSurnames() []string {
 	return names
 }
 
-func latinPlaces() []string {
+func latinPlaceNames() []string {
 	names := []string{
 		"Abilia",
 		"Alsium",
@@ -1153,7 +1167,7 @@ func negerianFemaleNames() []string {
 	return names
 }
 
-func negerianSurnames() []string {
+func negerianSurNames() []string {
 	names := []string{
 		"Adegboye",
 		"Adeniyi",
@@ -1184,7 +1198,7 @@ func negerianSurnames() []string {
 	return names
 }
 
-func negerianPlaces() []string {
+func negerianPlaceNames() []string {
 	names := []string{
 		"Abadan",
 		"Ador",
@@ -1302,7 +1316,7 @@ func russianFemaleNames() []string {
 	return names
 }
 
-func russianSurnames() []string {
+func russianSurNames() []string {
 	names := []string{
 		"Abelev",
 		"Bobrikov",
@@ -1333,7 +1347,7 @@ func russianSurnames() []string {
 	return names
 }
 
-func russianPlaces() []string {
+func russianPlaceNames() []string {
 	names := []string{
 		"Amur",
 		"Arkhangelsk",
@@ -1451,7 +1465,7 @@ func spanishFemaleNames() []string {
 	return names
 }
 
-func spanishSurnames() []string {
+func spanishSurNames() []string {
 	names := []string{
 		"Arellano",
 		"Arispana",
@@ -1482,7 +1496,7 @@ func spanishSurnames() []string {
 	return names
 }
 
-func spanishPlaces() []string {
+func spanishPlaceNames() []string {
 	names := []string{
 		"Aguascebas",
 		"Alcazar",
@@ -1538,9 +1552,26 @@ func spanishPlaces() []string {
 	return names
 }
 
+func randomSite() string {
+	r := roll1dX(10, -1)
+	site := []string{
+		"arabic",
+		"chinese",
+		"english",
+		"greek",
+		"indian",
+		"japanese",
+		"latin",
+		"negerian",
+		"russian",
+		"spanish",
+	}
+	return site[r]
+}
+
 func getPlace(site string, index int, f func(i int) string) string {
 	//funcName := "Place"
-
+	//getFirstName(female bool, ethnicity string, index int)
 	return "test"
 }
 
@@ -1556,10 +1587,66 @@ func getPlace(site string, index int, f func(i int) string) string {
 // 	return f(a, b)
 // }
 
-func placesRegistry(site string, index int) string {
-	callFunction := map[string]func() []string{
-		"spanishPlaces": spanishPlaces,
+func GiveName(site string, nameType string, index int) string {
+	registry := namesRegistry()
+	if nameType != "Male" && nameType != "Female" && nameType != "Sur" && nameType != "Place" {
+		return "Error: 'nameType' is wrong"
 	}
-	list := callFunction[site+"Places"]()
-	return list[index]
+	if _, ok := registry[site+nameType+"Names"]; !ok {
+		site = randomSite()
+	}
+	namesList := registry[site+nameType+"Names"]()
+	if index < 0 || index >= len(namesList) {
+		index = roll1dX(len(namesList), -1)
+	}
+
+	return registry[site+nameType+"Names"]()[index]
 }
+
+func namesRegistry() map[string]func() []string {
+	registry := map[string]func() []string{
+		"arabicMaleNames":     arabicMaleNames,
+		"arabicFemaleNames":   arabicFemaleNames,
+		"arabicSurNames":      arabicSurNames,
+		"arabicPlaceNames":    arabicPlaceNames,
+		"chineseMaleNames":    chineseMaleNames,
+		"chineseFemaleNames":  chineseFemaleNames,
+		"chineseSurNames":     chineseSurNames,
+		"chinesePlaceNames":   chinesePlaceNames,
+		"englishMaleNames":    englishMaleNames,
+		"englishFemaleNames":  englishFemaleNames,
+		"englishSurNames":     englishSurNames,
+		"englishPlaceNames":   englishPlaceNames,
+		"greekMaleNames":      greekMaleNames,
+		"greekFemaleNames":    greekFemaleNames,
+		"greekSurNames":       greekSurNames,
+		"greekPlaceNames":     greekPlaceNames,
+		"indianMaleNames":     indianMaleNames,
+		"indianFemaleNames":   indianFemaleNames,
+		"indianSurNames":      indianSurNames,
+		"indianPlaceNames":    indianPlaceNames,
+		"japaneseMaleNames":   japaneseMaleNames,
+		"japaneseFemaleNames": japaneseFemaleNames,
+		"japaneseSurNames":    japaneseSurNames,
+		"japanesePlaceNames":  japanesePlaceNames,
+		"latinMaleNames":      latinMaleNames,
+		"latinFemaleNames":    latinFemaleNames,
+		"latinSurNames":       latinSurNames,
+		"latinPlaceNames":     latinPlaceNames,
+		"negerianMaleNames":   negerianMaleNames,
+		"negerianFemaleNames": negerianFemaleNames,
+		"negerianSurNames":    negerianSurNames,
+		"negerianPlaceNames":  negerianPlaceNames,
+		"russianMaleNames":    russianMaleNames,
+		"russianFemaleNames":  russianFemaleNames,
+		"russianSurNames":     russianSurNames,
+		"russianPlaceNames":   russianPlaceNames,
+		"spanishMaleNames":    spanishMaleNames,
+		"spanishFemaleNames":  spanishFemaleNames,
+		"spanishSurNames":     spanishSurNames,
+		"spanishPlaceNames":   spanishPlaceNames,
+	}
+	return registry
+}
+
+//getFirstName(nameType string, ethnicity string, index int) string {
