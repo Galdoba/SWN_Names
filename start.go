@@ -4,6 +4,9 @@ import "fmt"
 
 func main() {
 	randomSeed()
-	fmt.Println(GiveName("spanish", "Sur", 1))
-	fmt.Println(NewFullName(false, "", "", ""))
+	for i := 0; i < 4; i++ {
+		w := NewWorld()
+		fmt.Println("")
+		fmt.Println(w.toString())
+	}
 }
