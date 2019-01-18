@@ -1,5 +1,9 @@
 package main
 
+import (
+	"strconv"
+)
+
 type World struct {
 	Atmosphere     string
 	Temperature    string
@@ -15,10 +19,11 @@ type World struct {
 
 func NewWorld() *World {
 	world := World{}
-	world.Atmosphere = rollAtmosphere()
-	world.Temperature = rollTemperature(world.Atmosphere)
-	world.Biosphere = rollBiosphere(world.Atmosphere)
+	world.rollAtmosphere()
+	world.rollTemperature()
+	world.rollBiosphere()
 	world.Populate()
+	//world.PopulateNum()
 	return &world
 }
 
@@ -27,7 +32,11 @@ func (w *World) toString() string {
 	str = str + "Atmosphere: " + w.Atmosphere + "\n"
 	str = str + "Temperature: " + w.Temperature + "\n"
 	str = str + "Biosphere: " + w.Biosphere + "\n"
-	str = str + "Population: " + w.Population + "\n"
+	if w.PopulationNum != 0 {
+		str = str + "Population: " + strconv.Itoa(w.PopulationNum) + w.Population + "\n"
+	} else {
+		str = str + "Population: " + w.Population + "\n"
+	}
 	str = str + "Tech Level: " + w.TechLevel + "\n"
 	str = str + "WorldTag1: " + w.WorldTag1 + "\n"
 	str = str + "WorldTag2: " + w.WorldTag2 + "\n"
@@ -37,469 +46,206 @@ func (w *World) toString() string {
 }
 
 func (w *World) Populate() {
+
 	r := rollXdY(2, 6)
-	if w.Temperature == "Warm" || w.Temperature == "Cold" {
-		r = r - 1
-	}
-	if w.Temperature == "Cold-Temperate" || w.Temperature == "Temperate-Warm" {
-		r = r - 2
-	}
-	if w.Temperature == "Burning" || w.Temperature == "Frozen" {
-		r = r - 3
-	}
-	if r < 2 {
+	switch r {
+	case 2:
+		w.Population = "Failed Colony"
+
+	case 3:
 		w.Population = "Outpost"
-		return
-	}
-	if r > 12 {
-		w.Population = "100 Million"
-		if w.Atmosphere != "Breathable Mix" || w.Atmosphere != "Thick Atmosphere" || w.Atmosphere != "Thin Atmosphere" {
-			w.Population = "10 Million"
-			return
-		}
-	}
-	if w.Atmosphere == "Breathable Mix" {
-		switch r {
-		case 2:
-			w.Population = "Failed Colony"
-		case 3:
-			w.Population = "Outpost"
-		case 4:
-			w.Population = "10 Thousand"
-		case 5:
-			w.Population = "10 Thousand"
-		case 6:
-			w.Population = "100 Thousand"
-		case 7:
-			w.Population = "100 Thousand"
-		case 8:
-			w.Population = "Million"
-		case 9:
-			w.Population = "10 Million"
-		case 10:
-			w.Population = "100 Million"
-		case 11:
-			w.Population = "Billion"
-		case 12:
-			w.Population = "Alien"
-		}
-	}
-	if w.Atmosphere == "Thick Atmosphere" {
-		switch r {
-		case 2:
-			w.Population = "Failed Colony"
-		case 3:
-			w.Population = "Outpost"
-		case 4:
-			w.Population = "Outpost"
-		case 5:
-			w.Population = "10 Thousand"
-		case 6:
-			w.Population = "10 Thousand"
-		case 7:
-			w.Population = "100 Thousand"
-		case 8:
-			w.Population = "100 Thousand"
-		case 9:
-			w.Population = "100 Thousand"
-		case 10:
-			w.Population = "Million"
-		case 11:
-			w.Population = "10 Million"
-		case 12:
-			w.Population = "Alien"
-		}
-	}
-	if w.Atmosphere == "Thin Atmosphere" {
-		switch r {
-		case 2:
-			w.Population = "Failed Colony"
-		case 3:
-			w.Population = "Outpost"
-		case 4:
-			w.Population = "Outpost"
-		case 5:
-			w.Population = "10 Thousand"
-		case 6:
-			w.Population = "10 Thousand"
-		case 7:
-			w.Population = "100 Thousand"
-		case 8:
-			w.Population = "100 Thousand"
-		case 9:
-			w.Population = "100 Thousand"
-		case 10:
-			w.Population = "Million"
-		case 11:
-			w.Population = "10 Million"
-		case 12:
-			w.Population = "Alien"
-		}
-	}
-	if w.Atmosphere == "Airless" || w.Atmosphere == "Inert Gas" {
-		switch r {
-		case 2:
-			w.Population = "Failed Colony"
-		case 3:
-			w.Population = "Outpost"
-		case 4:
-			w.Population = "Outpost"
-		case 5:
-			w.Population = "Outpost"
-		case 6:
-			w.Population = "Outpost"
-		case 7:
-			w.Population = "10 Thousand"
-		case 8:
-			w.Population = "10 Thousand"
-		case 9:
-			w.Population = "10 Thousand"
-		case 10:
-			w.Population = "100 Thousand"
-		case 11:
-			w.Population = "Million"
-		case 12:
-			w.Population = "Alien"
-		}
-	}
-	if w.Atmosphere == "Corrosive" || w.Atmosphere == "Invasive Atmosphere" || w.Atmosphere == "Corrosive and Invasive Atmosphere" {
-		switch r {
-		case 2:
-			w.Population = "Failed Colony"
-		case 3:
-			w.Population = "Outpost"
-		case 4:
-			w.Population = "Outpost"
-		case 5:
-			w.Population = "Outpost"
-		case 6:
-			w.Population = "Outpost"
-		case 7:
-			w.Population = "Outpost"
-		case 8:
-			w.Population = "10 Thousand"
-		case 9:
-			w.Population = "10 Thousand"
-		case 10:
-			w.Population = "100 Thousand"
-		case 11:
-			w.Population = "Million"
-		case 12:
-			w.Population = "Alien"
-		}
+
+	case 4:
+		w.Population = "K"
+		w.PopulationNum = roll1dX(10, 0)
+	case 5:
+		w.Population = "K"
+		w.PopulationNum = roll1dX(100, 0)
+	case 6:
+		w.Population = "M"
+		w.PopulationNum = roll1dX(5, 0)
+	case 7:
+		w.Population = "M"
+		w.PopulationNum = roll1dX(10, 0)
+	case 8:
+		w.Population = "M"
+		w.PopulationNum = roll1dX(100, 0)
+	case 9:
+		w.Population = "M"
+		w.PopulationNum = roll1dX(100, 0)
+	case 10:
+		w.Population = "M"
+		w.PopulationNum = roll1dX(1000, 0)
+	case 11:
+		w.Population = "B"
+		w.PopulationNum = roll1dX(10, 0)
+	case 12:
+		w.Population = "Alien"
 	}
 }
 
-func rollAtmosphere() string {
+func (w *World) PopulateNum() {
+	switch w.Population {
+	case "Failed Colony":
+		r := roll1dX(6, 0)
+		if r < 4 {
+			w.PopulationNum = roll1dX(100, 0)
+		} else {
+			w.Population = "Outpost"
+		}
+	case "Alien":
+		r := roll1dX(6, 0)
+		switch r {
+		case 1:
+			w.Population = "Remnant Alien"
+		case 2:
+			w.Population = "100 Thousand Alien"
+		case 3:
+			w.Population = "Million Alien"
+		case 4:
+			w.Population = "10 Million Alien"
+		case 5:
+			w.Population = "100 Million Alien"
+		case 6:
+			w.Population = "Billion Alien"
+		}
+	case "Outpost":
+		r := roll1dX(6, 0)
+		if inRange(r, 1, 3) {
+			w.PopulationNum = roll1dX(10, 0) * 100
+		}
+		if inRange(r, 4, 5) {
+			w.PopulationNum = roll1dX(10, 0) * 500
+		}
+		if r == 6 {
+			w.PopulationNum = roll1dX(10, 0) * 1000
+		}
+	case "10 Thousand":
+		w.PopulationNum = roll1dX(10, 0) * 10000
+	case "100 Thousand":
+		w.PopulationNum = roll1dX(10, 0) * 100000
+	case "Million":
+		w.PopulationNum = roll1dX(10, 0) * 1000000
+	case "10 Million":
+		w.PopulationNum = roll1dX(10, 0) * 10000000
+	case "100 Million":
+		w.PopulationNum = roll1dX(10, 0) * 100000000
+	case "Billion":
+		r := roll1dX(6, 0)
+		if inRange(r, 1, 3) {
+			w.PopulationNum = 1000000000
+		}
+		if r == 4 {
+			w.PopulationNum = roll1dX(3, 0) * 1000000000
+		}
+		if r == 5 {
+			w.PopulationNum = roll1dX(6, 0) * 1000000000
+		}
+		if r == 6 {
+			w.PopulationNum = roll1dX(10, 0) * 1000000000
+		}
+
+	}
+}
+
+func (w *World) rollAtmosphere() {
 	r := rollXdY(2, 6)
-	return pickAtmosphere(r)
+	w.pickAtmosphere(r)
 }
 
-func pickAtmosphere(index int) string {
-	atmosphere := "Unknown"
+func (w *World) pickAtmosphere(index int) {
 	switch index {
 	case 2:
-		atmosphere = "Corrosive"
+		w.Atmosphere = "Corrosive"
 	case 3:
-		atmosphere = "Inert Gas"
+		w.Atmosphere = "Inert Gas"
 	case 4:
-		atmosphere = "Airless"
+		w.Atmosphere = "Thin Atmosphere"
 	case 5:
-		atmosphere = "Thin Atmosphere"
+		w.Atmosphere = "Breathable Mix"
 	case 6:
-		atmosphere = "Breathable Mix"
+		w.Atmosphere = "Breathable Mix"
 	case 7:
-		atmosphere = "Breathable Mix"
+		w.Atmosphere = "Breathable Mix"
 	case 8:
-		atmosphere = "Breathable Mix"
+		w.Atmosphere = "Breathable Mix"
 	case 9:
-		atmosphere = "Breathable Mix"
+		w.Atmosphere = "Breathable Mix"
 	case 10:
-		atmosphere = "Thick Atmosphere"
+		w.Atmosphere = "Thick Atmosphere"
 	case 11:
-		atmosphere = "Invasive Atmosphere"
+		w.Atmosphere = "Invasive Atmosphere"
 	case 12:
-		atmosphere = "Corrosive and Invasive Atmosphere"
+		w.Atmosphere = "Corrosive and Invasive Atmosphere"
 	}
-	return atmosphere
+
 }
 
-func pickTemperature(atmosphere string, index int) string {
-	temperature := "Unknown"
-	if atmosphere == "Breathable Mix" {
-		switch index {
-		case 2:
-			temperature = "Cold-Temperate"
-		case 3:
-			temperature = "Cold-Temperate"
-		case 4:
-			temperature = "Cold"
-		case 5:
-			temperature = "Cold"
-		case 6:
-			temperature = "Temperate"
-		case 7:
-			temperature = "Temperate"
-		case 8:
-			temperature = "Temperate"
-		case 9:
-			temperature = "Warm"
-		case 10:
-			temperature = "Warm"
-		case 11:
-			temperature = "Temperate-Warm"
-		case 12:
-			temperature = "Temperate-Warm"
-		}
+func (w *World) pickTemperature(index int) {
+
+	switch index {
+	case 2:
+		w.Temperature = "Frozen"
+	case 3:
+		w.Temperature = "Cold"
+	case 4:
+		w.Temperature = "Variable Cold"
+	case 5:
+		w.Temperature = "Variable Cold"
+	case 6:
+		w.Temperature = "Temperate"
+	case 7:
+		w.Temperature = "Temperate"
+	case 8:
+		w.Temperature = "Temperate"
+	case 9:
+		w.Temperature = "Variable Warm"
+	case 10:
+		w.Temperature = "Variable Warm"
+	case 11:
+		w.Temperature = "Warm"
+	case 12:
+		w.Temperature = "Burning"
 	}
-	if atmosphere == "Thick Atmosphere" {
-		switch index {
-		case 2:
-			temperature = "Cold-Temperate"
-		case 3:
-			temperature = "Cold"
-		case 4:
-			temperature = "Cold"
-		case 5:
-			temperature = "Temperate"
-		case 6:
-			temperature = "Temperate"
-		case 7:
-			temperature = "Temperate"
-		case 8:
-			temperature = "Warm"
-		case 9:
-			temperature = "Warm"
-		case 10:
-			temperature = "Warm"
-		case 11:
-			temperature = "Warm"
-		case 12:
-			temperature = "Burning"
-		}
-	}
-	if atmosphere == "Thin Atmosphere" {
-		switch index {
-		case 2:
-			temperature = "Cold-Temperate"
-		case 3:
-			temperature = "Cold"
-		case 4:
-			temperature = "Cold"
-		case 5:
-			temperature = "Cold"
-		case 6:
-			temperature = "Cold"
-		case 7:
-			temperature = "Temperate"
-		case 8:
-			temperature = "Temperate"
-		case 9:
-			temperature = "Temperate"
-		case 10:
-			temperature = "Warm"
-		case 11:
-			temperature = "Warm"
-		case 12:
-			temperature = "Temperate-Warm"
-		}
-	}
-	if atmosphere == "Airless" || atmosphere == "Inert Gas" {
-		switch index {
-		case 2:
-			temperature = "Frozen"
-		case 3:
-			temperature = "Frozen"
-		case 4:
-			temperature = "Cold-Temperate"
-		case 5:
-			temperature = "Cold"
-		case 6:
-			temperature = "Cold"
-		case 7:
-			temperature = "Temperate"
-		case 8:
-			temperature = "Temperate"
-		case 9:
-			temperature = "Warm"
-		case 10:
-			temperature = "Warm"
-		case 11:
-			temperature = "Temperate-Warm"
-		case 12:
-			temperature = "Burning"
-		}
-	}
-	if atmosphere == "Corrosive" || atmosphere == "Invasive Atmosphere" || atmosphere == "Corrosive and Invasive Atmosphere" {
-		switch index {
-		case 2:
-			temperature = "Frozen"
-		case 3:
-			temperature = "Cold-Temperate"
-		case 4:
-			temperature = "Cold"
-		case 5:
-			temperature = "Cold"
-		case 6:
-			temperature = "Cold"
-		case 7:
-			temperature = "Temperate"
-		case 8:
-			temperature = "Warm"
-		case 9:
-			temperature = "Warm"
-		case 10:
-			temperature = "Warm"
-		case 11:
-			temperature = "Temperate-Warm"
-		case 12:
-			temperature = "Burning"
-		}
-	}
-	return temperature
 }
 
-func rollTemperature(atmosphere string) string {
+func (w *World) rollTemperature() {
 	r := rollXdY(2, 6)
-	return pickTemperature(atmosphere, r)
+	w.pickTemperature(r)
 }
 
-func pickBiosphere(atmosphere string, index int) string {
-	biosphere := "Unknown"
-	if atmosphere == "Breathable Mix" {
-		switch index {
-		case 2:
-			biosphere = "Remnant"
-		case 3:
-			biosphere = "None"
-		case 4:
-			biosphere = "Microbial"
-		case 5:
-			biosphere = "Microbial"
-		case 6:
-			biosphere = "Miscible"
-		case 7:
-			biosphere = "Miscible"
-		case 8:
-			biosphere = "Miscible"
-		case 9:
-			biosphere = "Immiscible"
-		case 10:
-			biosphere = "Hybrid"
-		case 11:
-			biosphere = "Hybrid"
-		case 12:
-			biosphere = "Engineered"
-		}
+func (w *World) pickBiosphere(index int) {
+
+	switch index {
+	case 2:
+		w.Biosphere = "Remnant"
+	case 3:
+		w.Biosphere = "Microbial"
+	case 4:
+		w.Biosphere = "None"
+	case 5:
+		w.Biosphere = "None"
+	case 6:
+		w.Biosphere = "Human-Miscible"
+	case 7:
+		w.Biosphere = "Human-Miscible"
+	case 8:
+		w.Biosphere = "Human-Miscible"
+	case 9:
+		w.Biosphere = "Immiscible"
+	case 10:
+		w.Biosphere = "Immiscible"
+	case 11:
+		w.Biosphere = "Hybrid"
+	case 12:
+		w.Biosphere = "Engineered"
+	default:
+		w.Biosphere = "None"
 	}
-	if atmosphere == "Thick Atmosphere" {
-		switch index {
-		case 2:
-			biosphere = "Remnant"
-		case 3:
-			biosphere = "None"
-		case 4:
-			biosphere = "Microbial"
-		case 5:
-			biosphere = "Microbial"
-		case 6:
-			biosphere = "Microbial"
-		case 7:
-			biosphere = "Miscible"
-		case 8:
-			biosphere = "Immiscible"
-		case 9:
-			biosphere = "Immiscible"
-		case 10:
-			biosphere = "Immiscible"
-		case 11:
-			biosphere = "Hybrid"
-		case 12:
-			biosphere = "Engineered"
-		}
-	}
-	if atmosphere == "Thin Atmosphere" {
-		switch index {
-		case 2:
-			biosphere = "Remnant"
-		case 3:
-			biosphere = "None"
-		case 4:
-			biosphere = "None"
-		case 5:
-			biosphere = "Microbial"
-		case 6:
-			biosphere = "Microbial"
-		case 7:
-			biosphere = "Miscible"
-		case 8:
-			biosphere = "Immiscible"
-		case 9:
-			biosphere = "Immiscible"
-		case 10:
-			biosphere = "Hybrid"
-		case 11:
-			biosphere = "Hybrid"
-		case 12:
-			biosphere = "Engineered"
-		}
-	}
-	if atmosphere == "Airless" || atmosphere == "Inert Gas" {
-		switch index {
-		case 2:
-			biosphere = "Remnant"
-		case 3:
-			biosphere = "None"
-		case 4:
-			biosphere = "None"
-		case 5:
-			biosphere = "None"
-		case 6:
-			biosphere = "None"
-		case 7:
-			biosphere = "None"
-		case 8:
-			biosphere = "None"
-		case 9:
-			biosphere = "None"
-		case 10:
-			biosphere = "Engineered"
-		case 11:
-			biosphere = "Engineered"
-		case 12:
-			biosphere = "Immiscible"
-		}
-	}
-	if atmosphere == "Corrosive" || atmosphere == "Invasive Atmosphere" || atmosphere == "Corrosive and Invasive Atmosphere" {
-		switch index {
-		case 2:
-			biosphere = "Remnant"
-		case 3:
-			biosphere = "None"
-		case 4:
-			biosphere = "None"
-		case 5:
-			biosphere = "None"
-		case 6:
-			biosphere = "Microbial"
-		case 7:
-			biosphere = "Microbial"
-		case 8:
-			biosphere = "Immiscible"
-		case 9:
-			biosphere = "Immiscible"
-		case 10:
-			biosphere = "Immiscible"
-		case 11:
-			biosphere = "Immiscible"
-		case 12:
-			biosphere = "Engineered"
-		}
-	}
-	return biosphere
+
 }
 
-func rollBiosphere(atmosphere string) string {
+func (w *World) rollBiosphere() {
 	r := rollXdY(2, 6)
-	return pickBiosphere(atmosphere, r)
+	w.pickBiosphere(r)
 }

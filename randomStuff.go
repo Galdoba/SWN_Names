@@ -96,6 +96,13 @@ func randomSeed() {
 	rand.Seed(time.Now().UnixNano())
 }
 
+func inRange(i, min, max int) bool {
+	if i > min-1 && i < max+1 {
+		return true
+	}
+	return false
+}
+
 // function := map[string]func(int, int) int{
 // 	"someFunction1": someFunction1,
 // 	"someFunction2": someFunction2,

@@ -8,5 +8,6 @@ func main() {
 		w := NewWorld()
 		fmt.Println("")
 		fmt.Println(w.toString())
+
 	}
 }
