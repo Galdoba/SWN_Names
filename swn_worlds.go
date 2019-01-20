@@ -14,7 +14,8 @@ type World struct {
 	WorldTag1      string
 	WorldTag2      string
 	TradeTag       string
-	LivingStandart string
+	LivingStandard string
+	BP             int
 }
 
 func NewWorld() *World {
@@ -23,6 +24,14 @@ func NewWorld() *World {
 	world.rollTemperature()
 	world.rollBiosphere()
 	world.Populate()
+	world.rollTechLevel()
+	world.WorldTag1 = rollPlanetTag()
+	world.WorldTag2 = rollPlanetTag()
+	for world.WorldTag1 == world.WorldTag2 {
+		world.WorldTag2 = rollPlanetTag()
+	}
+	world.rollLivingStandard()
+	world.calculateBP()
 	//world.PopulateNum()
 	return &world
 }
@@ -41,7 +50,7 @@ func (w *World) toString() string {
 	str = str + "WorldTag1: " + w.WorldTag1 + "\n"
 	str = str + "WorldTag2: " + w.WorldTag2 + "\n"
 	str = str + "TradeTag: " + w.TradeTag + "\n"
-	str = str + "LivingStandart: " + w.LivingStandart + "\n"
+	str = str + "LivingStandard: " + w.LivingStandard + " (" + strconv.Itoa(w.BP) + " BP or " + strconv.Itoa(w.BP*200000) + ")\n"
 	return str
 }
 
@@ -57,13 +66,13 @@ func (w *World) Populate() {
 
 	case 4:
 		w.Population = "K"
-		w.PopulationNum = roll1dX(10, 0)
+		w.PopulationNum = roll1dX(100, 0)
 	case 5:
 		w.Population = "K"
-		w.PopulationNum = roll1dX(100, 0)
+		w.PopulationNum = roll1dX(1000, 0)
 	case 6:
 		w.Population = "M"
-		w.PopulationNum = roll1dX(5, 0)
+		w.PopulationNum = roll1dX(10, 0)
 	case 7:
 		w.Population = "M"
 		w.PopulationNum = roll1dX(10, 0)
@@ -81,70 +90,6 @@ func (w *World) Populate() {
 		w.PopulationNum = roll1dX(10, 0)
 	case 12:
 		w.Population = "Alien"
-	}
-}
-
-func (w *World) PopulateNum() {
-	switch w.Population {
-	case "Failed Colony":
-		r := roll1dX(6, 0)
-		if r < 4 {
-			w.PopulationNum = roll1dX(100, 0)
-		} else {
-			w.Population = "Outpost"
-		}
-	case "Alien":
-		r := roll1dX(6, 0)
-		switch r {
-		case 1:
-			w.Population = "Remnant Alien"
-		case 2:
-			w.Population = "100 Thousand Alien"
-		case 3:
-			w.Population = "Million Alien"
-		case 4:
-			w.Population = "10 Million Alien"
-		case 5:
-			w.Population = "100 Million Alien"
-		case 6:
-			w.Population = "Billion Alien"
-		}
-	case "Outpost":
-		r := roll1dX(6, 0)
-		if inRange(r, 1, 3) {
-			w.PopulationNum = roll1dX(10, 0) * 100
-		}
-		if inRange(r, 4, 5) {
-			w.PopulationNum = roll1dX(10, 0) * 500
-		}
-		if r == 6 {
-			w.PopulationNum = roll1dX(10, 0) * 1000
-		}
-	case "10 Thousand":
-		w.PopulationNum = roll1dX(10, 0) * 10000
-	case "100 Thousand":
-		w.PopulationNum = roll1dX(10, 0) * 100000
-	case "Million":
-		w.PopulationNum = roll1dX(10, 0) * 1000000
-	case "10 Million":
-		w.PopulationNum = roll1dX(10, 0) * 10000000
-	case "100 Million":
-		w.PopulationNum = roll1dX(10, 0) * 100000000
-	case "Billion":
-		r := roll1dX(6, 0)
-		if inRange(r, 1, 3) {
-			w.PopulationNum = 1000000000
-		}
-		if r == 4 {
-			w.PopulationNum = roll1dX(3, 0) * 1000000000
-		}
-		if r == 5 {
-			w.PopulationNum = roll1dX(6, 0) * 1000000000
-		}
-		if r == 6 {
-			w.PopulationNum = roll1dX(10, 0) * 1000000000
-		}
-
 	}
 }
 
@@ -248,4 +193,265 @@ func (w *World) pickBiosphere(index int) {
 func (w *World) rollBiosphere() {
 	r := rollXdY(2, 6)
 	w.pickBiosphere(r)
+}
+
+func (w *World) pickTechlevel(index int) {
+	switch index {
+	case 2:
+		w.TechLevel = "TL0"
+	case 3:
+		w.TechLevel = "TL1"
+	case 4:
+		w.TechLevel = "TL2"
+	case 5:
+		w.TechLevel = "TL3+"
+	case 6:
+		w.TechLevel = "TL3"
+	case 7:
+		w.TechLevel = "TL4"
+	case 8:
+		w.TechLevel = "TL4"
+	case 9:
+		w.TechLevel = "TL4"
+	case 10:
+		w.TechLevel = "TL4-"
+	case 11:
+		w.TechLevel = "TL4+"
+	case 12:
+		w.TechLevel = "TL5"
+	default:
+		w.TechLevel = "None"
+	}
+}
+
+func (w *World) rollTechLevel() {
+	r := rollXdY(2, 6)
+	w.pickTechlevel(r)
+}
+
+func tagList() []string {
+	tagList := []string{
+		"Abandoned Colony",
+		"Alien Ruins",
+		"Altered Humanity",
+		"Anarchists",
+		"Anthropomorphs",
+		"Area 51",
+		"Badlands World",
+		"Battleground",
+		"Beastmasters",
+		"Bubble Cities",
+		"Cheap Life",
+		"Civil War",
+		"Cold War",
+		"Colonized Population",
+		"Cultural Power",
+		"Cybercommunists",
+		"Cyborgs",
+		"Cyclical Doom",
+		"Desert World",
+		"Doomed World",
+		"Dying Race",
+		"Eugenic Cult",
+		"Exchange Consulate",
+		"Fallen Hegemon",
+		"Feral World",
+		"Flying Cities",
+		"Forbidden Tech",
+		"Former Warriors",
+		"Freak Geology",
+		"Freak Weather",
+		"Friendly Foe",
+		"Gold Rush",
+		"Great Work",
+		"Hatred",
+		"Heavy Industry",
+		"Heavy Mining",
+		"Hivemind",
+		"Holy War",
+		"Hostile Biosphere",
+		"Hostile Space",
+		"Immortals",
+		"Local Specialty",
+		"Local Tech",
+		"Major Spaceyard",
+		"Mandarinate",
+		"Mandate Base",
+		"Maneaters",
+		"Megacorps",
+		"Mercenaries",
+		"Minimal Contact",
+		"Misandry/Misogyny",
+		"Night World",
+		"Nomads",
+		"Oceanic World",
+		"Out of Contact",
+		"Outpost World",
+		"Perimeter Agency",
+		"Pilgrimage Site",
+		"Pleasure World",
+		"Police State",
+		"Post-Scarcity",
+		"Preceptor Archive",
+		"Pretech Cultists",
+		"Primitive Aliens",
+		"Prison Planet",
+		"Psionics Academy",
+		"Psionics Fear",
+		"Psionics Worship",
+		"Quarantined World",
+		"Radioactive World",
+		"Refugees",
+		"Regional Hegemon",
+		"Restrictive Laws",
+		"Revanchists",
+		"Revolutionaries",
+		"Rigid Culture",
+		"Rising Hegemon",
+		"Ritual Combat",
+		"Robots",
+		"Seagoing Cities",
+		"Sealed Menace",
+		"Secret Masters",
+		"Sectarians",
+		"Seismic Instability",
+		"Shackled World",
+		"Societal Despair",
+		"Sole Supplier",
+		"Taboo Treasure",
+		"Terraform Failure",
+		"Theocracy",
+		"Tomb World",
+		"Trade Hub",
+		"Tyranny",
+		"Unbraked AI",
+		"Urbanized Surface",
+		"Utopia",
+		"Warlords",
+		"Xenophiles",
+		"Xenophobes",
+		"Zombies",
+	}
+	return tagList
+}
+
+func pickTag(index int) string {
+	return tagList()[index]
+}
+
+func rollPlanetTag() string {
+	r := roll1dX(100, -1)
+	return pickTag(r)
+}
+
+func (w *World) pickLivingStandard(index int) {
+	switch index {
+	case 2:
+		w.LivingStandard = "Slum"
+	case 3:
+		w.LivingStandard = "Slum"
+	case 4:
+		w.LivingStandard = "Poor"
+	case 5:
+		w.LivingStandard = "Poor"
+	case 6:
+		w.LivingStandard = "Poor"
+	case 7:
+		w.LivingStandard = "Common"
+	case 8:
+		w.LivingStandard = "Common"
+	case 9:
+		w.LivingStandard = "Common"
+	case 10:
+		w.LivingStandard = "Common"
+	case 11:
+		w.LivingStandard = "Good"
+	case 12:
+		w.LivingStandard = "Good"
+	default:
+		w.LivingStandard = "Elite"
+	}
+}
+
+func (w *World) rollLivingStandard() {
+	r := rollXdY(2, 6)
+	w.pickLivingStandard(r)
+}
+
+func (w *World) calculateBP() {
+	switch w.Population {
+	case "K":
+		if w.PopulationNum > 100 {
+			switch w.LivingStandard {
+			case "Slum":
+				w.BP = 20
+			case "Poor":
+				w.BP = 47
+			case "Common":
+				w.BP = 75
+			case "Good":
+				w.BP = 130
+			case "Elite":
+				w.BP = 260
+			}
+		}
+	case "B":
+		switch w.LivingStandard {
+		case "Slum":
+			w.BP = 338
+		case "Poor":
+			w.BP = 562
+		case "Common":
+			w.BP = 778
+		case "Good":
+			w.BP = 1250
+		case "Elite":
+			w.BP = 2500
+		}
+	default:
+		if w.PopulationNum < 11 {
+			switch w.LivingStandard {
+			case "Slum":
+				w.BP = 62
+			case "Poor":
+				w.BP = 125
+			case "Common":
+				w.BP = 187
+			case "Good":
+				w.BP = 312
+			case "Elite":
+				w.BP = 625
+			}
+			return
+		}
+		if w.PopulationNum < 101 {
+			switch w.LivingStandard {
+			case "Slum":
+				w.BP = 125
+			case "Poor":
+				w.BP = 237
+			case "Common":
+				w.BP = 350
+			case "Good":
+				w.BP = 550
+			case "Elite":
+				w.BP = 1100
+			}
+			return
+		}
+		switch w.LivingStandard {
+		case "Slum":
+			w.BP = 225
+		case "Poor":
+			w.BP = 387
+		case "Common":
+			w.BP = 550
+		case "Good":
+			w.BP = 775
+		case "Elite":
+			w.BP = 1650
+		}
+		return
+	}
+
 }
