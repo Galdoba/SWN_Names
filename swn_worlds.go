@@ -340,7 +340,7 @@ func pickTag(index int) string {
 }
 
 func rollPlanetTag() string {
-	r := roll1dX(100, -1)
+	r := roll1dX(len(tagList()), -1)
 	return pickTag(r)
 }
 
