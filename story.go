@@ -1,5 +1,9 @@
 package main
 
+import (
+	"strings"
+)
+
 func Story(index int, t1 string, t2 string) string {
 	allStories := []string{
 		"An " + Enemy(t1, t2) + " seeks to rob a " + Friend(t1, t2) + " of some precious " + Thing(t1, t2) + " that he has desired for some time.",
@@ -104,4 +108,674 @@ func Story(index int, t1 string, t2 string) string {
 		"A seemingly useless trinket purchased by a PC turns out to be the security key to a lost pretech facility. It was sold by accident by a bungling and now-dead minion of a local " + Enemy(t1, t2) + ", who is hot after the party to “reclaim” his property… preferably after the party defeats whatever automatic defenses and bots the facility might still support.",
 	}
 	return allStories[index]
+}
+
+func Enemy(t1, t2 string) string {
+	//	eList := getEnemyList(t1)
+	return "E"
+}
+
+func Friend(t1, t2 string) string {
+	var friendSlice []string
+	friendMap := createFriendsMap()
+	tag1 := fixPlanetTag(t1)
+	tag2 := fixPlanetTag(t2)
+	// for i := 0; i < 20; i++ {
+	// 	r := roll1dX(len(friendMap[tag1]), -1)
+	// 	fmt.Println(friendMap[tag1][r])
+	// }
+	friendSlice = append(friendMap[tag1], friendMap[tag2]...)
+	r := roll1dX(len(friendSlice), -1)
+
+	return friendSlice[r]
+}
+
+func Complication(t1, t2 string) string {
+	return "C"
+}
+
+func Thing(t1, t2 string) string {
+	return "T"
+}
+
+func Place(t1, t2 string) string {
+	return "P"
+}
+
+func fixPlanetTag(currentTag string) string {
+	currentTag = strings.Replace(currentTag, " ", "", -1)
+	currentTag = strings.Replace(currentTag, "/", "", -1)
+	currentTag = strings.Replace(currentTag, "-", "", -1)
+	return currentTag
+}
+
+func createFriendsMap() map[string][]string {
+	FriendTagMap := make(map[string][]string)
+	AbandonedColonyslF := []string{}
+	AbandonedColonyslF = append(AbandonedColonyslF, "Crazed survivors")
+	AbandonedColonyslF = append(AbandonedColonyslF, "Ruthless plunderers of the ruins")
+	AbandonedColonyslF = append(AbandonedColonyslF, "Automated defense system")
+	FriendTagMap["AbandonedColony"] = AbandonedColonyslF
+
+	AlienRuinsslF := []string{}
+	AlienRuinsslF = append(AlienRuinsslF, "Customs inspector")
+	AlienRuinsslF = append(AlienRuinsslF, "Worshipper of the ruins")
+	AlienRuinsslF = append(AlienRuinsslF, "Hidden alien survivor")
+	FriendTagMap["AlienRuins"] = AlienRuinsslF
+
+	AlteredHumanityslF := []string{}
+	AlteredHumanityslF = append(AlteredHumanityslF, "Biochauvinist local")
+	AlteredHumanityslF = append(AlteredHumanityslF, "Local experimenter")
+	AlteredHumanityslF = append(AlteredHumanityslF, "Mentally unstable mutant")
+	FriendTagMap["AlteredHumanity"] = AlteredHumanityslF
+
+	AnarchistsslF := []string{}
+	AnarchistsslF = append(AnarchistsslF, "Offworlder imperialist")
+	AnarchistsslF = append(AnarchistsslF, "Reformer seeking to impose “good government”")
+	AnarchistsslF = append(AnarchistsslF, "Exploiter taking advantage of the lack of centralized resistance")
+	FriendTagMap["Anarchists"] = AnarchistsslF
+
+	AnthropomorphsslF := []string{}
+	AnthropomorphsslF = append(AnthropomorphsslF, "Anthro-supremacist local")
+	AnthropomorphsslF = append(AnthropomorphsslF, "Native driven by feral urges")
+	AnthropomorphsslF = append(AnthropomorphsslF, "Outside exploiter who sees the locals as subhuman creatures")
+	FriendTagMap["Anthropomorphs"] = AnthropomorphsslF
+
+	Area51slF := []string{}
+	Area51slF = append(Area51slF, "Suspicious government minder")
+	Area51slF = append(Area51slF, "Free merchant who likes his local monopoly")
+	Area51slF = append(Area51slF, "Local who wants a specimen for dissection")
+	FriendTagMap["Area51"] = Area51slF
+
+	BadlandsWorldslF := []string{}
+	BadlandsWorldslF = append(BadlandsWorldslF, "Mutated badlands fauna")
+	BadlandsWorldslF = append(BadlandsWorldslF, "Desperate local")
+	BadlandsWorldslF = append(BadlandsWorldslF, "Badlands raider chief")
+	FriendTagMap["BadlandsWorld"] = BadlandsWorldslF
+
+	BattlegroundslF := []string{}
+	BattlegroundslF = append(BattlegroundslF, "Ruthless military commander")
+	BattlegroundslF = append(BattlegroundslF, "Looter pack chieftain")
+	BattlegroundslF = append(BattlegroundslF, "Traitorous collaborator")
+	FriendTagMap["Battleground"] = BattlegroundslF
+
+	BeastmastersslF := []string{}
+	BeastmastersslF = append(BeastmastersslF, "Half-feral warlord of a beast swarm")
+	BeastmastersslF = append(BeastmastersslF, "Coldly inhuman scientist")
+	BeastmastersslF = append(BeastmastersslF, "Altered beast with human intellect and furious malice")
+	FriendTagMap["Beastmasters"] = BeastmastersslF
+
+	BubbleCitiesslF := []string{}
+	BubbleCitiesslF = append(BubbleCitiesslF, "Native dreading outsider contamination")
+	BubbleCitiesslF = append(BubbleCitiesslF, "Saboteur from another bubble city")
+	BubbleCitiesslF = append(BubbleCitiesslF, "Local official hostile to outsider ignorance of laws")
+	FriendTagMap["BubbleCities"] = BubbleCitiesslF
+
+	CheapLifeslF := []string{}
+	CheapLifeslF = append(CheapLifeslF, "Master assassin")
+	CheapLifeslF = append(CheapLifeslF, "Bloody-handed judge")
+	CheapLifeslF = append(CheapLifeslF, "Overseer of disposable clones")
+	FriendTagMap["CheapLife"] = CheapLifeslF
+
+	CivilWarslF := []string{}
+	CivilWarslF = append(CivilWarslF, "Faction commissar")
+	CivilWarslF = append(CivilWarslF, "Angry native")
+	CivilWarslF = append(CivilWarslF, "Conspiracy theorist who blames offworlders for the war")
+	CivilWarslF = append(CivilWarslF, "Deserter looking out for himself")
+	CivilWarslF = append(CivilWarslF, "Guerrilla bandit chieftain")
+	FriendTagMap["CivilWar"] = CivilWarslF
+
+	ColdWarslF := []string{}
+	ColdWarslF = append(ColdWarslF, "Suspicious chief of intelligence")
+	ColdWarslF = append(ColdWarslF, "Native who thinks the outworlders are with the other side")
+	ColdWarslF = append(ColdWarslF, "Femme fatale")
+	FriendTagMap["ColdWar"] = ColdWarslF
+
+	ColonizedPopulationslF := []string{}
+	ColonizedPopulationslF = append(ColonizedPopulationslF, "Suspicious security personnel")
+	ColonizedPopulationslF = append(ColonizedPopulationslF, "Offworlder-hating natives")
+	ColonizedPopulationslF = append(ColonizedPopulationslF, "Local crime boss preying on rich offworlders ")
+	FriendTagMap["ColonizedPopulation"] = ColonizedPopulationslF
+
+	CulturalPowerslF := []string{}
+	CulturalPowerslF = append(CulturalPowerslF, "Murderously eccentric artist")
+	CulturalPowerslF = append(CulturalPowerslF, "Crazed fan")
+	CulturalPowerslF = append(CulturalPowerslF, "Failed artist with an obsessive grudge")
+	CulturalPowerslF = append(CulturalPowerslF, "Critic with a crusade to enact")
+	FriendTagMap["CulturalPower"] = CulturalPowerslF
+
+	CybercommunistsslF := []string{}
+	CybercommunistsslF = append(CybercommunistsslF, "Embittered rebel against perceived unfairness")
+	CybercommunistsslF = append(CybercommunistsslF, "Offworlder saboteur")
+	CybercommunistsslF = append(CybercommunistsslF, "Aspiring Stalin-figure")
+	FriendTagMap["Cybercommunists"] = CybercommunistsslF
+
+	CyborgsslF := []string{}
+	CyborgsslF = append(CyborgsslF, "Ambitious hacker of cyber implants")
+	CyborgsslF = append(CyborgsslF, "Cybertech oligarch")
+	CyborgsslF = append(CyborgsslF, "Researcher craving fresh offworlders")
+	CyborgsslF = append(CyborgsslF, "Cybered-up gang boss")
+	FriendTagMap["Cyborgs"] = CyborgsslF
+
+	CyclicalDoomslF := []string{}
+	CyclicalDoomslF = append(CyclicalDoomslF, "Offworlder seeking to trigger the apocalypse early for profit")
+	CyclicalDoomslF = append(CyclicalDoomslF, "Local recklessly taking advantage of preparation stores")
+	CyclicalDoomslF = append(CyclicalDoomslF, "Demagogue claiming the cycle is merely a myth of the authorities")
+	FriendTagMap["CyclicalDoom"] = CyclicalDoomslF
+
+	DesertWorldslF := []string{}
+	DesertWorldslF = append(DesertWorldslF, "Raider chieftain")
+	DesertWorldslF = append(DesertWorldslF, "Crazed hermit")
+	DesertWorldslF = append(DesertWorldslF, "Angry isolationists")
+	DesertWorldslF = append(DesertWorldslF, "Paranoid mineral prospector")
+	DesertWorldslF = append(DesertWorldslF, "Strange desert beast")
+	FriendTagMap["DesertWorld"] = DesertWorldslF
+
+	DoomedWorldslF := []string{}
+	DoomedWorldslF = append(DoomedWorldslF, "Crazed prophet of a false salvation")
+	DoomedWorldslF = append(DoomedWorldslF, "Ruthless leader seeking to flee with their treasures")
+	DoomedWorldslF = append(DoomedWorldslF, "Cynical ship captain selling a one-way trip into hard vacuum as escape to another world")
+	FriendTagMap["DoomedWorld"] = DoomedWorldslF
+
+	DyingRaceslF := []string{}
+	DyingRaceslF = append(DyingRaceslF, "Hostile outsider who wants the locals dead")
+	DyingRaceslF = append(DyingRaceslF, "Offworlder seeking to take advantage of their weakened state")
+	DyingRaceslF = append(DyingRaceslF, "Invaders eager to push the locals out of their former lands")
+	FriendTagMap["DyingRace"] = DyingRaceslF
+
+	EugenicCultslF := []string{}
+	EugenicCultslF = append(EugenicCultslF, "Eugenic superiority fanatic")
+	EugenicCultslF = append(EugenicCultslF, "Mentally unstable homo superior")
+	EugenicCultslF = append(EugenicCultslF, "Mad eugenic scientist")
+	FriendTagMap["EugenicCult"] = EugenicCultslF
+
+	ExchangeConsulateslF := []string{}
+	ExchangeConsulateslF = append(ExchangeConsulateslF, "Corrupt Exchange official")
+	ExchangeConsulateslF = append(ExchangeConsulateslF, "Indebted native who thinks the players are Exchange agents")
+	ExchangeConsulateslF = append(ExchangeConsulateslF, "Exchange official dunning the players for debts incurred")
+	FriendTagMap["ExchangeConsulate"] = ExchangeConsulateslF
+
+	FallenHegemonslF := []string{}
+	FallenHegemonslF = append(FallenHegemonslF, "Bitter pretender to a meaningless throne")
+	FallenHegemonslF = append(FallenHegemonslF, "Resentful official dreaming of empire")
+	FallenHegemonslF = append(FallenHegemonslF, "Vengeful offworlder seeking to punish their old rulers")
+	FriendTagMap["FallenHegemon"] = FallenHegemonslF
+
+	FeralWorldslF := []string{}
+	FeralWorldslF = append(FeralWorldslF, "Decadent noble")
+	FeralWorldslF = append(FeralWorldslF, "Mad cultist")
+	FeralWorldslF = append(FeralWorldslF, "Xenophobic local")
+	FeralWorldslF = append(FeralWorldslF, "Cannibal chief")
+	FeralWorldslF = append(FeralWorldslF, "Maltech researcher")
+	FriendTagMap["FeralWorld"] = FeralWorldslF
+
+	FlyingCitiesslF := []string{}
+	FlyingCitiesslF = append(FlyingCitiesslF, "Rival city pilot")
+	FlyingCitiesslF = append(FlyingCitiesslF, "Tech thief attempting to steal outworld gear")
+	FlyingCitiesslF = append(FlyingCitiesslF, "Saboteur or scavenger plundering the city’s tech")
+	FriendTagMap["FlyingCities"] = FlyingCitiesslF
+
+	ForbiddenTechslF := []string{}
+	ForbiddenTechslF = append(ForbiddenTechslF, "Mad scientist")
+	ForbiddenTechslF = append(ForbiddenTechslF, "Maltech buyer from offworld")
+	ForbiddenTechslF = append(ForbiddenTechslF, "Security enforcer")
+	FriendTagMap["ForbiddenTech"] = ForbiddenTechslF
+
+	FormerWarriorsslF := []string{}
+	FormerWarriorsslF = append(FormerWarriorsslF, "Unreformed warlord leader")
+	FormerWarriorsslF = append(FormerWarriorsslF, "Bitter mercenary chief")
+	FormerWarriorsslF = append(FormerWarriorsslF, "Victim of their warfare seeking revenge")
+	FriendTagMap["FormerWarriors"] = FormerWarriorsslF
+
+	FreakGeologyslF := []string{}
+	FreakGeologyslF = append(FreakGeologyslF, "Crank xenogeologist")
+	FreakGeologyslF = append(FreakGeologyslF, "Cultist who believes it the work of aliens")
+	FriendTagMap["FreakGeology"] = FreakGeologyslF
+
+	FreakWeatherslF := []string{}
+	FreakWeatherslF = append(FreakWeatherslF, "Criminal using the weather as a cover")
+	FreakWeatherslF = append(FreakWeatherslF, "Weather cultists convinced the offworlders are responsible for some disaster")
+	FreakWeatherslF = append(FreakWeatherslF, "Native predators dependent on the weather")
+	FriendTagMap["FreakWeather"] = FreakWeatherslF
+
+	FriendlyFoeslF := []string{}
+	FriendlyFoeslF = append(FriendlyFoeslF, "Driven hater of all their kind")
+	FriendlyFoeslF = append(FriendlyFoeslF, "Internal malcontent bent on creating conflict")
+	FriendlyFoeslF = append(FriendlyFoeslF, "Secret master who seeks to lure trust")
+	FriendTagMap["FriendlyFoe"] = FriendlyFoeslF
+
+	GoldRushslF := []string{}
+	GoldRushslF = append(GoldRushslF, "Paranoid prospector")
+	GoldRushslF = append(GoldRushslF, "Aspiring mining tycoon")
+	GoldRushslF = append(GoldRushslF, "Rapacious merchant")
+	FriendTagMap["GoldRush"] = GoldRushslF
+
+	GreatWorkslF := []string{}
+	GreatWorkslF = append(GreatWorkslF, "Local planning to sacrifice the PCs for the work")
+	GreatWorkslF = append(GreatWorkslF, "Local who thinks the PCs threaten the work")
+	GreatWorkslF = append(GreatWorkslF, "Obsessive zealot ready to destroy someone or something important to the PCs for the sake of the work")
+	FriendTagMap["GreatWork"] = GreatWorkslF
+
+	HatredslF := []string{}
+	HatredslF = append(HatredslF, "Native convinced that the offworlders are agents of Them")
+	HatredslF = append(HatredslF, "Cynical politician in need of scapegoats")
+	FriendTagMap["Hatred"] = HatredslF
+
+	HeavyIndustryslF := []string{}
+	HeavyIndustryslF = append(HeavyIndustryslF, "Tycoon monopolist")
+	HeavyIndustryslF = append(HeavyIndustryslF, "Industrial spy")
+	HeavyIndustryslF = append(HeavyIndustryslF, "Malcontent revolutionary")
+	FriendTagMap["HeavyIndustry"] = HeavyIndustryslF
+
+	HeavyMiningslF := []string{}
+	HeavyMiningslF = append(HeavyMiningslF, "Mine boss")
+	HeavyMiningslF = append(HeavyMiningslF, "Tunnel saboteur")
+	HeavyMiningslF = append(HeavyMiningslF, "Subterranean predators")
+	FriendTagMap["HeavyMining"] = HeavyMiningslF
+
+	HivemindslF := []string{}
+	HivemindslF = append(HivemindslF, "A hivemind that wants to assimilate outsiders")
+	HivemindslF = append(HivemindslF, "A hivemind that has no respect for unjoined life")
+	HivemindslF = append(HivemindslF, "A hivemind that fears and hates unjoined life")
+	FriendTagMap["Hivemind"] = HivemindslF
+
+	HolyWarslF := []string{}
+	HolyWarslF = append(HolyWarslF, "Blood-mad pontiff")
+	HolyWarslF = append(HolyWarslF, "Coldly cynical secular leader")
+	HolyWarslF = append(HolyWarslF, "Totalitarian political demagogue")
+	FriendTagMap["HolyWar"] = HolyWarslF
+
+	HostileBiosphereslF := []string{}
+	HostileBiosphereslF = append(HostileBiosphereslF, "Local fauna")
+	HostileBiosphereslF = append(HostileBiosphereslF, "Nature cultist")
+	HostileBiosphereslF = append(HostileBiosphereslF, "Native aliens")
+	HostileBiosphereslF = append(HostileBiosphereslF, "Callous labor overseer")
+	FriendTagMap["HostileBiosphere"] = HostileBiosphereslF
+
+	HostileSpaceslF := []string{}
+	HostileSpaceslF = append(HostileSpaceslF, "Alien raid leader")
+	HostileSpaceslF = append(HostileSpaceslF, "Meteor-launching terrorists")
+	HostileSpaceslF = append(HostileSpaceslF, "Paranoid local leader")
+	FriendTagMap["HostileSpace"] = HostileSpaceslF
+
+	ImmortalsslF := []string{}
+	ImmortalsslF = append(ImmortalsslF, "Outsider determined to steal immortality")
+	ImmortalsslF = append(ImmortalsslF, "Smug local convinced of their immortal wisdom to rule all")
+	ImmortalsslF = append(ImmortalsslF, "Offworlder seeking the world’s ruin before it becomes a threat to all")
+	FriendTagMap["Immortals"] = ImmortalsslF
+
+	LocalSpecialtyslF := []string{}
+	LocalSpecialtyslF = append(LocalSpecialtyslF, "Monopolist")
+	LocalSpecialtyslF = append(LocalSpecialtyslF, "Offworlder seeking prohibition of the specialty")
+	LocalSpecialtyslF = append(LocalSpecialtyslF, "Native who views the specialty as sacred")
+	FriendTagMap["LocalSpecialty"] = LocalSpecialtyslF
+
+	LocalTechslF := []string{}
+	LocalTechslF = append(LocalTechslF, "Keeper of the tech")
+	LocalTechslF = append(LocalTechslF, "Offworld industrialist")
+	LocalTechslF = append(LocalTechslF, "Automated defenses that suddenly come alive")
+	LocalTechslF = append(LocalTechslF, "Native alien mentors")
+	FriendTagMap["LocalTech"] = LocalTechslF
+
+	MajorSpaceyardslF := []string{}
+	MajorSpaceyardslF = append(MajorSpaceyardslF, "Enemy saboteur")
+	MajorSpaceyardslF = append(MajorSpaceyardslF, "Industrial spy")
+	MajorSpaceyardslF = append(MajorSpaceyardslF, "Scheming construction tycoon")
+	MajorSpaceyardslF = append(MajorSpaceyardslF, "Aspiring ship hijacker")
+	FriendTagMap["MajorSpaceyard"] = MajorSpaceyardslF
+
+	MandarinateslF := []string{}
+	MandarinateslF = append(MandarinateslF, "Corrupt test administrator")
+	MandarinateslF = append(MandarinateslF, "Incompetent but highly-rated graduate")
+	MandarinateslF = append(MandarinateslF, "Ruthless leader of a clan of high-testing relations")
+	FriendTagMap["Mandarinate"] = MandarinateslF
+
+	MandateBaseslF := []string{}
+	MandateBaseslF = append(MandateBaseslF, "Deranged Mandate monitoring AI")
+	MandateBaseslF = append(MandateBaseslF, "Aspiring sector ruler")
+	MandateBaseslF = append(MandateBaseslF, "Demagogue preaching local superiority over “traitorous rebel worlds”.")
+	FriendTagMap["MandateBase"] = MandateBaseslF
+
+	ManeatersslF := []string{}
+	ManeatersslF = append(ManeatersslF, "Ruthless ghoul leader")
+	ManeatersslF = append(ManeatersslF, "Chieftain of a ravenous tribe")
+	ManeatersslF = append(ManeatersslF, "Sophisticated degenerate preaching the splendid authenticity of cannibalism")
+	FriendTagMap["Maneaters"] = ManeatersslF
+
+	MegacorpsslF := []string{}
+	MegacorpsslF = append(MegacorpsslF, "Megalomaniacal executive")
+	MegacorpsslF = append(MegacorpsslF, "Underling looking to use the PCs as catspaws")
+	MegacorpsslF = append(MegacorpsslF, "Ruthless mercenary who wants what the PCs have")
+	FriendTagMap["Megacorps"] = MegacorpsslF
+
+	MercenariesslF := []string{}
+	MercenariesslF = append(MercenariesslF, "Amoral mercenary leader")
+	MercenariesslF = append(MercenariesslF, "Rich offworlder trying to buy rule of the world")
+	MercenariesslF = append(MercenariesslF, "Mercenary press gang chief forcing locals into service")
+	FriendTagMap["Mercenaries"] = MercenariesslF
+
+	MisandryMisogynyslF := []string{}
+	MisandryMisogynyslF = append(MisandryMisogynyslF, "Cultural fundamentalist")
+	MisandryMisogynyslF = append(MisandryMisogynyslF, "Cultural missionary to outworlders")
+	MisandryMisogynyslF = append(MisandryMisogynyslF, "Local rebel driven to pointless and meaningless violence")
+	FriendTagMap["MisandryMisogyny"] = MisandryMisogynyslF
+
+	NightWorldslF := []string{}
+	NightWorldslF = append(NightWorldslF, "Monstrous thing from the night")
+	NightWorldslF = append(NightWorldslF, "Offworlder finding the obscurity of the world convenient for dark purposes")
+	NightWorldslF = append(NightWorldslF, "Mad scientist experimenting with local life")
+	FriendTagMap["NightWorld"] = NightWorldslF
+
+	MinimalContactslF := []string{}
+	MinimalContactslF = append(MinimalContactslF, "Customs official")
+	MinimalContactslF = append(MinimalContactslF, "Xenophobic natives")
+	MinimalContactslF = append(MinimalContactslF, "Existing merchant who doesn’t like competition")
+	FriendTagMap["MinimalContact"] = MinimalContactslF
+
+	NomadsslF := []string{}
+	NomadsslF = append(NomadsslF, "Desperate tribal leader who needs what the PCs have")
+	NomadsslF = append(NomadsslF, "Ruthless raider chieftain")
+	NomadsslF = append(NomadsslF, "Leader seeking to weld the nomads into an army")
+	FriendTagMap["Nomads"] = NomadsslF
+
+	OceanicWorldslF := []string{}
+	OceanicWorldslF = append(OceanicWorldslF, "Pirate raider")
+	OceanicWorldslF = append(OceanicWorldslF, "Violent “salvager” gang")
+	OceanicWorldslF = append(OceanicWorldslF, "Tentacled sea monster")
+	FriendTagMap["OceanicWorld"] = OceanicWorldslF
+
+	OutofContactslF := []string{}
+	OutofContactslF = append(OutofContactslF, "Fearful local ruler")
+	OutofContactslF = append(OutofContactslF, "Zealous native cleric")
+	OutofContactslF = append(OutofContactslF, "Sinister power that has kept the world isolated")
+	FriendTagMap["OutofContact"] = OutofContactslF
+
+	OutpostWorldslF := []string{}
+	OutpostWorldslF = append(OutpostWorldslF, "Space-mad outpost staffer")
+	OutpostWorldslF = append(OutpostWorldslF, "Outpost commander who wants it to stay undiscovered")
+	OutpostWorldslF = append(OutpostWorldslF, "Undercover saboteur")
+	FriendTagMap["OutpostWorld"] = OutpostWorldslF
+
+	PerimeterAgencyslF := []string{}
+	PerimeterAgencyslF = append(PerimeterAgencyslF, "Renegade Agency Director")
+	PerimeterAgencyslF = append(PerimeterAgencyslF, "Maltech researcher")
+	PerimeterAgencyslF = append(PerimeterAgencyslF, "Paranoid intelligence chief")
+	FriendTagMap["PerimeterAgency"] = PerimeterAgencyslF
+
+	PilgrimageSiteslF := []string{}
+	PilgrimageSiteslF = append(PilgrimageSiteslF, "Saboteur devoted to a rival belief")
+	PilgrimageSiteslF = append(PilgrimageSiteslF, "Bitter reformer who resents the current leadership")
+	PilgrimageSiteslF = append(PilgrimageSiteslF, "Swindler conning the pilgrims")
+	FriendTagMap["PilgrimageSite"] = PilgrimageSiteslF
+
+	PleasureWorldslF := []string{}
+	PleasureWorldslF = append(PleasureWorldslF, "Purveyor of evil delights")
+	PleasureWorldslF = append(PleasureWorldslF, "Local seeking to control others with addictions")
+	PleasureWorldslF = append(PleasureWorldslF, "Offworlder exploiter of native resources")
+	FriendTagMap["PleasureWorld"] = PleasureWorldslF
+
+	PoliceStateslF := []string{}
+	PoliceStateslF = append(PoliceStateslF, "Secret police chief")
+	PoliceStateslF = append(PoliceStateslF, "Scapegoating official")
+	PoliceStateslF = append(PoliceStateslF, "Treacherous native informer")
+	FriendTagMap["PoliceState"] = PoliceStateslF
+
+	PostScarcityslF := []string{}
+	PostScarcityslF = append(PostScarcityslF, "Frenzied ideologue fighting over an idea")
+	PostScarcityslF = append(PostScarcityslF, "Paranoid local fearing offworlder influence")
+	PostScarcityslF = append(PostScarcityslF, "Grim reformer seeking the destruction of the “enfeebling” productive tech")
+	FriendTagMap["PostScarcity"] = PostScarcityslF
+
+	PreceptorArchiveslF := []string{}
+	PreceptorArchiveslF = append(PreceptorArchiveslF, "Luddite native")
+	PreceptorArchiveslF = append(PreceptorArchiveslF, "Offworld merchant who wants the natives kept ignorant")
+	PreceptorArchiveslF = append(PreceptorArchiveslF, "Religious zealot")
+	PreceptorArchiveslF = append(PreceptorArchiveslF, "Corrupted First Speaker who wants to keep a monopoly on learning")
+	FriendTagMap["PreceptorArchive"] = PreceptorArchiveslF
+
+	PretechCultistsslF := []string{}
+	PretechCultistsslF = append(PretechCultistsslF, "Cult leader")
+	PretechCultistsslF = append(PretechCultistsslF, "Artifact supplier")
+	PretechCultistsslF = append(PretechCultistsslF, "Pretech smuggler")
+	FriendTagMap["PretechCultists"] = PretechCultistsslF
+
+	PrimitiveAliensslF := []string{}
+	PrimitiveAliensslF = append(PrimitiveAliensslF, "Hostile alien chief")
+	PrimitiveAliensslF = append(PrimitiveAliensslF, "Human firebrand")
+	PrimitiveAliensslF = append(PrimitiveAliensslF, "Dangerous local predator")
+	PrimitiveAliensslF = append(PrimitiveAliensslF, "Alien religious zealot")
+	FriendTagMap["PrimitiveAliens"] = PrimitiveAliensslF
+
+	PrisonPlanetslF := []string{}
+	PrisonPlanetslF = append(PrisonPlanetslF, "Crazed warden AI")
+	PrisonPlanetslF = append(PrisonPlanetslF, "Brutal heir to gang leadership")
+	PrisonPlanetslF = append(PrisonPlanetslF, "Offworlder who’s somehow acquired warden powers and exploits the locals")
+	FriendTagMap["PrisonPlanet"] = PrisonPlanetslF
+
+	PsionicsAcademyslF := []string{}
+	PsionicsAcademyslF = append(PsionicsAcademyslF, "Corrupt psychic instructor")
+	PsionicsAcademyslF = append(PsionicsAcademyslF, "Renegade student")
+	PsionicsAcademyslF = append(PsionicsAcademyslF, "Mad psychic researcher")
+	PsionicsAcademyslF = append(PsionicsAcademyslF, "Resentful townie")
+	FriendTagMap["PsionicsAcademy"] = PsionicsAcademyslF
+
+	PsionicsFearslF := []string{}
+	PsionicsFearslF = append(PsionicsFearslF, "Mental purity investigator")
+	PsionicsFearslF = append(PsionicsFearslF, "Suspicious zealot")
+	PsionicsFearslF = append(PsionicsFearslF, "Witch-finder")
+	FriendTagMap["PsionicsFear"] = PsionicsFearslF
+
+	PsionicsWorshipslF := []string{}
+	PsionicsWorshipslF = append(PsionicsWorshipslF, "Psychic inquisitor")
+	PsionicsWorshipslF = append(PsionicsWorshipslF, "Haughty mind-noble")
+	PsionicsWorshipslF = append(PsionicsWorshipslF, "Psychic slaver")
+	PsionicsWorshipslF = append(PsionicsWorshipslF, "Feral prophet")
+	FriendTagMap["PsionicsWorship"] = PsionicsWorshipslF
+
+	QuarantinedWorldslF := []string{}
+	QuarantinedWorldslF = append(QuarantinedWorldslF, "Defense installation commander")
+	QuarantinedWorldslF = append(QuarantinedWorldslF, "Suspicious patrol leader")
+	QuarantinedWorldslF = append(QuarantinedWorldslF, "Crazed asteroid hermit")
+	FriendTagMap["QuarantinedWorld"] = QuarantinedWorldslF
+
+	RadioactiveWorldslF := []string{}
+	RadioactiveWorldslF = append(RadioactiveWorldslF, "Bitter mutant")
+	RadioactiveWorldslF = append(RadioactiveWorldslF, "Relic warlord")
+	RadioactiveWorldslF = append(RadioactiveWorldslF, "Desperate wouldbe escapee")
+	FriendTagMap["RadioactiveWorld"] = RadioactiveWorldslF
+
+	RefugeesslF := []string{}
+	RefugeesslF = append(RefugeesslF, "Xenophobic native leader")
+	RefugeesslF = append(RefugeesslF, "Refugee chief aspiring to seize the host nation")
+	RefugeesslF = append(RefugeesslF, "Politician seeking to use the refugees as a weapon")
+	FriendTagMap["Refugees"] = RefugeesslF
+
+	RegionalHegemonslF := []string{}
+	RegionalHegemonslF = append(RegionalHegemonslF, "Ambitious general")
+	RegionalHegemonslF = append(RegionalHegemonslF, "Colonial official")
+	RegionalHegemonslF = append(RegionalHegemonslF, "Contemptuous noble")
+	FriendTagMap["RegionalHegemon"] = RegionalHegemonslF
+
+	RestrictiveLawsslF := []string{}
+	RestrictiveLawsslF = append(RestrictiveLawsslF, "Law enforcement officer")
+	RestrictiveLawsslF = append(RestrictiveLawsslF, "Outraged native")
+	RestrictiveLawsslF = append(RestrictiveLawsslF, "Native lawyer specializing in peeling offworlders")
+	RestrictiveLawsslF = append(RestrictiveLawsslF, "Paid snitch")
+	FriendTagMap["RestrictiveLaws"] = RestrictiveLawsslF
+
+	RevanchistsslF := []string{}
+	RevanchistsslF = append(RevanchistsslF, "Demagogue whipping the locals on to a hopeless war")
+	RevanchistsslF = append(RevanchistsslF, "Politician seeking to use the resentment for their own ends")
+	RevanchistsslF = append(RevanchistsslF, "Local convinced the PCs are agents of the “thieving” power")
+	RevanchistsslF = append(RevanchistsslF, "Refugee from the land bitterly demanding it be reclaimed")
+	FriendTagMap["Revanchists"] = RevanchistsslF
+
+	RevolutionariesslF := []string{}
+	RevolutionariesslF = append(RevolutionariesslF, "Blood-drenched revolutionary leader")
+	RevolutionariesslF = append(RevolutionariesslF, "Blooddrenched secret police chief")
+	RevolutionariesslF = append(RevolutionariesslF, "Hostile foreign agent seeking further turmoil")
+	FriendTagMap["Revolutionaries"] = RevolutionariesslF
+
+	RigidCultureslF := []string{}
+	RigidCultureslF = append(RigidCultureslF, "Rigid reactionary")
+	RigidCultureslF = append(RigidCultureslF, "Wary ruler")
+	RigidCultureslF = append(RigidCultureslF, "Regime ideologue")
+	RigidCultureslF = append(RigidCultureslF, "Offended potentate")
+	FriendTagMap["RigidCulture"] = RigidCultureslF
+
+	RisingHegemonslF := []string{}
+	RisingHegemonslF = append(RisingHegemonslF, "Jingoistic supremacist")
+	RisingHegemonslF = append(RisingHegemonslF, "Official bent on glorious success")
+	RisingHegemonslF = append(RisingHegemonslF, "Foreign agent saboteur")
+	FriendTagMap["RisingHegemon"] = RisingHegemonslF
+
+	RitualCombatslF := []string{}
+	RitualCombatslF = append(RitualCombatslF, "Bloodthirsty local champion")
+	RitualCombatslF = append(RitualCombatslF, "Ambitious gladiator stable owner")
+	RitualCombatslF = append(RitualCombatslF, "Xenophobic master fighter")
+	FriendTagMap["RitualCombat"] = RitualCombatslF
+
+	RobotsslF := []string{}
+	RobotsslF = append(RobotsslF, "Hostile robot master")
+	RobotsslF = append(RobotsslF, "Robot greedy to seize offworld tech")
+	RobotsslF = append(RobotsslF, "Robot fallen in love with the PC’s ship")
+	RobotsslF = append(RobotsslF, "Oligarch whose factories build robots")
+	FriendTagMap["Robots"] = RobotsslF
+
+	SeagoingCitiesslF := []string{}
+	SeagoingCitiesslF = append(SeagoingCitiesslF, "Pirate city lord")
+	SeagoingCitiesslF = append(SeagoingCitiesslF, "Mer-human raider chieftain")
+	SeagoingCitiesslF = append(SeagoingCitiesslF, "Hostile landsman noble")
+	SeagoingCitiesslF = append(SeagoingCitiesslF, "Enemy city saboteur")
+	FriendTagMap["SeagoingCities"] = SeagoingCitiesslF
+
+	SealedMenaceslF := []string{}
+	SealedMenaceslF = append(SealedMenaceslF, "Hostile outsider bent on freeing the menace")
+	SealedMenaceslF = append(SealedMenaceslF, "Misguided fool who thinks he can use it")
+	SealedMenaceslF = append(SealedMenaceslF, "Reckless researcher who thinks he can fix it")
+	FriendTagMap["SealedMenace"] = SealedMenaceslF
+
+	SecretMastersslF := []string{}
+	SecretMastersslF = append(SecretMastersslF, "An agent of the cabal")
+	SecretMastersslF = append(SecretMastersslF, "Government official who wants no questions asked")
+	SecretMastersslF = append(SecretMastersslF, "Willfully blinded local")
+	FriendTagMap["SecretMasters"] = SecretMastersslF
+
+	SectariansslF := []string{}
+	SectariansslF = append(SectariansslF, "Paranoid believer")
+	SectariansslF = append(SectariansslF, "Native convinced the party is working for the other side")
+	SectariansslF = append(SectariansslF, "Absolutist ruler")
+	FriendTagMap["Sectarians"] = SectariansslF
+
+	SeismicInstabilityslF := []string{}
+	SeismicInstabilityslF = append(SeismicInstabilityslF, "Earthquake cultist")
+	SeismicInstabilityslF = append(SeismicInstabilityslF, "Hermit seismologist")
+	SeismicInstabilityslF = append(SeismicInstabilityslF, "Burrowing native life form")
+	SeismicInstabilityslF = append(SeismicInstabilityslF, "Earthquake-inducing saboteur")
+	FriendTagMap["SeismicInstability"] = SeismicInstabilityslF
+
+	ShackledWorldslF := []string{}
+	ShackledWorldslF = append(ShackledWorldslF, "Passionless jailer-AI")
+	ShackledWorldslF = append(ShackledWorldslF, "Paranoid military grid AI")
+	ShackledWorldslF = append(ShackledWorldslF, "Robot overlord")
+	ShackledWorldslF = append(ShackledWorldslF, "Enigmatic alien master")
+	FriendTagMap["ShackledWorld"] = ShackledWorldslF
+
+	SocietalDespairslF := []string{}
+	SocietalDespairslF = append(SocietalDespairslF, "Zealot who blames outsiders for the decay")
+	SocietalDespairslF = append(SocietalDespairslF, "Nihilistic warlord")
+	SocietalDespairslF = append(SocietalDespairslF, "Offworlder looking to exploit the local despair")
+	FriendTagMap["SocietalDespair"] = SocietalDespairslF
+
+	SoleSupplierslF := []string{}
+	SoleSupplierslF = append(SoleSupplierslF, "Resource oligarch")
+	SoleSupplierslF = append(SoleSupplierslF, "Ruthless smuggler")
+	SoleSupplierslF = append(SoleSupplierslF, "Resource- controlling warlord")
+	SoleSupplierslF = append(SoleSupplierslF, "Foreign agent seeking to subvert local government")
+	FriendTagMap["SoleSupplier"] = SoleSupplierslF
+
+	TabooTreasureslF := []string{}
+	TabooTreasureslF = append(TabooTreasureslF, "Maker of a vile commodity")
+	TabooTreasureslF = append(TabooTreasureslF, "Smuggler for a powerful offworlder")
+	TabooTreasureslF = append(TabooTreasureslF, "Depraved offworlder here for “fun”")
+	TabooTreasureslF = append(TabooTreasureslF, "Local warlord who controls the treasure")
+	FriendTagMap["TabooTreasure"] = TabooTreasureslF
+
+	TerraformFailureslF := []string{}
+	TerraformFailureslF = append(TerraformFailureslF, "Brutal ruler who cares only for their people")
+	TerraformFailureslF = append(TerraformFailureslF, "Offworlder trying to loot the damaged engines")
+	TerraformFailureslF = append(TerraformFailureslF, "Warlord trying to seize limited habitable land")
+	FriendTagMap["TerraformFailure"] = TerraformFailureslF
+
+	TheocracyslF := []string{}
+	TheocracyslF = append(TheocracyslF, "Decadent priest-ruler")
+	TheocracyslF = append(TheocracyslF, "Zealous inquisitor")
+	TheocracyslF = append(TheocracyslF, "Relentless proselytizer")
+	TheocracyslF = append(TheocracyslF, "True Believer")
+	FriendTagMap["Theocracy"] = TheocracyslF
+
+	TombWorldslF := []string{}
+	TombWorldslF = append(TombWorldslF, "Demented survivor tribe chieftain")
+	TombWorldslF = append(TombWorldslF, "Avaricious scavenger")
+	TombWorldslF = append(TombWorldslF, "Automated defense system")
+	TombWorldslF = append(TombWorldslF, "Native predator")
+	FriendTagMap["TombWorld"] = TombWorldslF
+
+	TradeHubslF := []string{}
+	TradeHubslF = append(TradeHubslF, "Cheating merchant")
+	TradeHubslF = append(TradeHubslF, "Thieving dockworker")
+	TradeHubslF = append(TradeHubslF, "Commercial spy")
+	TradeHubslF = append(TradeHubslF, "Corrupt customs official")
+	FriendTagMap["TradeHub"] = TradeHubslF
+
+	TyrannyslF := []string{}
+	TyrannyslF = append(TyrannyslF, "Debauched autocrat")
+	TyrannyslF = append(TyrannyslF, "Sneering bully-boy")
+	TyrannyslF = append(TyrannyslF, "Soulless government official")
+	TyrannyslF = append(TyrannyslF, "Occupying army officer")
+	FriendTagMap["Tyranny"] = TyrannyslF
+
+	UnbrakedAIslF := []string{}
+	UnbrakedAIslF = append(UnbrakedAIslF, "AI Cultist")
+	UnbrakedAIslF = append(UnbrakedAIslF, "Maltech researcher")
+	UnbrakedAIslF = append(UnbrakedAIslF, "Government official dependent on the AI")
+	FriendTagMap["UnbrakedAI"] = UnbrakedAIslF
+
+	UrbanizedSurfaceslF := []string{}
+	UrbanizedSurfaceslF = append(UrbanizedSurfaceslF, "Maintenance AI that hates outsiders")
+	UrbanizedSurfaceslF = append(UrbanizedSurfaceslF, "Tyrant of a habitation block")
+	UrbanizedSurfaceslF = append(UrbanizedSurfaceslF, "Deep-dwelling prophet who considers “the sky” a blasphemy to be quelled")
+	FriendTagMap["UrbanizedSurface"] = UrbanizedSurfaceslF
+
+	UtopiaslF := []string{}
+	UtopiaslF = append(UtopiaslF, "Compassionate neurotherapist")
+	UtopiaslF = append(UtopiaslF, "Proselytizing native missionary to outsiders")
+	UtopiaslF = append(UtopiaslF, "Brutal tyrant who rules through inexorable happiness")
+	FriendTagMap["Utopia"] = UtopiaslF
+
+	WarlordsslF := []string{}
+	WarlordsslF = append(WarlordsslF, "Warlord")
+	WarlordsslF = append(WarlordsslF, "Avaricious lieutenant")
+	WarlordsslF = append(WarlordsslF, "Expensive assassin")
+	WarlordsslF = append(WarlordsslF, "Aspiring minion")
+	FriendTagMap["Warlords"] = WarlordsslF
+
+	XenophilesslF := []string{}
+	XenophilesslF = append(XenophilesslF, "Offworld xenophobe")
+	XenophilesslF = append(XenophilesslF, "Suspicious alien leader")
+	XenophilesslF = append(XenophilesslF, "Xenocultural imperialist")
+	FriendTagMap["Xenophiles"] = XenophilesslF
+
+	XenophobesslF := []string{}
+	XenophobesslF = append(XenophobesslF, "Revulsed local ruler")
+	XenophobesslF = append(XenophobesslF, "Native convinced some wrong was done to him")
+	XenophobesslF = append(XenophobesslF, "Cynical demagogue")
+	FriendTagMap["Xenophobes"] = XenophobesslF
+
+	ZombiesslF := []string{}
+	ZombiesslF = append(ZombiesslF, "Soulless maltech biotechnology cult")
+	ZombiesslF = append(ZombiesslF, "Sinister governmental agent")
+	ZombiesslF = append(ZombiesslF, "Crazed zombie cultist")
+	FriendTagMap["Zombies"] = ZombiesslF
+	return FriendTagMap
 }
