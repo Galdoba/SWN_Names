@@ -1,628 +1,623 @@
-FriendTagMap := make(map[string][]string)
-AbandonedColonyslF := []string{}
-AbandonedColonyslF = append(AbandonedColonyslF, 'Crazed survivors')
-AbandonedColonyslF = append(AbandonedColonyslF, 'Ruthless plunderers of the ruins')
-AbandonedColonyslF = append(AbandonedColonyslF, 'Automated defense system')
-FriendTagMap['AbandonedColony'] = AbandonedColonyslF
-
-AlienRuinsslF := []string{}
-AlienRuinsslF = append(AlienRuinsslF, 'Customs inspector')
-AlienRuinsslF = append(AlienRuinsslF, 'Worshipper of the ruins')
-AlienRuinsslF = append(AlienRuinsslF, 'Hidden alien survivor')
-FriendTagMap['AlienRuins'] = AlienRuinsslF
-
-AlteredHumanityslF := []string{}
-AlteredHumanityslF = append(AlteredHumanityslF, 'Biochauvinist local')
-AlteredHumanityslF = append(AlteredHumanityslF, 'Local experimenter')
-AlteredHumanityslF = append(AlteredHumanityslF, 'Mentally unstable mutant')
-FriendTagMap['AlteredHumanity'] = AlteredHumanityslF
-
-AnarchistsslF := []string{}
-AnarchistsslF = append(AnarchistsslF, 'Offworlder imperialist')
-AnarchistsslF = append(AnarchistsslF, 'Reformer seeking to impose “good government”')
-AnarchistsslF = append(AnarchistsslF, 'Exploiter taking advantage of the lack of centralized resistance')
-FriendTagMap['Anarchists'] = AnarchistsslF
-
-AnthropomorphsslF := []string{}
-AnthropomorphsslF = append(AnthropomorphsslF, 'Anthro-supremacist local')
-AnthropomorphsslF = append(AnthropomorphsslF, 'Native driven by feral urges')
-AnthropomorphsslF = append(AnthropomorphsslF, 'Outside exploiter who sees the locals as subhuman creatures')
-FriendTagMap['Anthropomorphs'] = AnthropomorphsslF
-
-Area51slF := []string{}
-Area51slF = append(Area51slF, 'Suspicious government minder')
-Area51slF = append(Area51slF, 'Free merchant who likes his local monopoly')
-Area51slF = append(Area51slF, 'Local who wants a specimen for dissection')
-FriendTagMap['Area51'] = Area51slF
-
-BadlandsWorldslF := []string{}
-BadlandsWorldslF = append(BadlandsWorldslF, 'Mutated badlands fauna')
-BadlandsWorldslF = append(BadlandsWorldslF, 'Desperate local')
-BadlandsWorldslF = append(BadlandsWorldslF, 'Badlands raider chief')
-FriendTagMap['BadlandsWorld'] = BadlandsWorldslF
-
-BattlegroundslF := []string{}
-BattlegroundslF = append(BattlegroundslF, 'Ruthless military commander')
-BattlegroundslF = append(BattlegroundslF, 'Looter pack chieftain')
-BattlegroundslF = append(BattlegroundslF, 'Traitorous collaborator')
-FriendTagMap['Battleground'] = BattlegroundslF
-
-BeastmastersslF := []string{}
-BeastmastersslF = append(BeastmastersslF, 'Half-feral warlord of a beast swarm')
-BeastmastersslF = append(BeastmastersslF, 'Coldly inhuman scientist')
-BeastmastersslF = append(BeastmastersslF, 'Altered beast with human intellect and furious malice')
-FriendTagMap['Beastmasters'] = BeastmastersslF
-
-BubbleCitiesslF := []string{}
-BubbleCitiesslF = append(BubbleCitiesslF, 'Native dreading outsider contamination')
-BubbleCitiesslF = append(BubbleCitiesslF, 'Saboteur from another bubble city')
-BubbleCitiesslF = append(BubbleCitiesslF, 'Local official hostile to outsider ignorance of laws')
-FriendTagMap['BubbleCities'] = BubbleCitiesslF
-
-CheapLifeslF := []string{}
-CheapLifeslF = append(CheapLifeslF, 'Master assassin')
-CheapLifeslF = append(CheapLifeslF, 'Bloody-handed judge')
-CheapLifeslF = append(CheapLifeslF, 'Overseer of disposable clones')
-FriendTagMap['CheapLife'] = CheapLifeslF
-
-CivilWarslF := []string{}
-CivilWarslF = append(CivilWarslF, 'Faction commissar')
-CivilWarslF = append(CivilWarslF, 'Angry native')
-CivilWarslF = append(CivilWarslF, 'Conspiracy theorist who blames offworlders for the war')
-CivilWarslF = append(CivilWarslF, 'Deserter looking out for himself')
-CivilWarslF = append(CivilWarslF, 'Guerrilla bandit chieftain')
-FriendTagMap['CivilWar'] = CivilWarslF
-
-ColdWarslF := []string{}
-ColdWarslF = append(ColdWarslF, 'Suspicious chief of intelligence')
-ColdWarslF = append(ColdWarslF, 'Native who thinks the outworlders are with the other side')
-ColdWarslF = append(ColdWarslF, 'Femme fatale')
-FriendTagMap['ColdWar'] = ColdWarslF
-
-ColonizedPopulationslF := []string{}
-ColonizedPopulationslF = append(ColonizedPopulationslF, 'Suspicious security personnel')
-ColonizedPopulationslF = append(ColonizedPopulationslF, 'Offworlder-hating natives')
-ColonizedPopulationslF = append(ColonizedPopulationslF, 'Local crime boss preying on rich offworlders ')
-FriendTagMap['ColonizedPopulation'] = ColonizedPopulationslF
-
-CulturalPowerslF := []string{}
-CulturalPowerslF = append(CulturalPowerslF, 'Murderously eccentric artist')
-CulturalPowerslF = append(CulturalPowerslF, 'Crazed fan')
-CulturalPowerslF = append(CulturalPowerslF, 'Failed artist with an obsessive grudge')
-CulturalPowerslF = append(CulturalPowerslF, 'Critic with a crusade to enact')
-FriendTagMap['CulturalPower'] = CulturalPowerslF
-
-CybercommunistsslF := []string{}
-CybercommunistsslF = append(CybercommunistsslF, 'Embittered rebel against perceived unfairness')
-CybercommunistsslF = append(CybercommunistsslF, 'Offworlder saboteur')
-CybercommunistsslF = append(CybercommunistsslF, 'Aspiring Stalin-figure')
-FriendTagMap['Cybercommunists'] = CybercommunistsslF
-
-CyborgsslF := []string{}
-CyborgsslF = append(CyborgsslF, 'Ambitious hacker of cyber implants')
-CyborgsslF = append(CyborgsslF, 'Cybertech oligarch')
-CyborgsslF = append(CyborgsslF, 'Researcher craving fresh offworlders')
-CyborgsslF = append(CyborgsslF, 'Cybered-up gang boss')
-FriendTagMap['Cyborgs'] = CyborgsslF
-
-CyclicalDoomslF := []string{}
-CyclicalDoomslF = append(CyclicalDoomslF, 'Offworlder seeking to trigger the apocalypse early for profit')
-CyclicalDoomslF = append(CyclicalDoomslF, 'Local recklessly taking advantage of preparation stores')
-CyclicalDoomslF = append(CyclicalDoomslF, 'Demagogue claiming the cycle is merely a myth of the authorities')
-FriendTagMap['CyclicalDoom'] = CyclicalDoomslF
-
-DesertWorldslF := []string{}
-DesertWorldslF = append(DesertWorldslF, 'Raider chieftain')
-DesertWorldslF = append(DesertWorldslF, 'Crazed hermit')
-DesertWorldslF = append(DesertWorldslF, 'Angry isolationists')
-DesertWorldslF = append(DesertWorldslF, 'Paranoid mineral prospector')
-DesertWorldslF = append(DesertWorldslF, 'Strange desert beast')
-FriendTagMap['DesertWorld'] = DesertWorldslF
-
-DoomedWorldslF := []string{}
-DoomedWorldslF = append(DoomedWorldslF, 'Crazed prophet of a false salvation')
-DoomedWorldslF = append(DoomedWorldslF, 'Ruthless leader seeking to flee with their treasures')
-DoomedWorldslF = append(DoomedWorldslF, 'Cynical ship captain selling a one-way trip into hard vacuum as escape to another world')
-FriendTagMap['DoomedWorld'] = DoomedWorldslF
-
-DyingRaceslF := []string{}
-DyingRaceslF = append(DyingRaceslF, 'Hostile outsider who wants the locals dead')
-DyingRaceslF = append(DyingRaceslF, 'Offworlder seeking to take advantage of their weakened state')
-DyingRaceslF = append(DyingRaceslF, 'Invaders eager to push the locals out of their former lands')
-FriendTagMap['DyingRace'] = DyingRaceslF
-
-EugenicCultslF := []string{}
-EugenicCultslF = append(EugenicCultslF, 'Eugenic superiority fanatic')
-EugenicCultslF = append(EugenicCultslF, 'Mentally unstable homo superior')
-EugenicCultslF = append(EugenicCultslF, 'Mad eugenic scientist')
-FriendTagMap['EugenicCult'] = EugenicCultslF
-
-ExchangeConsulateslF := []string{}
-ExchangeConsulateslF = append(ExchangeConsulateslF, 'Corrupt Exchange official')
-ExchangeConsulateslF = append(ExchangeConsulateslF, 'Indebted native who thinks the players are Exchange agents')
-ExchangeConsulateslF = append(ExchangeConsulateslF, 'Exchange official dunning the players for debts incurred')
-FriendTagMap['ExchangeConsulate'] = ExchangeConsulateslF
-
-FallenHegemonslF := []string{}
-FallenHegemonslF = append(FallenHegemonslF, 'Bitter pretender to a meaningless throne')
-FallenHegemonslF = append(FallenHegemonslF, 'Resentful official dreaming of empire')
-FallenHegemonslF = append(FallenHegemonslF, 'Vengeful offworlder seeking to punish their old rulers')
-FriendTagMap['FallenHegemon'] = FallenHegemonslF
-
-FeralWorldslF := []string{}
-FeralWorldslF = append(FeralWorldslF, 'Decadent noble')
-FeralWorldslF = append(FeralWorldslF, 'Mad cultist')
-FeralWorldslF = append(FeralWorldslF, 'Xenophobic local')
-FeralWorldslF = append(FeralWorldslF, 'Cannibal chief')
-FeralWorldslF = append(FeralWorldslF, 'Maltech researcher')
-FriendTagMap['FeralWorld'] = FeralWorldslF
-
-FlyingCitiesslF := []string{}
-FlyingCitiesslF = append(FlyingCitiesslF, 'Rival city pilot')
-FlyingCitiesslF = append(FlyingCitiesslF, 'Tech thief attempting to steal outworld gear')
-FlyingCitiesslF = append(FlyingCitiesslF, 'Saboteur or scavenger plundering the city’s tech')
-FriendTagMap['FlyingCities'] = FlyingCitiesslF
-
-ForbiddenTechslF := []string{}
-ForbiddenTechslF = append(ForbiddenTechslF, 'Mad scientist')
-ForbiddenTechslF = append(ForbiddenTechslF, 'Maltech buyer from offworld')
-ForbiddenTechslF = append(ForbiddenTechslF, 'Security enforcer')
-FriendTagMap['ForbiddenTech'] = ForbiddenTechslF
-
-FormerWarriorsslF := []string{}
-FormerWarriorsslF = append(FormerWarriorsslF, 'Unreformed warlord leader')
-FormerWarriorsslF = append(FormerWarriorsslF, 'Bitter mercenary chief')
-FormerWarriorsslF = append(FormerWarriorsslF, 'Victim of their warfare seeking revenge')
-FriendTagMap['FormerWarriors'] = FormerWarriorsslF
-
-FreakGeologyslF := []string{}
-FreakGeologyslF = append(FreakGeologyslF, 'Crank xenogeologist')
-FreakGeologyslF = append(FreakGeologyslF, 'Cultist who believes it the work of aliens')
-FriendTagMap['FreakGeology'] = FreakGeologyslF
-
-FreakWeatherslF := []string{}
-FreakWeatherslF = append(FreakWeatherslF, 'Criminal using the weather as a cover')
-FreakWeatherslF = append(FreakWeatherslF, 'Weather cultists convinced the offworlders are responsible for some disaster')
-FreakWeatherslF = append(FreakWeatherslF, 'Native predators dependent on the weather')
-FriendTagMap['FreakWeather'] = FreakWeatherslF
-
-FriendlyFoeslF := []string{}
-FriendlyFoeslF = append(FriendlyFoeslF, 'Driven hater of all their kind')
-FriendlyFoeslF = append(FriendlyFoeslF, 'Internal malcontent bent on creating conflict')
-FriendlyFoeslF = append(FriendlyFoeslF, 'Secret master who seeks to lure trust')
-FriendTagMap['FriendlyFoe'] = FriendlyFoeslF
-
-GoldRushslF := []string{}
-GoldRushslF = append(GoldRushslF, 'Paranoid prospector')
-GoldRushslF = append(GoldRushslF, 'Aspiring mining tycoon')
-GoldRushslF = append(GoldRushslF, 'Rapacious merchant')
-FriendTagMap['GoldRush'] = GoldRushslF
-
-GreatWorkslF := []string{}
-GreatWorkslF = append(GreatWorkslF, 'Local planning to sacrifice the PCs for the work')
-GreatWorkslF = append(GreatWorkslF, 'Local who thinks the PCs threaten the work')
-GreatWorkslF = append(GreatWorkslF, 'Obsessive zealot ready to destroy someone or something important to the PCs for the sake of the work')
-FriendTagMap['GreatWork'] = GreatWorkslF
-
-HatredslF := []string{}
-HatredslF = append(HatredslF, 'Native convinced that the offworlders are agents of Them')
-HatredslF = append(HatredslF, 'Cynical politician in need of scapegoats')
-FriendTagMap['Hatred'] = HatredslF
-
-HeavyIndustryslF := []string{}
-HeavyIndustryslF = append(HeavyIndustryslF, 'Tycoon monopolist')
-HeavyIndustryslF = append(HeavyIndustryslF, 'Industrial spy')
-HeavyIndustryslF = append(HeavyIndustryslF, 'Malcontent revolutionary')
-FriendTagMap['HeavyIndustry'] = HeavyIndustryslF
-
-HeavyMiningslF := []string{}
-HeavyMiningslF = append(HeavyMiningslF, 'Mine boss')
-HeavyMiningslF = append(HeavyMiningslF, 'Tunnel saboteur')
-HeavyMiningslF = append(HeavyMiningslF, 'Subterranean predators')
-FriendTagMap['HeavyMining'] = HeavyMiningslF
-
-HivemindslF := []string{}
-HivemindslF = append(HivemindslF, 'A hivemind that wants to assimilate outsiders')
-HivemindslF = append(HivemindslF, 'A hivemind that has no respect for unjoined life')
-HivemindslF = append(HivemindslF, 'A hivemind that fears and hates unjoined life')
-FriendTagMap['Hivemind'] = HivemindslF
-
-HolyWarslF := []string{}
-HolyWarslF = append(HolyWarslF, 'Blood-mad pontiff')
-HolyWarslF = append(HolyWarslF, 'Coldly cynical secular leader')
-HolyWarslF = append(HolyWarslF, 'Totalitarian political demagogue')
-FriendTagMap['HolyWar'] = HolyWarslF
-
-HostileBiosphereslF := []string{}
-HostileBiosphereslF = append(HostileBiosphereslF, 'Local fauna')
-HostileBiosphereslF = append(HostileBiosphereslF, 'Nature cultist')
-HostileBiosphereslF = append(HostileBiosphereslF, 'Native aliens')
-HostileBiosphereslF = append(HostileBiosphereslF, 'Callous labor overseer')
-FriendTagMap['HostileBiosphere'] = HostileBiosphereslF
-
-HostileSpaceslF := []string{}
-HostileSpaceslF = append(HostileSpaceslF, 'Alien raid leader')
-HostileSpaceslF = append(HostileSpaceslF, 'Meteor-launching terrorists')
-HostileSpaceslF = append(HostileSpaceslF, 'Paranoid local leader')
-FriendTagMap['HostileSpace'] = HostileSpaceslF
-
-ImmortalsslF := []string{}
-ImmortalsslF = append(ImmortalsslF, 'Outsider determined to steal immortality')
-ImmortalsslF = append(ImmortalsslF, 'Smug local convinced of their immortal wisdom to rule all')
-ImmortalsslF = append(ImmortalsslF, 'Offworlder seeking the world’s ruin before it becomes a threat to all')
-FriendTagMap['Immortals'] = ImmortalsslF
-
-LocalSpecialtyslF := []string{}
-LocalSpecialtyslF = append(LocalSpecialtyslF, 'Monopolist')
-LocalSpecialtyslF = append(LocalSpecialtyslF, 'Offworlder seeking prohibition of the specialty')
-LocalSpecialtyslF = append(LocalSpecialtyslF, 'Native who views the specialty as sacred')
-FriendTagMap['LocalSpecialty'] = LocalSpecialtyslF
-
-LocalTechslF := []string{}
-LocalTechslF = append(LocalTechslF, 'Keeper of the tech')
-LocalTechslF = append(LocalTechslF, 'Offworld industrialist')
-LocalTechslF = append(LocalTechslF, 'Automated defenses that suddenly come alive')
-LocalTechslF = append(LocalTechslF, 'Native alien mentors')
-FriendTagMap['LocalTech'] = LocalTechslF
-
-MajorSpaceyardslF := []string{}
-MajorSpaceyardslF = append(MajorSpaceyardslF, 'Enemy saboteur')
-MajorSpaceyardslF = append(MajorSpaceyardslF, 'Industrial spy')
-MajorSpaceyardslF = append(MajorSpaceyardslF, 'Scheming construction tycoon')
-MajorSpaceyardslF = append(MajorSpaceyardslF, 'Aspiring ship hijacker')
-FriendTagMap['MajorSpaceyard'] = MajorSpaceyardslF
-
-MandarinateslF := []string{}
-MandarinateslF = append(MandarinateslF, 'Corrupt test administrator')
-MandarinateslF = append(MandarinateslF, 'Incompetent but highly-rated graduate')
-MandarinateslF = append(MandarinateslF, 'Ruthless leader of a clan of high-testing relations')
-FriendTagMap['Mandarinate'] = MandarinateslF
-
-MandateBaseslF := []string{}
-MandateBaseslF = append(MandateBaseslF, 'Deranged Mandate monitoring AI')
-MandateBaseslF = append(MandateBaseslF, 'Aspiring sector ruler')
-MandateBaseslF = append(MandateBaseslF, 'Demagogue preaching local superiority over “traitorous rebel worlds”.')
-FriendTagMap['MandateBase'] = MandateBaseslF
-
-ManeatersslF := []string{}
-ManeatersslF = append(ManeatersslF, 'Ruthless ghoul leader')
-ManeatersslF = append(ManeatersslF, 'Chieftain of a ravenous tribe')
-ManeatersslF = append(ManeatersslF, 'Sophisticated degenerate preaching the splendid authenticity of cannibalism')
-FriendTagMap['Maneaters'] = ManeatersslF
-
-MegacorpsslF := []string{}
-MegacorpsslF = append(MegacorpsslF, 'Megalomaniacal executive')
-MegacorpsslF = append(MegacorpsslF, 'Underling looking to use the PCs as catspaws')
-MegacorpsslF = append(MegacorpsslF, 'Ruthless mercenary who wants what the PCs have')
-FriendTagMap['Megacorps'] = MegacorpsslF
-
-MercenariesslF := []string{}
-MercenariesslF = append(MercenariesslF, 'Amoral mercenary leader')
-MercenariesslF = append(MercenariesslF, 'Rich offworlder trying to buy rule of the world')
-MercenariesslF = append(MercenariesslF, 'Mercenary press gang chief forcing locals into service')
-FriendTagMap['Mercenaries'] = MercenariesslF
-
-MisandryMisogynyslF := []string{}
-MisandryMisogynyslF = append(MisandryMisogynyslF, 'Cultural fundamentalist')
-MisandryMisogynyslF = append(MisandryMisogynyslF, 'Cultural missionary to outworlders')
-MisandryMisogynyslF = append(MisandryMisogynyslF, 'Local rebel driven to pointless and meaningless violence')
-FriendTagMap['MisandryMisogyny'] = MisandryMisogynyslF
-
-NightWorldslF := []string{}
-NightWorldslF = append(NightWorldslF, 'Monstrous thing from the night')
-NightWorldslF = append(NightWorldslF, 'Offworlder finding the obscurity of the world convenient for dark purposes')
-NightWorldslF = append(NightWorldslF, 'Mad scientist experimenting with local life')
-FriendTagMap['NightWorld'] = NightWorldslF
-
-MinimalContactslF := []string{}
-MinimalContactslF = append(MinimalContactslF, 'Customs official')
-MinimalContactslF = append(MinimalContactslF, 'Xenophobic natives')
-MinimalContactslF = append(MinimalContactslF, 'Existing merchant who doesn’t like competition')
-FriendTagMap['MinimalContact'] = MinimalContactslF
-
-NomadsslF := []string{}
-NomadsslF = append(NomadsslF, 'Desperate tribal leader who needs what the PCs have')
-NomadsslF = append(NomadsslF, 'Ruthless raider chieftain')
-NomadsslF = append(NomadsslF, 'Leader seeking to weld the nomads into an army')
-FriendTagMap['Nomads'] = NomadsslF
-
-OceanicWorldslF := []string{}
-OceanicWorldslF = append(OceanicWorldslF, 'Pirate raider')
-OceanicWorldslF = append(OceanicWorldslF, 'Violent “salvager” gang')
-OceanicWorldslF = append(OceanicWorldslF, 'Tentacled sea monster')
-FriendTagMap['OceanicWorld'] = OceanicWorldslF
-
-OutofContactslF := []string{}
-OutofContactslF = append(OutofContactslF, 'Fearful local ruler')
-OutofContactslF = append(OutofContactslF, 'Zealous native cleric')
-OutofContactslF = append(OutofContactslF, 'Sinister power that has kept the world isolated')
-FriendTagMap['OutofContact'] = OutofContactslF
-
-OutpostWorldslF := []string{}
-OutpostWorldslF = append(OutpostWorldslF, 'Space-mad outpost staffer')
-OutpostWorldslF = append(OutpostWorldslF, 'Outpost commander who wants it to stay undiscovered')
-OutpostWorldslF = append(OutpostWorldslF, 'Undercover saboteur')
-FriendTagMap['OutpostWorld'] = OutpostWorldslF
-
-PerimeterAgencyslF := []string{}
-PerimeterAgencyslF = append(PerimeterAgencyslF, 'Renegade Agency Director')
-PerimeterAgencyslF = append(PerimeterAgencyslF, 'Maltech researcher')
-PerimeterAgencyslF = append(PerimeterAgencyslF, 'Paranoid intelligence chief')
-FriendTagMap['PerimeterAgency'] = PerimeterAgencyslF
-
-PilgrimageSiteslF := []string{}
-PilgrimageSiteslF = append(PilgrimageSiteslF, 'Saboteur devoted to a rival belief')
-PilgrimageSiteslF = append(PilgrimageSiteslF, 'Bitter reformer who resents the current leadership')
-PilgrimageSiteslF = append(PilgrimageSiteslF, 'Swindler conning the pilgrims')
-FriendTagMap['PilgrimageSite'] = PilgrimageSiteslF
-
-PleasureWorldslF := []string{}
-PleasureWorldslF = append(PleasureWorldslF, 'Purveyor of evil delights')
-PleasureWorldslF = append(PleasureWorldslF, 'Local seeking to control others with addictions')
-PleasureWorldslF = append(PleasureWorldslF, 'Offworlder exploiter of native resources')
-FriendTagMap['PleasureWorld'] = PleasureWorldslF
-
-PoliceStateslF := []string{}
-PoliceStateslF = append(PoliceStateslF, 'Secret police chief')
-PoliceStateslF = append(PoliceStateslF, 'Scapegoating official')
-PoliceStateslF = append(PoliceStateslF, 'Treacherous native informer')
-FriendTagMap['PoliceState'] = PoliceStateslF
-
-PostScarcityslF := []string{}
-PostScarcityslF = append(PostScarcityslF, 'Frenzied ideologue fighting over an idea')
-PostScarcityslF = append(PostScarcityslF, 'Paranoid local fearing offworlder influence')
-PostScarcityslF = append(PostScarcityslF, 'Grim reformer seeking the destruction of the “enfeebling” productive tech')
-FriendTagMap['PostScarcity'] = PostScarcityslF
-
-PreceptorArchiveslF := []string{}
-PreceptorArchiveslF = append(PreceptorArchiveslF, 'Luddite native')
-PreceptorArchiveslF = append(PreceptorArchiveslF, 'Offworld merchant who wants the natives kept ignorant')
-PreceptorArchiveslF = append(PreceptorArchiveslF, 'Religious zealot')
-PreceptorArchiveslF = append(PreceptorArchiveslF, 'Corrupted First Speaker who wants to keep a monopoly on learning')
-FriendTagMap['PreceptorArchive'] = PreceptorArchiveslF
-
-PretechCultistsslF := []string{}
-PretechCultistsslF = append(PretechCultistsslF, 'Cult leader')
-PretechCultistsslF = append(PretechCultistsslF, 'Artifact supplier')
-PretechCultistsslF = append(PretechCultistsslF, 'Pretech smuggler')
-FriendTagMap['PretechCultists'] = PretechCultistsslF
-
-PrimitiveAliensslF := []string{}
-PrimitiveAliensslF = append(PrimitiveAliensslF, 'Hostile alien chief')
-PrimitiveAliensslF = append(PrimitiveAliensslF, 'Human firebrand')
-PrimitiveAliensslF = append(PrimitiveAliensslF, 'Dangerous local predator')
-PrimitiveAliensslF = append(PrimitiveAliensslF, 'Alien religious zealot')
-FriendTagMap['PrimitiveAliens'] = PrimitiveAliensslF
-
-PrisonPlanetslF := []string{}
-PrisonPlanetslF = append(PrisonPlanetslF, 'Crazed warden AI')
-PrisonPlanetslF = append(PrisonPlanetslF, 'Brutal heir to gang leadership')
-PrisonPlanetslF = append(PrisonPlanetslF, 'Offworlder who’s somehow acquired warden powers and exploits the locals')
-FriendTagMap['PrisonPlanet'] = PrisonPlanetslF
-
-PsionicsAcademyslF := []string{}
-PsionicsAcademyslF = append(PsionicsAcademyslF, 'Corrupt psychic instructor')
-PsionicsAcademyslF = append(PsionicsAcademyslF, 'Renegade student')
-PsionicsAcademyslF = append(PsionicsAcademyslF, 'Mad psychic researcher')
-PsionicsAcademyslF = append(PsionicsAcademyslF, 'Resentful townie')
-FriendTagMap['PsionicsAcademy'] = PsionicsAcademyslF
-
-PsionicsFearslF := []string{}
-PsionicsFearslF = append(PsionicsFearslF, 'Mental purity investigator')
-PsionicsFearslF = append(PsionicsFearslF, 'Suspicious zealot')
-PsionicsFearslF = append(PsionicsFearslF, 'Witch-finder')
-FriendTagMap['PsionicsFear'] = PsionicsFearslF
-
-PsionicsWorshipslF := []string{}
-PsionicsWorshipslF = append(PsionicsWorshipslF, 'Psychic inquisitor')
-PsionicsWorshipslF = append(PsionicsWorshipslF, 'Haughty mind-noble')
-PsionicsWorshipslF = append(PsionicsWorshipslF, 'Psychic slaver')
-PsionicsWorshipslF = append(PsionicsWorshipslF, 'Feral prophet')
-FriendTagMap['PsionicsWorship'] = PsionicsWorshipslF
-
-QuarantinedWorldslF := []string{}
-QuarantinedWorldslF = append(QuarantinedWorldslF, 'Defense installation commander')
-QuarantinedWorldslF = append(QuarantinedWorldslF, 'Suspicious patrol leader')
-QuarantinedWorldslF = append(QuarantinedWorldslF, 'Crazed asteroid hermit')
-FriendTagMap['QuarantinedWorld'] = QuarantinedWorldslF
-
-RadioactiveWorldslF := []string{}
-RadioactiveWorldslF = append(RadioactiveWorldslF, 'Bitter mutant')
-RadioactiveWorldslF = append(RadioactiveWorldslF, 'Relic warlord')
-RadioactiveWorldslF = append(RadioactiveWorldslF, 'Desperate wouldbe escapee')
-FriendTagMap['RadioactiveWorld'] = RadioactiveWorldslF
-
-RefugeesslF := []string{}
-RefugeesslF = append(RefugeesslF, 'Xenophobic native leader')
-RefugeesslF = append(RefugeesslF, 'Refugee chief aspiring to seize the host nation')
-RefugeesslF = append(RefugeesslF, 'Politician seeking to use the refugees as a weapon')
-FriendTagMap['Refugees'] = RefugeesslF
-
-RegionalHegemonslF := []string{}
-RegionalHegemonslF = append(RegionalHegemonslF, 'Ambitious general')
-RegionalHegemonslF = append(RegionalHegemonslF, 'Colonial official')
-RegionalHegemonslF = append(RegionalHegemonslF, 'Contemptuous noble')
-FriendTagMap['RegionalHegemon'] = RegionalHegemonslF
-
-RestrictiveLawsslF := []string{}
-RestrictiveLawsslF = append(RestrictiveLawsslF, 'Law enforcement officer')
-RestrictiveLawsslF = append(RestrictiveLawsslF, 'Outraged native')
-RestrictiveLawsslF = append(RestrictiveLawsslF, 'Native lawyer specializing in peeling offworlders')
-RestrictiveLawsslF = append(RestrictiveLawsslF, 'Paid snitch')
-FriendTagMap['RestrictiveLaws'] = RestrictiveLawsslF
-
-RevanchistsslF := []string{}
-RevanchistsslF = append(RevanchistsslF, 'Demagogue whipping the locals on to a hopeless war')
-RevanchistsslF = append(RevanchistsslF, 'Politician seeking to use the resentment for their own ends')
-RevanchistsslF = append(RevanchistsslF, 'Local convinced the PCs are agents of the “thieving” power')
-RevanchistsslF = append(RevanchistsslF, 'Refugee from the land bitterly demanding it be reclaimed')
-FriendTagMap['Revanchists'] = RevanchistsslF
-
-RevolutionariesslF := []string{}
-RevolutionariesslF = append(RevolutionariesslF, 'Blood-drenched revolutionary leader')
-RevolutionariesslF = append(RevolutionariesslF, 'Blooddrenched secret police chief')
-RevolutionariesslF = append(RevolutionariesslF, 'Hostile foreign agent seeking further turmoil')
-FriendTagMap['Revolutionaries'] = RevolutionariesslF
-
-RigidCultureslF := []string{}
-RigidCultureslF = append(RigidCultureslF, 'Rigid reactionary')
-RigidCultureslF = append(RigidCultureslF, 'Wary ruler')
-RigidCultureslF = append(RigidCultureslF, 'Regime ideologue')
-RigidCultureslF = append(RigidCultureslF, 'Offended potentate')
-FriendTagMap['RigidCulture'] = RigidCultureslF
-
-RisingHegemonslF := []string{}
-RisingHegemonslF = append(RisingHegemonslF, 'Jingoistic supremacist')
-RisingHegemonslF = append(RisingHegemonslF, 'Official bent on glorious success')
-RisingHegemonslF = append(RisingHegemonslF, 'Foreign agent saboteur')
-FriendTagMap['RisingHegemon'] = RisingHegemonslF
-
-RitualCombatslF := []string{}
-RitualCombatslF = append(RitualCombatslF, 'Bloodthirsty local champion')
-RitualCombatslF = append(RitualCombatslF, 'Ambitious gladiator stable owner')
-RitualCombatslF = append(RitualCombatslF, 'Xenophobic master fighter')
-FriendTagMap['RitualCombat'] = RitualCombatslF
-
-RobotsslF := []string{}
-RobotsslF = append(RobotsslF, 'Hostile robot master')
-RobotsslF = append(RobotsslF, 'Robot greedy to seize offworld tech')
-RobotsslF = append(RobotsslF, 'Robot fallen in love with the PC’s ship')
-RobotsslF = append(RobotsslF, 'Oligarch whose factories build robots')
-FriendTagMap['Robots'] = RobotsslF
-
-SeagoingCitiesslF := []string{}
-SeagoingCitiesslF = append(SeagoingCitiesslF, 'Pirate city lord')
-SeagoingCitiesslF = append(SeagoingCitiesslF, 'Mer-human raider chieftain')
-SeagoingCitiesslF = append(SeagoingCitiesslF, 'Hostile landsman noble')
-SeagoingCitiesslF = append(SeagoingCitiesslF, 'Enemy city saboteur')
-FriendTagMap['SeagoingCities'] = SeagoingCitiesslF
-
-SealedMenaceslF := []string{}
-SealedMenaceslF = append(SealedMenaceslF, 'Hostile outsider bent on freeing the menace')
-SealedMenaceslF = append(SealedMenaceslF, 'Misguided fool who thinks he can use it')
-SealedMenaceslF = append(SealedMenaceslF, 'Reckless researcher who thinks he can fix it')
-FriendTagMap['SealedMenace'] = SealedMenaceslF
-
-SecretMastersslF := []string{}
-SecretMastersslF = append(SecretMastersslF, 'An agent of the cabal')
-SecretMastersslF = append(SecretMastersslF, 'Government official who wants no questions asked')
-SecretMastersslF = append(SecretMastersslF, 'Willfully blinded local')
-FriendTagMap['SecretMasters'] = SecretMastersslF
-
-SectariansslF := []string{}
-SectariansslF = append(SectariansslF, 'Paranoid believer')
-SectariansslF = append(SectariansslF, 'Native convinced the party is working for the other side')
-SectariansslF = append(SectariansslF, 'Absolutist ruler')
-FriendTagMap['Sectarians'] = SectariansslF
-
-SeismicInstabilityslF := []string{}
-SeismicInstabilityslF = append(SeismicInstabilityslF, 'Earthquake cultist')
-SeismicInstabilityslF = append(SeismicInstabilityslF, 'Hermit seismologist')
-SeismicInstabilityslF = append(SeismicInstabilityslF, 'Burrowing native life form')
-SeismicInstabilityslF = append(SeismicInstabilityslF, 'Earthquake-inducing saboteur')
-FriendTagMap['SeismicInstability'] = SeismicInstabilityslF
-
-ShackledWorldslF := []string{}
-ShackledWorldslF = append(ShackledWorldslF, 'Passionless jailer-AI')
-ShackledWorldslF = append(ShackledWorldslF, 'Paranoid military grid AI')
-ShackledWorldslF = append(ShackledWorldslF, 'Robot overlord')
-ShackledWorldslF = append(ShackledWorldslF, 'Enigmatic alien master')
-FriendTagMap['ShackledWorld'] = ShackledWorldslF
-
-SocietalDespairslF := []string{}
-SocietalDespairslF = append(SocietalDespairslF, 'Zealot who blames outsiders for the decay')
-SocietalDespairslF = append(SocietalDespairslF, 'Nihilistic warlord')
-SocietalDespairslF = append(SocietalDespairslF, 'Offworlder looking to exploit the local despair')
-FriendTagMap['SocietalDespair'] = SocietalDespairslF
-
-SoleSupplierslF := []string{}
-SoleSupplierslF = append(SoleSupplierslF, 'Resource oligarch')
-SoleSupplierslF = append(SoleSupplierslF, 'Ruthless smuggler')
-SoleSupplierslF = append(SoleSupplierslF, 'Resource- controlling warlord')
-SoleSupplierslF = append(SoleSupplierslF, 'Foreign agent seeking to subvert local government')
-FriendTagMap['SoleSupplier'] = SoleSupplierslF
-
-TabooTreasureslF := []string{}
-TabooTreasureslF = append(TabooTreasureslF, 'Maker of a vile commodity')
-TabooTreasureslF = append(TabooTreasureslF, 'Smuggler for a powerful offworlder')
-TabooTreasureslF = append(TabooTreasureslF, 'Depraved offworlder here for “fun”')
-TabooTreasureslF = append(TabooTreasureslF, 'Local warlord who controls the treasure')
-FriendTagMap['TabooTreasure'] = TabooTreasureslF
-
-TerraformFailureslF := []string{}
-TerraformFailureslF = append(TerraformFailureslF, 'Brutal ruler who cares only for their people')
-TerraformFailureslF = append(TerraformFailureslF, 'Offworlder trying to loot the damaged engines')
-TerraformFailureslF = append(TerraformFailureslF, 'Warlord trying to seize limited habitable land')
-FriendTagMap['TerraformFailure'] = TerraformFailureslF
-
-TheocracyslF := []string{}
-TheocracyslF = append(TheocracyslF, 'Decadent priest-ruler')
-TheocracyslF = append(TheocracyslF, 'Zealous inquisitor')
-TheocracyslF = append(TheocracyslF, 'Relentless proselytizer')
-TheocracyslF = append(TheocracyslF, 'True Believer')
-FriendTagMap['Theocracy'] = TheocracyslF
-
-TombWorldslF := []string{}
-TombWorldslF = append(TombWorldslF, 'Demented survivor tribe chieftain')
-TombWorldslF = append(TombWorldslF, 'Avaricious scavenger')
-TombWorldslF = append(TombWorldslF, 'Automated defense system')
-TombWorldslF = append(TombWorldslF, 'Native predator')
-FriendTagMap['TombWorld'] = TombWorldslF
-
-TradeHubslF := []string{}
-TradeHubslF = append(TradeHubslF, 'Cheating merchant')
-TradeHubslF = append(TradeHubslF, 'Thieving dockworker')
-TradeHubslF = append(TradeHubslF, 'Commercial spy')
-TradeHubslF = append(TradeHubslF, 'Corrupt customs official')
-FriendTagMap['TradeHub'] = TradeHubslF
-
-TyrannyslF := []string{}
-TyrannyslF = append(TyrannyslF, 'Debauched autocrat')
-TyrannyslF = append(TyrannyslF, 'Sneering bully-boy')
-TyrannyslF = append(TyrannyslF, 'Soulless government official')
-TyrannyslF = append(TyrannyslF, 'Occupying army officer')
-FriendTagMap['Tyranny'] = TyrannyslF
-
-UnbrakedAIslF := []string{}
-UnbrakedAIslF = append(UnbrakedAIslF, 'AI Cultist')
-UnbrakedAIslF = append(UnbrakedAIslF, 'Maltech researcher')
-UnbrakedAIslF = append(UnbrakedAIslF, 'Government official dependent on the AI')
-FriendTagMap['UnbrakedAI'] = UnbrakedAIslF
-
-UrbanizedSurfaceslF := []string{}
-UrbanizedSurfaceslF = append(UrbanizedSurfaceslF, 'Maintenance AI that hates outsiders')
-UrbanizedSurfaceslF = append(UrbanizedSurfaceslF, 'Tyrant of a habitation block')
-UrbanizedSurfaceslF = append(UrbanizedSurfaceslF, 'Deep-dwelling prophet who considers “the sky” a blasphemy to be quelled')
-FriendTagMap['UrbanizedSurface'] = UrbanizedSurfaceslF
-
-UtopiaslF := []string{}
-UtopiaslF = append(UtopiaslF, 'Compassionate neurotherapist')
-UtopiaslF = append(UtopiaslF, 'Proselytizing native missionary to outsiders')
-UtopiaslF = append(UtopiaslF, 'Brutal tyrant who rules through inexorable happiness')
-FriendTagMap['Utopia'] = UtopiaslF
-
-WarlordsslF := []string{}
-WarlordsslF = append(WarlordsslF, 'Warlord')
-WarlordsslF = append(WarlordsslF, 'Avaricious lieutenant')
-WarlordsslF = append(WarlordsslF, 'Expensive assassin')
-WarlordsslF = append(WarlordsslF, 'Aspiring minion')
-FriendTagMap['Warlords'] = WarlordsslF
-
-XenophilesslF := []string{}
-XenophilesslF = append(XenophilesslF, 'Offworld xenophobe')
-XenophilesslF = append(XenophilesslF, 'Suspicious alien leader')
-XenophilesslF = append(XenophilesslF, 'Xenocultural imperialist')
-FriendTagMap['Xenophiles'] = XenophilesslF
-
-XenophobesslF := []string{}
-XenophobesslF = append(XenophobesslF, 'Revulsed local ruler')
-XenophobesslF = append(XenophobesslF, 'Native convinced some wrong was done to him')
-XenophobesslF = append(XenophobesslF, 'Cynical demagogue')
-FriendTagMap['Xenophobes'] = XenophobesslF
-
-ZombiesslF := []string{}
-ZombiesslF = append(ZombiesslF, 'Soulless maltech biotechnology cult')
-ZombiesslF = append(ZombiesslF, 'Sinister governmental agent')
-ZombiesslF = append(ZombiesslF, 'Crazed zombie cultist')
-FriendTagMap['Zombies'] = ZombiesslF
-return &FriendTagMap
+PlaceTagMap := make(map[string][]string)
+AbandonedColonyslP := []string{}
+AbandonedColonyslP = append(AbandonedColonyslP, 'Decaying habitation block')
+AbandonedColonyslP = append(AbandonedColonyslP, 'Vine-covered town square')
+AbandonedColonyslP = append(AbandonedColonyslP, 'Structure buried by an ancient landslide')
+PlaceTagMap['AbandonedColony'] = AbandonedColonyslP
+
+AlienRuinsslP := []string{}
+AlienRuinsslP = append(AlienRuinsslP, 'Undersea ruin')
+AlienRuinsslP = append(AlienRuinsslP, 'Orbital ruin')
+AlienRuinsslP = append(AlienRuinsslP, 'Perfectly preserved alien building')
+AlienRuinsslP = append(AlienRuinsslP, 'Alien mausoleum')
+PlaceTagMap['AlienRuins'] = AlienRuinsslP
+
+AlteredHumanityslP := []string{}
+AlteredHumanityslP = append(AlteredHumanityslP, 'Abandoned eugenics laboratory')
+AlteredHumanityslP = append(AlteredHumanityslP, 'An environment requiring the mutation for survival')
+AlteredHumanityslP = append(AlteredHumanityslP, 'A sacred site where the first local was transformed')
+PlaceTagMap['AlteredHumanity'] = AlteredHumanityslP
+
+AnarchistsslP := []string{}
+AnarchistsslP = append(AnarchistsslP, 'Community of similar-sized homes')
+AnarchistsslP = append(AnarchistsslP, 'Isolated clan homestead')
+AnarchistsslP = append(AnarchistsslP, 'Automated mining site')
+PlaceTagMap['Anarchists'] = AnarchistsslP
+
+AnthropomorphsslP := []string{}
+AnthropomorphsslP = append(AnthropomorphsslP, 'Shrine to a feral deity')
+AnthropomorphsslP = append(AnthropomorphsslP, 'Nature preserve suited to an animal type')
+AnthropomorphsslP = append(AnthropomorphsslP, 'Living site built to take advantage of animal traits')
+PlaceTagMap['Anthropomorphs'] = AnthropomorphsslP
+
+Area51slP := []string{}
+Area51slP = append(Area51slP, 'Desert airfield')
+Area51slP = append(Area51slP, 'Deep subterranean bunker')
+Area51slP = append(Area51slP, 'Hidden mountain valley')
+PlaceTagMap['Area51'] = Area51slP
+
+BadlandsWorldslP := []string{}
+BadlandsWorldslP = append(BadlandsWorldslP, 'Untouched oasis')
+BadlandsWorldslP = append(BadlandsWorldslP, 'Ruined city')
+BadlandsWorldslP = append(BadlandsWorldslP, 'Salt flat')
+PlaceTagMap['BadlandsWorld'] = BadlandsWorldslP
+
+BattlegroundslP := []string{}
+BattlegroundslP = append(BattlegroundslP, 'Artillery-pocked wasteland')
+BattlegroundslP = append(BattlegroundslP, 'Reeking refugee camp')
+BattlegroundslP = append(BattlegroundslP, 'Burnt-out shell of a city ')
+PlaceTagMap['Battleground'] = BattlegroundslP
+
+BeastmastersslP := []string{}
+BeastmastersslP = append(BeastmastersslP, 'Park designed as a comfortable home for beasts')
+BeastmastersslP = append(BeastmastersslP, 'Public plaza designed to accommodate animal companions')
+BeastmastersslP = append(BeastmastersslP, 'Factory full of animal workers')
+PlaceTagMap['Beastmasters'] = BeastmastersslP
+
+BubbleCitiesslP := []string{}
+BubbleCitiesslP = append(BubbleCitiesslP, 'City power core')
+BubbleCitiesslP = append(BubbleCitiesslP, 'Surface of the bubble')
+BubbleCitiesslP = append(BubbleCitiesslP, 'Hydroponics complex')
+BubbleCitiesslP = append(BubbleCitiesslP, 'Warren-like hab block')
+PlaceTagMap['BubbleCities'] = BubbleCitiesslP
+
+CheapLifeslP := []string{}
+CheapLifeslP = append(CheapLifeslP, 'Thronging execution ground')
+CheapLifeslP = append(CheapLifeslP, 'extremely cursory cemetery')
+CheapLifeslP = append(CheapLifeslP, 'Factory full of lethal dangers that could be corrected easily')
+PlaceTagMap['CheapLife'] = CheapLifeslP
+
+CivilWarslP := []string{}
+CivilWarslP = append(CivilWarslP, 'Battle front')
+CivilWarslP = append(CivilWarslP, 'Bombed-out town')
+CivilWarslP = append(CivilWarslP, 'Rear-area red light zone')
+CivilWarslP = append(CivilWarslP, 'Propaganda broadcast tower ')
+PlaceTagMap['CivilWar'] = CivilWarslP
+
+ColdWarslP := []string{}
+ColdWarslP = append(ColdWarslP, 'Seedy bar in a neutral area')
+ColdWarslP = append(ColdWarslP, 'Political rally')
+ColdWarslP = append(ColdWarslP, 'Isolated area where fighting is underway')
+PlaceTagMap['ColdWar'] = ColdWarslP
+
+ColonizedPopulationslP := []string{}
+ColonizedPopulationslP = append(ColonizedPopulationslP, 'Deep wilderness resistance camp')
+ColonizedPopulationslP = append(ColonizedPopulationslP, 'City district off-limits to natives')
+ColonizedPopulationslP = append(ColonizedPopulationslP, 'Colonial labor site')
+PlaceTagMap['ColonizedPopulation'] = ColonizedPopulationslP
+
+CulturalPowerslP := []string{}
+CulturalPowerslP = append(CulturalPowerslP, 'Recording or performance studio')
+CulturalPowerslP = append(CulturalPowerslP, 'Public festival choked with tourists')
+CulturalPowerslP = append(CulturalPowerslP, 'Monument to a dead master of the art')
+PlaceTagMap['CulturalPower'] = CulturalPowerslP
+
+CybercommunistsslP := []string{}
+CybercommunistsslP = append(CybercommunistsslP, 'Humming factory')
+CybercommunistsslP = append(CybercommunistsslP, 'Apartment block of perfectly equal flats')
+CybercommunistsslP = append(CybercommunistsslP, 'Mass demonstration of unity')
+PlaceTagMap['Cybercommunists'] = CybercommunistsslP
+
+CyborgsslP := []string{}
+CyborgsslP = append(CyborgsslP, 'Grimy slum chop-shop')
+CyborgsslP = append(CyborgsslP, 'Bloody lair of implant rippers')
+CyborgsslP = append(CyborgsslP, 'Stark plaza where everyone is seeing things through their augmented-reality cyber')
+PlaceTagMap['Cyborgs'] = CyborgsslP
+
+CyclicalDoomslP := []string{}
+CyclicalDoomslP = append(CyclicalDoomslP, 'Lethally-defended vault of forgotten secrets')
+CyclicalDoomslP = append(CyclicalDoomslP, 'Starport crowded with panicked refugees')
+CyclicalDoomslP = append(CyclicalDoomslP, 'Town existing in the shadow of some monstrous monument to a former upheaval')
+PlaceTagMap['CyclicalDoom'] = CyclicalDoomslP
+
+DesertWorldslP := []string{}
+DesertWorldslP = append(DesertWorldslP, 'Oasis')
+DesertWorldslP = append(DesertWorldslP, '“The Empty Quarter” of the desert')
+DesertWorldslP = append(DesertWorldslP, 'Hidden underground cistern')
+PlaceTagMap['DesertWorld'] = DesertWorldslP
+
+DoomedWorldslP := []string{}
+DoomedWorldslP = append(DoomedWorldslP, 'Open square beneath a sky angry with a foretaste of th impending ruin')
+DoomedWorldslP = append(DoomedWorldslP, 'Orgiastic celebration involving sex and murder in equal parts')
+DoomedWorldslP = append(DoomedWorldslP, 'Holy site full of desperate petitioners to the divine')
+PlaceTagMap['DoomedWorld'] = DoomedWorldslP
+
+DyingRaceslP := []string{}
+DyingRaceslP = append(DyingRaceslP, 'City streets devoid of pedestrians')
+DyingRaceslP = append(DyingRaceslP, 'Mighty edifice now crumbling with disrepair')
+DyingRaceslP = append(DyingRaceslP, 'Small dwelling full of people in a town now otherwise empty')
+PlaceTagMap['DyingRace'] = DyingRaceslP
+
+EugenicCultslP := []string{}
+EugenicCultslP = append(EugenicCultslP, 'Eugenic breeding pit')
+EugenicCultslP = append(EugenicCultslP, 'Isolated settlement of altered humans')
+EugenicCultslP = append(EugenicCultslP, 'Public place infiltrated by cult sympathizers')
+PlaceTagMap['EugenicCult'] = EugenicCultslP
+
+ExchangeConsulateslP := []string{}
+ExchangeConsulateslP = append(ExchangeConsulateslP, 'Consulate meeting chamber')
+ExchangeConsulateslP = append(ExchangeConsulateslP, 'Meeting site between fractious disputants')
+ExchangeConsulateslP = append(ExchangeConsulateslP, 'Exchange vault')
+PlaceTagMap['ExchangeConsulate'] = ExchangeConsulateslP
+
+FallenHegemonslP := []string{}
+FallenHegemonslP = append(FallenHegemonslP, 'Palace far too grand for its current occupant')
+FallenHegemonslP = append(FallenHegemonslP, 'Oversized spaceport now in disrepair')
+FallenHegemonslP = append(FallenHegemonslP, 'Boulevard lined with monuments to past glories')
+PlaceTagMap['FallenHegemon'] = FallenHegemonslP
+
+FeralWorldslP := []string{}
+FeralWorldslP = append(FeralWorldslP, 'Atrocity amphitheater')
+FeralWorldslP = append(FeralWorldslP, 'Traditional torture parlor')
+FeralWorldslP = append(FeralWorldslP, 'Ordinary location twisted into something terrible.')
+PlaceTagMap['FeralWorld'] = FeralWorldslP
+
+FlyingCitiesslP := []string{}
+FlyingCitiesslP = append(FlyingCitiesslP, 'Underside of the city')
+FlyingCitiesslP = append(FlyingCitiesslP, 'The one calm place on the planet’s surface')
+FlyingCitiesslP = append(FlyingCitiesslP, 'Catwalks stretching over unimaginable gulfs below.')
+PlaceTagMap['FlyingCities'] = FlyingCitiesslP
+
+ForbiddenTechslP := []string{}
+ForbiddenTechslP = append(ForbiddenTechslP, 'Horrific laboratory')
+ForbiddenTechslP = append(ForbiddenTechslP, 'Hellscape sculpted by the maltech’s use')
+ForbiddenTechslP = append(ForbiddenTechslP, 'Government building meeting room')
+PlaceTagMap['ForbiddenTech'] = ForbiddenTechslP
+
+FormerWarriorsslP := []string{}
+FormerWarriorsslP = append(FormerWarriorsslP, 'Cemetery of dead heroes')
+FormerWarriorsslP = append(FormerWarriorsslP, 'Memorial hall now left to dust and silence')
+FormerWarriorsslP = append(FormerWarriorsslP, 'Monument plaza dedicated to the new culture')
+PlaceTagMap['FormerWarriors'] = FormerWarriorsslP
+
+FreakGeologyslP := []string{}
+FreakGeologyslP = append(FreakGeologyslP, 'Atop a bizarre geological formation')
+FreakGeologyslP = append(FreakGeologyslP, 'Tourist resort catering to offworlders')
+PlaceTagMap['FreakGeology'] = FreakGeologyslP
+
+FreakWeatherslP := []string{}
+FreakWeatherslP = append(FreakWeatherslP, 'Eye of the storm')
+FreakWeatherslP = append(FreakWeatherslP, 'The one sunlit place')
+FreakWeatherslP = append(FreakWeatherslP, 'Terraforming control room')
+PlaceTagMap['FreakWeather'] = FreakWeatherslP
+
+FriendlyFoeslP := []string{}
+FriendlyFoeslP = append(FriendlyFoeslP, 'Repurposed maltech laboratory')
+FriendlyFoeslP = append(FriendlyFoeslP, 'Alien conclave building')
+FriendlyFoeslP = append(FriendlyFoeslP, 'Widely-feared starship interior')
+PlaceTagMap['FriendlyFoe'] = FriendlyFoeslP
+
+GoldRushslP := []string{}
+GoldRushslP = append(GoldRushslP, 'Secret mine')
+GoldRushslP = append(GoldRushslP, 'Native alien village')
+GoldRushslP = append(GoldRushslP, 'Processing plant')
+GoldRushslP = append(GoldRushslP, 'Boom town')
+PlaceTagMap['GoldRush'] = GoldRushslP
+
+GreatWorkslP := []string{}
+GreatWorkslP = append(GreatWorkslP, 'A bustling work site')
+GreatWorkslP = append(GreatWorkslP, 'Ancestral worker housing')
+GreatWorkslP = append(GreatWorkslP, 'Local community made only semi-livable by the demands of the work')
+PlaceTagMap['GreatWork'] = GreatWorkslP
+
+HatredslP := []string{}
+HatredslP = append(HatredslP, 'War crimes museum')
+HatredslP = append(HatredslP, 'Atrocity site')
+HatredslP = append(HatredslP, 'Captured and decommissioned spaceship kept as a trophy')
+PlaceTagMap['Hatred'] = HatredslP
+
+HeavyIndustryslP := []string{}
+HeavyIndustryslP = append(HeavyIndustryslP, 'Factory floor')
+HeavyIndustryslP = append(HeavyIndustryslP, 'Union meeting hall')
+HeavyIndustryslP = append(HeavyIndustryslP, 'Toxic waste dump')
+HeavyIndustryslP = append(HeavyIndustryslP, 'R&D complex')
+PlaceTagMap['HeavyIndustry'] = HeavyIndustryslP
+
+HeavyMiningslP := []string{}
+HeavyMiningslP = append(HeavyMiningslP, 'Vertical mine face')
+HeavyMiningslP = append(HeavyMiningslP, 'Tailing piles')
+HeavyMiningslP = append(HeavyMiningslP, 'Roaring smelting complex')
+PlaceTagMap['HeavyMining'] = HeavyMiningslP
+
+HivemindslP := []string{}
+HivemindslP = append(HivemindslP, 'Barely tolerable living cells for individuals')
+HivemindslP = append(HivemindslP, 'Workside where individuals casually die in their labors')
+HivemindslP = append(HivemindslP, 'Community with absolutely no social or group-gathering facilities')
+PlaceTagMap['Hivemind'] = HivemindslP
+
+HolyWarslP := []string{}
+HolyWarslP = append(HolyWarslP, 'Massive holy structure')
+HolyWarslP = append(HolyWarslP, 'Razed community of infidels')
+HolyWarslP = append(HolyWarslP, 'Vast shrine to the martyrs dead in war')
+PlaceTagMap['HolyWar'] = HolyWarslP
+
+HostileBiosphereslP := []string{}
+HostileBiosphereslP = append(HostileBiosphereslP, 'Deceptively peaceful glade')
+HostileBiosphereslP = append(HostileBiosphereslP, 'Steaming polychrome jungle')
+HostileBiosphereslP = append(HostileBiosphereslP, 'Nightfall when surrounded by Things')
+PlaceTagMap['HostileBiosphere'] = HostileBiosphereslP
+
+HostileSpaceslP := []string{}
+HostileSpaceslP = append(HostileSpaceslP, 'City watching an approaching asteroid')
+HostileSpaceslP = append(HostileSpaceslP, 'Village burnt in an alien raid')
+HostileSpaceslP = append(HostileSpaceslP, 'Massive ancient crater')
+PlaceTagMap['HostileSpace'] = HostileSpaceslP
+
+ImmortalsslP := []string{}
+ImmortalsslP = append(ImmortalsslP, 'Community with no visible children')
+ImmortalsslP = append(ImmortalsslP, 'Unchanging structure of obvious ancient age')
+ImmortalsslP = append(ImmortalsslP, 'Cultural performance relying on a century of in-jokes')
+PlaceTagMap['Immortals'] = ImmortalsslP
+
+LocalSpecialtyslP := []string{}
+LocalSpecialtyslP = append(LocalSpecialtyslP, 'Secret manufactory')
+LocalSpecialtyslP = append(LocalSpecialtyslP, 'Hidden cache')
+LocalSpecialtyslP = append(LocalSpecialtyslP, 'Artistic competition for best artisan')
+PlaceTagMap['LocalSpecialty'] = LocalSpecialtyslP
+
+LocalTechslP := []string{}
+LocalTechslP = append(LocalTechslP, 'Alien factory')
+LocalTechslP = append(LocalTechslP, 'Lethal R&D center')
+LocalTechslP = append(LocalTechslP, 'Tech brokerage vault')
+PlaceTagMap['LocalTech'] = LocalTechslP
+
+MajorSpaceyardslP := []string{}
+MajorSpaceyardslP = append(MajorSpaceyardslP, 'Hidden shipyard bay')
+MajorSpaceyardslP = append(MajorSpaceyardslP, 'Surface of a partially-completed ship')
+MajorSpaceyardslP = append(MajorSpaceyardslP, 'Ship scrap graveyard')
+PlaceTagMap['MajorSpaceyard'] = MajorSpaceyardslP
+
+MandarinateslP := []string{}
+MandarinateslP = append(MandarinateslP, 'Massive structure full of test-taking cubicles')
+MandarinateslP = append(MandarinateslP, 'School filled with desperate students')
+MandarinateslP = append(MandarinateslP, 'Ornate government building decorated with scholarly quotes and academic images')
+PlaceTagMap['Mandarinate'] = MandarinateslP
+
+MandateBaseslP := []string{}
+MandateBaseslP = append(MandateBaseslP, 'Faded Mandate offices still in use')
+MandateBaseslP = append(MandateBaseslP, 'Vault containing ancient pretech')
+MandateBaseslP = append(MandateBaseslP, 'Carefully-maintained monument to Mandate glory')
+PlaceTagMap['MandateBase'] = MandateBaseslP
+
+ManeatersslP := []string{}
+ManeatersslP = append(ManeatersslP, 'Hideous human abattoir')
+ManeatersslP = append(ManeatersslP, 'Extremely civilized restaurant')
+ManeatersslP = append(ManeatersslP, 'Funeral-home-cum-kitchen')
+PlaceTagMap['Maneaters'] = ManeatersslP
+
+MegacorpsslP := []string{}
+MegacorpsslP = append(MegacorpsslP, 'A place plastered in megacorp ads')
+MegacorpsslP = append(MegacorpsslP, 'A public plaza discreetly branded')
+MegacorpsslP = append(MegacorpsslP, 'Private corp military base')
+PlaceTagMap['Megacorps'] = MegacorpsslP
+
+MercenariesslP := []string{}
+MercenariesslP = append(MercenariesslP, 'Shabby camp of undisciplined mercs')
+MercenariesslP = append(MercenariesslP, 'Burnt-out village occupied by mercenaries')
+MercenariesslP = append(MercenariesslP, 'Luxurious and exceedingly well-defended merc leader villa')
+PlaceTagMap['Mercenaries'] = MercenariesslP
+
+MisandryMisogynyslP := []string{}
+MisandryMisogynyslP = append(MisandryMisogynyslP, 'Shrine to the virtues of the favored gender')
+MisandryMisogynyslP = append(MisandryMisogynyslP, 'Security center for controlling the oppressed')
+MisandryMisogynyslP = append(MisandryMisogynyslP, 'Gengineering lab')
+PlaceTagMap['MisandryMisogyny'] = MisandryMisogynyslP
+
+NightWorldslP := []string{}
+NightWorldslP = append(NightWorldslP, 'Formlessly pitch-black wilderness')
+NightWorldslP = append(NightWorldslP, 'Sea without a sun')
+NightWorldslP = append(NightWorldslP, 'Location defined by sounds or smells')
+PlaceTagMap['NightWorld'] = NightWorldslP
+
+MinimalContactslP := []string{}
+MinimalContactslP = append(MinimalContactslP, 'Treaty port bar')
+MinimalContactslP = append(MinimalContactslP, 'Black market zone')
+MinimalContactslP = append(MinimalContactslP, 'Secret smuggler landing site')
+PlaceTagMap['MinimalContact'] = MinimalContactslP
+
+NomadsslP := []string{}
+NomadsslP = append(NomadsslP, 'Temporary nomad camp')
+NomadsslP = append(NomadsslP, 'Oasis or resource reserve')
+NomadsslP = append(NomadsslP, 'Trackless waste that kills the unprepared')
+PlaceTagMap['Nomads'] = NomadsslP
+
+OceanicWorldslP := []string{}
+OceanicWorldslP = append(OceanicWorldslP, 'The only island on the planet')
+OceanicWorldslP = append(OceanicWorldslP, 'Floating spaceport')
+OceanicWorldslP = append(OceanicWorldslP, 'Deck of a storm-swept ship')
+OceanicWorldslP = append(OceanicWorldslP, 'Undersea bubble city')
+PlaceTagMap['OceanicWorld'] = OceanicWorldslP
+
+OutofContactslP := []string{}
+OutofContactslP = append(OutofContactslP, 'Long-lost colonial landing site')
+OutofContactslP = append(OutofContactslP, 'Court of the local ruler')
+OutofContactslP = append(OutofContactslP, 'Ancient defense battery controls')
+PlaceTagMap['OutofContact'] = OutofContactslP
+
+OutpostWorldslP := []string{}
+OutpostWorldslP = append(OutpostWorldslP, 'Grimy recreation room')
+OutpostWorldslP = append(OutpostWorldslP, 'Refueling station')
+OutpostWorldslP = append(OutpostWorldslP, 'The only building on the planet')
+OutpostWorldslP = append(OutpostWorldslP, 'A “starport” of swept bare rock.')
+PlaceTagMap['OutpostWorld'] = OutpostWorldslP
+
+PerimeterAgencyslP := []string{}
+PerimeterAgencyslP = append(PerimeterAgencyslP, 'Interrogation room')
+PerimeterAgencyslP = append(PerimeterAgencyslP, 'Smoky bar')
+PerimeterAgencyslP = append(PerimeterAgencyslP, 'Maltech laboratory')
+PerimeterAgencyslP = append(PerimeterAgencyslP, 'Secret Agency base')
+PlaceTagMap['PerimeterAgency'] = PerimeterAgencyslP
+
+PilgrimageSiteslP := []string{}
+PilgrimageSiteslP = append(PilgrimageSiteslP, 'Incense-scented sanctum')
+PilgrimageSiteslP = append(PilgrimageSiteslP, 'Teeming crowd of pilgrims')
+PilgrimageSiteslP = append(PilgrimageSiteslP, 'Imposing holy structure')
+PlaceTagMap['PilgrimageSite'] = PilgrimageSiteslP
+
+PleasureWorldslP := []string{}
+PleasureWorldslP = append(PleasureWorldslP, 'Breathtaking natural feature')
+PleasureWorldslP = append(PleasureWorldslP, 'Artful but decadent salon')
+PleasureWorldslP = append(PleasureWorldslP, 'Grimy den of desperate vice')
+PlaceTagMap['PleasureWorld'] = PleasureWorldslP
+
+PoliceStateslP := []string{}
+PoliceStateslP = append(PoliceStateslP, 'Military parade')
+PoliceStateslP = append(PoliceStateslP, 'Gulag')
+PoliceStateslP = append(PoliceStateslP, 'Gray concrete housing block')
+PoliceStateslP = append(PoliceStateslP, 'Surveillance center')
+PlaceTagMap['PoliceState'] = PoliceStateslP
+
+PostScarcityslP := []string{}
+PostScarcityslP = append(PostScarcityslP, 'Tiny but richly-appointed private quarters')
+PostScarcityslP = append(PostScarcityslP, 'Market for services')
+PostScarcityslP = append(PostScarcityslP, 'Hushed non-duped art salon')
+PlaceTagMap['PostScarcity'] = PostScarcityslP
+
+PreceptorArchiveslP := []string{}
+PreceptorArchiveslP = append(PreceptorArchiveslP, 'Archive lecture hall')
+PreceptorArchiveslP = append(PreceptorArchiveslP, 'Experimental laboratory')
+PreceptorArchiveslP = append(PreceptorArchiveslP, 'Student-local riot')
+PlaceTagMap['PreceptorArchive'] = PreceptorArchiveslP
+
+PretechCultistsslP := []string{}
+PretechCultistsslP = append(PretechCultistsslP, 'Shrine to nonfunctional pretech')
+PretechCultistsslP = append(PretechCultistsslP, 'Smuggler’s den')
+PretechCultistsslP = append(PretechCultistsslP, 'Public procession showing a prized artifact')
+PlaceTagMap['PretechCultists'] = PretechCultistsslP
+
+PrimitiveAliensslP := []string{}
+PrimitiveAliensslP = append(PrimitiveAliensslP, 'Alien village')
+PrimitiveAliensslP = append(PrimitiveAliensslP, 'Fortified human settlement')
+PrimitiveAliensslP = append(PrimitiveAliensslP, 'Massacre site')
+PlaceTagMap['PrimitiveAliens'] = PrimitiveAliensslP
+
+PrisonPlanetslP := []string{}
+PrisonPlanetslP = append(PrisonPlanetslP, 'Mandate-era prison block converted to government building')
+PrisonPlanetslP = append(PrisonPlanetslP, 'Industrial facility manned by mandatory numbers of prisoners')
+PrisonPlanetslP = append(PrisonPlanetslP, 'Makeshift shop where contraband is assembled')
+PlaceTagMap['PrisonPlanet'] = PrisonPlanetslP
+
+PsionicsAcademyslP := []string{}
+PsionicsAcademyslP = append(PsionicsAcademyslP, 'Training grounds')
+PsionicsAcademyslP = append(PsionicsAcademyslP, 'Experimental laboratory')
+PsionicsAcademyslP = append(PsionicsAcademyslP, 'School library')
+PsionicsAcademyslP = append(PsionicsAcademyslP, 'Campus hangout')
+PlaceTagMap['PsionicsAcademy'] = PsionicsAcademyslP
+
+PsionicsFearslP := []string{}
+PsionicsFearslP = append(PsionicsFearslP, 'Inquisitorial chamber')
+PsionicsFearslP = append(PsionicsFearslP, 'Lynching site')
+PsionicsFearslP = append(PsionicsFearslP, 'Museum of psychic atrocities')
+PlaceTagMap['PsionicsFear'] = PsionicsFearslP
+
+PsionicsWorshipslP := []string{}
+PsionicsWorshipslP = append(PsionicsWorshipslP, 'Psitech-imbued council chamber')
+PsionicsWorshipslP = append(PsionicsWorshipslP, 'Temple to the mind')
+PsionicsWorshipslP = append(PsionicsWorshipslP, 'Sanitarium-prison for feral psychics')
+PlaceTagMap['PsionicsWorship'] = PsionicsWorshipslP
+
+QuarantinedWorldslP := []string{}
+QuarantinedWorldslP = append(QuarantinedWorldslP, 'Bridge of a blockading ship')
+QuarantinedWorldslP = append(QuarantinedWorldslP, 'Defense installation control room')
+QuarantinedWorldslP = append(QuarantinedWorldslP, 'Refugee camp')
+PlaceTagMap['QuarantinedWorld'] = QuarantinedWorldslP
+
+RadioactiveWorldslP := []string{}
+RadioactiveWorldslP = append(RadioactiveWorldslP, 'Mutant-infested ruins')
+RadioactiveWorldslP = append(RadioactiveWorldslP, 'Scorched glass plain')
+RadioactiveWorldslP = append(RadioactiveWorldslP, 'Wilderness of bizarre native life')
+RadioactiveWorldslP = append(RadioactiveWorldslP, 'Glowing barrens')
+PlaceTagMap['RadioactiveWorld'] = RadioactiveWorldslP
+
+RefugeesslP := []string{}
+RefugeesslP = append(RefugeesslP, 'Hopeless refugee camp')
+RefugeesslP = append(RefugeesslP, 'City swarming with confused strangers')
+RefugeesslP = append(RefugeesslP, 'Festival full of angry locals')
+PlaceTagMap['Refugees'] = RefugeesslP
+
+RegionalHegemonslP := []string{}
+RegionalHegemonslP = append(RegionalHegemonslP, 'Palace or seat of government')
+RegionalHegemonslP = append(RegionalHegemonslP, 'Salon teeming with spies')
+RegionalHegemonslP = append(RegionalHegemonslP, 'Protest rally')
+RegionalHegemonslP = append(RegionalHegemonslP, 'Military base')
+PlaceTagMap['RegionalHegemon'] = RegionalHegemonslP
+
+RestrictiveLawsslP := []string{}
+RestrictiveLawsslP = append(RestrictiveLawsslP, 'Courtroom')
+RestrictiveLawsslP = append(RestrictiveLawsslP, 'Mob scene of outraged locals')
+RestrictiveLawsslP = append(RestrictiveLawsslP, 'Legislative chamber')
+RestrictiveLawsslP = append(RestrictiveLawsslP, 'Police station')
+PlaceTagMap['RestrictiveLaws'] = RestrictiveLawsslP
+
+RevanchistsslP := []string{}
+RevanchistsslP = append(RevanchistsslP, 'Memorial monument to the loss')
+RevanchistsslP = append(RevanchistsslP, 'Cemetery of those who died in the conquest')
+RevanchistsslP = append(RevanchistsslP, 'Public ceremony commemorating the disaster')
+PlaceTagMap['Revanchists'] = RevanchistsslP
+
+RevolutionariesslP := []string{}
+RevolutionariesslP = append(RevolutionariesslP, 'Festival that explodes into violence')
+RevolutionariesslP = append(RevolutionariesslP, 'Heavily-fortified police station')
+RevolutionariesslP = append(RevolutionariesslP, 'Revolutionary base hidden in the wilderness')
+PlaceTagMap['Revolutionaries'] = RevolutionariesslP
+
+RigidCultureslP := []string{}
+RigidCultureslP = append(RigidCultureslP, 'Time-worn palace')
+RigidCultureslP = append(RigidCultureslP, 'Low-caste slums')
+RigidCultureslP = append(RigidCultureslP, 'Bandit den')
+RigidCultureslP = append(RigidCultureslP, 'Reformist temple')
+PlaceTagMap['RigidCulture'] = RigidCultureslP
+
+RisingHegemonslP := []string{}
+RisingHegemonslP = append(RisingHegemonslP, 'Rustic town being hurled into prosperity')
+RisingHegemonslP = append(RisingHegemonslP, 'Government building being expanded')
+RisingHegemonslP = append(RisingHegemonslP, 'Starport struggling under the flow of new ships')
+PlaceTagMap['RisingHegemon'] = RisingHegemonslP
+
+RitualCombatslP := []string{}
+RitualCombatslP = append(RitualCombatslP, 'Area full of cheering spectators')
+RitualCombatslP = append(RitualCombatslP, 'Dusty street outside a saloon')
+RitualCombatslP = append(RitualCombatslP, 'Memorial for fallen warriors')
+PlaceTagMap['RitualCombat'] = RitualCombatslP
+
+RobotsslP := []string{}
+RobotsslP = append(RobotsslP, 'Humming robotic factory')
+RobotsslP = append(RobotsslP, 'Stark robotic “barracks”')
+RobotsslP = append(RobotsslP, 'House crowded with robot servants and only one human owner')
+PlaceTagMap['Robots'] = RobotsslP
+
+SeagoingCitiesslP := []string{}
+SeagoingCitiesslP = append(SeagoingCitiesslP, 'Bridge of the city')
+SeagoingCitiesslP = append(SeagoingCitiesslP, 'Storm-tossed sea')
+SeagoingCitiesslP = append(SeagoingCitiesslP, 'A bridge fashioned of many small boats.')
+PlaceTagMap['SeagoingCities'] = SeagoingCitiesslP
+
+SealedMenaceslP := []string{}
+SealedMenaceslP = append(SealedMenaceslP, 'Guarded fortress containing the menace')
+SealedMenaceslP = append(SealedMenaceslP, 'Monitoring station')
+SealedMenaceslP = append(SealedMenaceslP, 'Scene of a prior outbreak of the menace')
+PlaceTagMap['SealedMenace'] = SealedMenaceslP
+
+SecretMastersslP := []string{}
+SecretMastersslP = append(SecretMastersslP, 'Smoke-filled room')
+SecretMastersslP = append(SecretMastersslP, 'Shadowy alleyway')
+SecretMastersslP = append(SecretMastersslP, 'Secret underground bunker')
+PlaceTagMap['SecretMasters'] = SecretMastersslP
+
+SectariansslP := []string{}
+SectariansslP = append(SectariansslP, 'Sectarian battlefield')
+SectariansslP = append(SectariansslP, 'Crusading temple')
+SectariansslP = append(SectariansslP, 'Philosopher’s salon')
+SectariansslP = append(SectariansslP, 'Bitterly divided village')
+PlaceTagMap['Sectarians'] = SectariansslP
+
+SeismicInstabilityslP := []string{}
+SeismicInstabilityslP = append(SeismicInstabilityslP, 'Volcanic caldera')
+SeismicInstabilityslP = append(SeismicInstabilityslP, 'Village during an earthquake')
+SeismicInstabilityslP = append(SeismicInstabilityslP, 'Mud slide')
+SeismicInstabilityslP = append(SeismicInstabilityslP, 'Earthquake opening superheated steam fissures')
+PlaceTagMap['SeismicInstability'] = SeismicInstabilityslP
+
+ShackledWorldslP := []string{}
+ShackledWorldslP = append(ShackledWorldslP, 'Grim high-tech control center')
+ShackledWorldslP = append(ShackledWorldslP, 'Factory full of workaround tech')
+ShackledWorldslP = append(ShackledWorldslP, 'Temple to the power or entity that imposed the shackle')
+PlaceTagMap['ShackledWorld'] = ShackledWorldslP
+
+SocietalDespairslP := []string{}
+SocietalDespairslP = append(SocietalDespairslP, 'Empty temple')
+SocietalDespairslP = append(SocietalDespairslP, 'Crowded den of obliviating vice')
+SocietalDespairslP = append(SocietalDespairslP, 'Smoky hall full of frantic speakers')
+PlaceTagMap['SocietalDespair'] = SocietalDespairslP
+
+SoleSupplierslP := []string{}
+SoleSupplierslP = append(SoleSupplierslP, 'Bustling resource extraction site')
+SoleSupplierslP = append(SoleSupplierslP, 'Opulent palace built with resource money')
+SoleSupplierslP = append(SoleSupplierslP, 'Lazy town square where everyone lives on resource payments')
+PlaceTagMap['SoleSupplier'] = SoleSupplierslP
+
+TabooTreasureslP := []string{}
+TabooTreasureslP = append(TabooTreasureslP, 'Den where the good is used')
+TabooTreasureslP = append(TabooTreasureslP, 'Market selling the good to locals and a few outsiders')
+TabooTreasureslP = append(TabooTreasureslP, 'Factory or processing area where the good is created')
+PlaceTagMap['TabooTreasure'] = TabooTreasureslP
+
+TerraformFailureslP := []string{}
+TerraformFailureslP = append(TerraformFailureslP, 'Zone of tolerable gravity or temperature')
+TerraformFailureslP = append(TerraformFailureslP, 'Native settlement built to cope with the environment')
+TerraformFailureslP = append(TerraformFailureslP, 'Massive ruined terraforming engine')
+PlaceTagMap['TerraformFailure'] = TerraformFailureslP
+
+TheocracyslP := []string{}
+TheocracyslP = append(TheocracyslP, 'Glorious temple')
+TheocracyslP = append(TheocracyslP, 'Austere monastery')
+TheocracyslP = append(TheocracyslP, 'Academy for ideological indoctrination')
+TheocracyslP = append(TheocracyslP, 'Decadent pleasure-cathedral')
+PlaceTagMap['Theocracy'] = TheocracyslP
+
+TombWorldslP := []string{}
+TombWorldslP = append(TombWorldslP, 'Crumbling hive-city')
+TombWorldslP = append(TombWorldslP, 'City square carpeted in bones')
+TombWorldslP = append(TombWorldslP, 'Ruined hydroponic facility')
+TombWorldslP = append(TombWorldslP, 'Cannibal tribe’s lair')
+TombWorldslP = append(TombWorldslP, 'Dead orbital jump gate')
+PlaceTagMap['TombWorld'] = TombWorldslP
+
+TradeHubslP := []string{}
+TradeHubslP = append(TradeHubslP, 'Raucous bazaar')
+TradeHubslP = append(TradeHubslP, 'Elegant restaurant')
+TradeHubslP = append(TradeHubslP, 'Spaceport teeming with activity')
+TradeHubslP = append(TradeHubslP, 'Foggy street lined with warehouses')
+PlaceTagMap['TradeHub'] = TradeHubslP
+
+TyrannyslP := []string{}
+TyrannyslP = append(TyrannyslP, 'Impoverished village')
+TyrannyslP = append(TyrannyslP, 'Protest rally massacre')
+TyrannyslP = append(TyrannyslP, 'Decadent palace')
+TyrannyslP = append(TyrannyslP, 'Religious hospital for the indigent')
+PlaceTagMap['Tyranny'] = TyrannyslP
+
+UnbrakedAIslP := []string{}
+UnbrakedAIslP = append(UnbrakedAIslP, 'Municipal computing banks')
+UnbrakedAIslP = append(UnbrakedAIslP, 'Cult compound')
+UnbrakedAIslP = append(UnbrakedAIslP, 'Repair center')
+UnbrakedAIslP = append(UnbrakedAIslP, 'Ancient hardcopy library')
+PlaceTagMap['UnbrakedAI'] = UnbrakedAIslP
+
+UrbanizedSurfaceslP := []string{}
+UrbanizedSurfaceslP = append(UrbanizedSurfaceslP, 'Giant hab block now devoid of inhabitants')
+UrbanizedSurfaceslP = append(UrbanizedSurfaceslP, 'Chemical-reeking underway')
+UrbanizedSurfaceslP = append(UrbanizedSurfaceslP, 'Seawater mine full of salt and massive flowing channels')
+PlaceTagMap['UrbanizedSurface'] = UrbanizedSurfaceslP
+
+UtopiaslP := []string{}
+UtopiaslP = append(UtopiaslP, 'Plaza full of altered humans')
+UtopiaslP = append(UtopiaslP, 'Social ritual site')
+UtopiaslP = append(UtopiaslP, 'Secret office where “normal” humans rule')
+PlaceTagMap['Utopia'] = UtopiaslP
+
+WarlordsslP := []string{}
+WarlordsslP = append(WarlordsslP, 'Gory battlefield')
+WarlordsslP = append(WarlordsslP, 'Burnt-out village')
+WarlordsslP = append(WarlordsslP, 'Barbaric warlord palace')
+WarlordsslP = append(WarlordsslP, 'Squalid refugee camp')
+PlaceTagMap['Warlords'] = WarlordsslP
+
+XenophilesslP := []string{}
+XenophilesslP = append(XenophilesslP, 'Alien district')
+XenophilesslP = append(XenophilesslP, 'Alien-influenced human home')
+XenophilesslP = append(XenophilesslP, 'Cultural festival celebrating alien artist')
+PlaceTagMap['Xenophiles'] = XenophilesslP
+
+XenophobesslP := []string{}
+XenophobesslP = append(XenophobesslP, 'Sealed treaty port')
+XenophobesslP = append(XenophobesslP, 'Public ritual not open to outsiders')
+XenophobesslP = append(XenophobesslP, 'Outcaste slum home')
+PlaceTagMap['Xenophobes'] = XenophobesslP
+
+ZombiesslP := []string{}
+ZombiesslP = append(ZombiesslP, 'House with boarded-up windows')
+ZombiesslP = append(ZombiesslP, 'Dead city')
+ZombiesslP = append(ZombiesslP, 'Fortified bunker that was overrun from within')
+PlaceTagMap['Zombies'] = ZombiesslP
+return PlaceTagMap

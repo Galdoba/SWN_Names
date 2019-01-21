@@ -1,11 +1,7 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"log"
-	"os"
-	"strings"
 )
 
 func main() {
@@ -20,55 +16,6 @@ func main() {
 
 	}
 
-	file, err := os.Open("tag.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer file.Close()
-	file2, err := os.Create("result.txt")
-	if err != nil {
-		log.Fatal("Cannot create file", err)
-	}
-	defer file2.Close()
-	scanner := bufio.NewScanner(file)
-	allTags := tagList()
-	currentTag := ""
-	fileLine := 0
-	fmt.Fprintf(file2, "FriendTagMap := make(map[string][]string)")
-	for scanner.Scan() { // internally, it advances token based on sperator
-		for i := range allTags {
-			if scanner.Text() == allTags[i] {
-				//fmt.Println("found tag", allTags[i], "i =", i)
-				currentTag = allTags[i]
-			}
-		}
-
-		//fmt.Fprintf(file2, strconv.Itoa(fileLine)+" Tag:"+currentTag+" ### "+scanner.Text()+"\n")
-		//fmt.Println("check LINE:", scanner.Text())
-		if fileLine == 2 {
-			currentTag = strings.Replace(currentTag, " ", "", -1)
-			currentTag = strings.Replace(currentTag, "/", "", -1)
-			currentTag = strings.Replace(currentTag, "-", "", -1)
-			str := "\n"
-			tags := strings.Split(scanner.Text(), ", ")
-			str = str + currentTag + "slF := []string{}\n"
-			for i := range tags {
-				str = str + currentTag + "slF = append(" + currentTag + "slF, '" + tags[i] + "')\n"
-			}
-
-			str = str + "FriendTagMap['" + currentTag + "'] = " + currentTag + "slF\n"
-
-			fmt.Fprintf(file2, str)
-		}
-
-		fileLine++
-		if fileLine > 7 {
-			fileLine = 0
-		}
-	}
-	fmt.Fprintf(file2, "return &FriendTagMap")
-	// currentTag = ""
-	//fmt.Println(oneRollContact())
 }
 
 func oneRollContact() string {
@@ -170,3 +117,69 @@ func oneRollContact() string {
 	result = result + rumor[r] + "\n"
 	return result
 }
+
+// file, err := os.Open("tag.txt")
+// if err != nil {
+// 	log.Fatal(err)
+// }
+// defer file.Close()
+// file2, err := os.Create("result.txt")
+// if err != nil {
+// 	log.Fatal("Cannot create file", err)
+// }
+// defer file2.Close()
+// scanner := bufio.NewScanner(file)
+// allTags := tagList()
+// currentTag := ""
+// fileLine := 0
+// fmt.Fprintf(file2, "PlaceTagMap := make(map[string][]string)")
+// for scanner.Scan() { // internally, it advances token based on sperator
+// 	for i := range allTags {
+// 		if scanner.Text() == allTags[i] {
+// 			//fmt.Println("found tag", allTags[i], "i =", i)
+// 			currentTag = allTags[i]
+// 		}
+// 	}
+
+// 	//fmt.Fprintf(file2, strconv.Itoa(fileLine)+" Tag:"+currentTag+" ### "+scanner.Text()+"\n")
+// 	//fmt.Println("check LINE:", scanner.Text())
+// 	// if fileLine == 2 {
+// 	// 	currentTag = strings.Replace(currentTag, " ", "", -1)
+// 	// 	currentTag = strings.Replace(currentTag, "/", "", -1)
+// 	// 	currentTag = strings.Replace(currentTag, "-", "", -1)
+// 	// 	str := "\n"
+// 	// 	tags := strings.Split(scanner.Text(), ", ")
+// 	// 	str = str + currentTag + "slF := []string{}\n"
+// 	// 	for i := range tags {
+// 	// 		str = str + currentTag + "slF = append(" + currentTag + "slF, '" + tags[i] + "')\n"
+// 	// 	}
+
+// 	// 	str = str + "FriendTagMap['" + currentTag + "'] = " + currentTag + "slF\n"
+
+// 	// 	fmt.Fprintf(file2, str)
+// 	// }
+
+// 	if fileLine == 6 {
+// 		currentTag = strings.Replace(currentTag, " ", "", -1)
+// 		currentTag = strings.Replace(currentTag, "/", "", -1)
+// 		currentTag = strings.Replace(currentTag, "-", "", -1)
+// 		str := "\n"
+// 		tags := strings.Split(scanner.Text(), ", ")
+// 		str = str + currentTag + "slP := []string{}\n"
+// 		for i := range tags {
+// 			str = str + currentTag + "slP = append(" + currentTag + "slP, '" + tags[i] + "')\n"
+// 		}
+
+// 		str = str + "PlaceTagMap['" + currentTag + "'] = " + currentTag + "slP\n"
+
+// 		fmt.Fprintf(file2, str)
+// 	}
+
+// 	fileLine++
+// 	if fileLine > 7 {
+// 		fileLine = 0
+// 	}
+// }
+// fmt.Fprintf(file2, "return PlaceTagMap")
+// // currentTag = ""
+// //fmt.Println(oneRollContact())
