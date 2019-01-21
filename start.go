@@ -7,7 +7,7 @@ import (
 func main() {
 	randomSeed()
 
-	for i := 0; i < 1; i++ {
+	for i := 0; i < 0; i++ {
 		w := NewWorld()
 
 		fmt.Println(w.toString())
