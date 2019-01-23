@@ -70,25 +70,25 @@ func (w *World) Populate() {
 
 	case 4:
 		w.Population = "K"
-		w.PopulationNum = roll1dX(100, 0)
+		w.PopulationNum = roll1dX(400, 100)
 	case 5:
 		w.Population = "K"
-		w.PopulationNum = roll1dX(1000, 0)
+		w.PopulationNum = roll1dX(900, 100)
 	case 6:
 		w.Population = "M"
 		w.PopulationNum = roll1dX(10, 0)
 	case 7:
 		w.Population = "M"
-		w.PopulationNum = roll1dX(10, 0)
+		w.PopulationNum = roll1dX(40, 10)
 	case 8:
 		w.Population = "M"
-		w.PopulationNum = roll1dX(100, 0)
+		w.PopulationNum = roll1dX(90, 10)
 	case 9:
 		w.Population = "M"
-		w.PopulationNum = roll1dX(100, 0)
+		w.PopulationNum = roll1dX(400, 100)
 	case 10:
 		w.Population = "M"
-		w.PopulationNum = roll1dX(1000, 0)
+		w.PopulationNum = roll1dX(900, 100)
 	case 11:
 		w.Population = "B"
 		w.PopulationNum = roll1dX(10, 0)
