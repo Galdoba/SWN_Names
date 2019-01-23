@@ -1,5 +1,6 @@
 package main
 
+//Commodite - товар. что-то чем торгуют
 type Commodite struct {
 	costPerUnit int
 	minTech     int

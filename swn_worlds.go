@@ -25,15 +25,19 @@ func NewWorld() *World {
 	world.rollBiosphere()
 	world.Populate()
 	world.rollTechLevel()
-	world.WorldTag1 = rollPlanetTag()
-	world.WorldTag2 = rollPlanetTag()
-	for world.WorldTag1 == world.WorldTag2 {
-		world.WorldTag2 = rollPlanetTag()
-	}
+	world.rollWorldTags()
 	world.rollLivingStandard()
 	world.calculateBP()
 	//world.PopulateNum()
 	return &world
+}
+
+func (w *World) rollWorldTags() {
+	w.WorldTag1 = randomWorldTag()
+	w.WorldTag2 = randomWorldTag()
+	for w.WorldTag1 == w.WorldTag2 {
+		w.WorldTag2 = randomWorldTag()
+	}
 }
 
 func (w *World) toString() string {
@@ -229,7 +233,7 @@ func (w *World) rollTechLevel() {
 	w.pickTechlevel(r)
 }
 
-func tagList() []string {
+func worldTags() []string {
 	tagList := []string{
 		"Abandoned Colony",
 		"Alien Ruins",
@@ -335,13 +339,13 @@ func tagList() []string {
 	return tagList
 }
 
-func pickTag(index int) string {
-	return tagList()[index]
+func pickWorldTag(index int) string {
+	return worldTags()[index]
 }
 
-func rollPlanetTag() string {
-	r := roll1dX(len(tagList()), -1)
-	return pickTag(r)
+func randomWorldTag() string {
+	r := roll1dX(len(worldTags()), -1)
+	return pickWorldTag(r)
 }
 
 func (w *World) pickLivingStandard(index int) {

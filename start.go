@@ -11,10 +11,15 @@ func main() {
 		w := NewWorld()
 
 		fmt.Println(w.toString())
-		r := roll1dX(len(tagList()), -1)
+
+		fmt.Println(describeTag(w.WorldTag1))
+		fmt.Println(describeTag(w.WorldTag2))
+		fmt.Println("")
+		r := roll1dX(len(worldTags()), -1)
 		fmt.Println(Story(r, w.WorldTag1, w.WorldTag2))
 
 	}
+	fmt.Println(oneRollContact())
 
 }
 
@@ -28,7 +33,7 @@ func oneRollContact() string {
 	}
 	r := roll1dX(len(interest), -1)
 	result = result + "How interested were they in this deal?\n"
-	result = result + interest[r] + "\n"
+	result = result + "   " + interest[r] + "\n"
 
 	deal := []string{
 		"They need immediate cash or the good they tried to buy",
@@ -40,7 +45,7 @@ func oneRollContact() string {
 	}
 	r = roll1dX(len(deal), -1)
 	result = result + "Why did they want to make the deal?\n"
-	result = result + deal[r] + "\n"
+	result = result + "   " + deal[r] + "\n"
 
 	money := []string{
 		"Old-money family with large resources",
@@ -54,7 +59,7 @@ func oneRollContact() string {
 	}
 	r = roll1dX(len(money), -1)
 	result = result + "Where does their money or power come from?\n"
-	result = result + money[r] + "\n"
+	result = result + "   " + money[r] + "\n"
 
 	government := []string{
 		"They’re actually government officials",
@@ -70,7 +75,7 @@ func oneRollContact() string {
 	}
 	r = roll1dX(len(government), -1)
 	result = result + "What’s their relationship with the local government?\n"
-	result = result + government[r] + "\n"
+	result = result + "   " + government[r] + "\n"
 
 	enemy := []string{
 		"A jilted lover or abandoned spouse",
@@ -88,7 +93,7 @@ func oneRollContact() string {
 	}
 	r = roll1dX(len(enemy), -1)
 	result = result + "Who would want them to suffer a loss?\n"
-	result = result + enemy[r] + "\n"
+	result = result + "   " + enemy[r] + "\n"
 
 	rumor := []string{
 		"They’re hopelessly in debt to a local crime boss",
@@ -114,7 +119,7 @@ func oneRollContact() string {
 	}
 	r = roll1dX(len(rumor), -1)
 	result = result + "What’s the most problematic rumor about them?\n"
-	result = result + rumor[r] + "\n"
+	result = result + "   " + rumor[r] + "\n"
 	return result
 }
 
