@@ -1,5 +1,9 @@
 package main
 
+import (
+	"fmt"
+)
+
 //Commodite - товар. что-то чем торгуют
 type Commodite struct {
 	costPerUnit int
@@ -202,4 +206,24 @@ func pickCargoType(index int) string {
 		"Vehicle",
 	}
 	return typeList[index]
+}
+
+type tagGrade struct {
+	grade int
+	tags  []string
+}
+
+func marketSpecific() []int {
+	var mod []int
+	for i := 0; i < 4; i++ {
+		mod = append(mod, 0)
+	}
+	for mod[0] == mod[1] || mod[0] == mod[2] || mod[0] == mod[3] || mod[1] == mod[3] || mod[2] == mod[3] {
+		mod[0] = roll1dX(20, -1)
+		mod[1] = roll1dX(20, -1)
+		mod[2] = roll1dX(20, -1)
+		mod[3] = roll1dX(20, -1)
+	}
+	fmt.Println("World specific:", pickCargoType(mod[0]), "-2,", pickCargoType(mod[1]), "-1,", pickCargoType(mod[2]), "+1,", pickCargoType(mod[3]), "+2")
+	return mod
 }

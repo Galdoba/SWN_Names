@@ -24,16 +24,14 @@ func main() {
 		//fmt.Println(Story(r, w.WorldTag1, w.WorldTag2))
 
 	}
-	//fmt.Println(oneRollContact())
-	fmt.Println("+----------++----------++----------++----------++----------++----------++----------++----------++----------++----------++----------++----------++----------+")
-	fmt.Println("0123456789")
-	fmt.Println("|1        |2        |3        |4        |5        |6        |7        |8        |9        |10       |11       |12       |13       |14       |15       |16       ")
-
-	pops := 2088
-	for i := 0; i < 60; i++ {
-		pops = pops*1/100 + pops
-		fmt.Println("step", i, "   --  pops:", pops)
+	fmt.Println("----------------------------")
+	var comSl []Commodite
+	for i := 0; i < 10; i++ {
+		com := NewCommoditie()
+		fmt.Println(com)
+		comSl = append(comSl, *com)
 	}
+	marketCheck()
 
 }
 
