@@ -1,5 +1,9 @@
 package main
 
+import (
+	"fmt"
+)
+
 //Commodite - товар. что-то чем торгуют
 type Commodite struct {
 	costPerUnit int
@@ -202,4 +206,72 @@ func pickCargoType(index int) string {
 		"Vehicle",
 	}
 	return typeList[index]
+}
+
+func marketSpecific() []int {
+	var mod []int
+	for i := 0; i < 4; i++ {
+		mod = append(mod, 0)
+	}
+	for mod[0] == mod[1] || mod[0] == mod[2] || mod[0] == mod[3] || mod[1] == mod[2] || mod[1] == mod[3] || mod[2] == mod[3] {
+		mod[0] = roll1dX(20, -1)
+		mod[1] = roll1dX(20, -1)
+		mod[2] = roll1dX(20, -1)
+		mod[3] = roll1dX(20, -1)
+	}
+	fmt.Println("World trade specific: ", pickCargoType(mod[0]), "-2, ", pickCargoType(mod[1]), "-1, ", pickCargoType(mod[2]), "+1, ", pickCargoType(mod[3]), "+2")
+	return mod
+}
+
+func (commodity *Commodite) isSimilarTo(otherCommoditie Commodite) bool {
+	if commodity.pricemod != otherCommoditie.pricemod {
+		return false
+	}
+	if len(commodity.tags) != len(otherCommoditie.tags) {
+		return false
+	}
+	similarity := 0
+	for i := range commodity.tags {
+		for j := range otherCommoditie.tags {
+			if commodity.tags[i] == otherCommoditie.tags[j] {
+				similarity++
+			}
+		}
+	}
+	if similarity == len(commodity.tags) {
+		return true
+	}
+	return false
+}
+
+func (commodity *Commodite) isContainedBy(inputList []Commodite) bool {
+	itIs := false
+	for i := range inputList {
+		if commodity.isSimilarTo(inputList[i]) {
+			itIs = true
+			break
+		}
+	}
+	return itIs
+}
+
+func checkExisting(input int, slice []int) bool {
+	for i := range slice {
+		if slice[i] == input {
+			return true
+		}
+	}
+	return false
+}
+
+//CreateCommodities - создает список товаров из n позиций
+func CreateCommodities(n int) []Commodite {
+	var comSl []Commodite
+	for len(comSl) < n {
+		com := NewCommoditie()
+		if !com.isContainedBy(comSl) {
+			comSl = append(comSl, *com)
+		}
+	}
+	return comSl
 }
