@@ -25,8 +25,15 @@ func main() {
 	fmt.Println("----------------------------")
 	createVitalPointMilitary()
 
+	fmt.Println("----------------------------")
+	var comSl []Commodite
+	for i := 0; i < 10; i++ {
+		com := NewCommoditie()
+		fmt.Println(com)
+		comSl = append(comSl, *com)
+	}
 	name := RandomName(false)
-	fmt.Println(name, Friend(w.WorldTag1, w.WorldTag2) )
+	fmt.Println(name, Friend(w.WorldTag1, w.WorldTag2))
 
 	fmt.Println("BP CALC TEST----------------------------")
 	baseBP(w)

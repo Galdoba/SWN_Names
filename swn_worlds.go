@@ -451,7 +451,6 @@ func baseBP(w *World) int {
 	return popsNum * tier
 }
 
-
 func bpFromMap(key int) int {
 	bpMAP := make(map[int]int)
 	bpMAP[11] = 10
