@@ -442,13 +442,23 @@ func lifestyleCode(lstyle string) int {
 }
 
 func baseBP(w *World) int {
-	popsNum := w.PopulationNum
+
 	tier := w.popTierCode()
 	lsCode := lifestyleCode(w.LivingStandard)
 	baseBPCode := tier*10 + lsCode
 	fmt.Println(bpFromMap(baseBPCode))
 
-	return popsNum * tier
+	return bpFromMap(baseBPCode)
+}
+
+func nextTierBP(w *World) int {
+
+	tier := w.popTierCode()
+	lsCode := lifestyleCode(w.LivingStandard)
+	baseBPCode := tier*10 + lsCode + 10
+	fmt.Println(bpFromMap(baseBPCode))
+
+	return bpFromMap(baseBPCode)
 }
 
 func bpFromMap(key int) int {
@@ -458,104 +468,36 @@ func bpFromMap(key int) int {
 	bpMAP[31] = 100
 	bpMAP[41] = 200
 	bpMAP[51] = 300
+	bpMAP[61] = 500
 	bpMAP[12] = 30
 	bpMAP[22] = 100
 	bpMAP[32] = 200
 	bpMAP[42] = 350
 	bpMAP[52] = 500
+	bpMAP[62] = 650
 	bpMAP[13] = 50
 	bpMAP[23] = 150
 	bpMAP[33] = 300
 	bpMAP[43] = 500
 	bpMAP[53] = 700
+	bpMAP[63] = 900
 	bpMAP[14] = 90
 	bpMAP[24] = 250
 	bpMAP[34] = 500
 	bpMAP[44] = 700
 	bpMAP[54] = 1000
+	bpMAP[64] = 1300
 	return bpMAP[key]
 }
 
 func (w *World) calculateBP() {
-	switch w.Population {
-	case "K":
-		if w.PopulationNum > 100 {
-			switch w.LivingStandard {
-			case "Slum":
-				w.BP = 10
-			case "Poor":
-				w.BP = 30
-			case "Common":
-				w.BP = 50
-			case "Good":
-				w.BP = 90
-			case "Elite":
-				w.BP = 130
-			}
-		}
-	case "B":
-		switch w.LivingStandard {
-		case "Slum":
-			w.BP = 300
-		case "Poor":
-			w.BP = 500
-		case "Common":
-			w.BP = 700
-		case "Good":
-			w.BP = 1000
-		case "Elite":
-			w.BP = 1300
-		}
+	check := w.PopulationNum
+	for check > 100 {
+		check = check / 10
 
-	default:
-		if w.Population == "Alien" || w.Population == "Outpost" || w.Population == "Failed Colony" {
-			w.BP = 0
-		}
-		if w.PopulationNum < 11 {
-			switch w.LivingStandard {
-			case "Slum":
-				w.BP = 50
-			case "Poor":
-				w.BP = 100
-			case "Common":
-				w.BP = 150
-			case "Good":
-				w.BP = 250
-			case "Elite":
-				w.BP = 350
-			}
-			return
-		}
-		if w.PopulationNum < 101 {
-			switch w.LivingStandard {
-			case "Slum":
-				w.BP = 100
-			case "Poor":
-				w.BP = 200
-			case "Common":
-				w.BP = 300
-			case "Good":
-				w.BP = 500
-			case "Elite":
-				w.BP = 700
-			}
-			return
-		}
-		switch w.LivingStandard {
-		case "Slum":
-			w.BP = 200
-		case "Poor":
-			w.BP = 350
-		case "Common":
-			w.BP = 500
-		case "Good":
-			w.BP = 700
-		case "Elite":
-			w.BP = 900
-		}
-		return
 	}
-
+	dif := nextTierBP(w) - baseBP(w)
+	w.BP = dif*check/100 + baseBP(w)
 }
 
 func oneRollContact() string {
@@ -943,4 +885,27 @@ func oneRollRuled() string {
 	result = result + "Overall society's main trand is " + trend[r] + ". "
 
 	return result
+}
+
+func shipYerlyBP(key string) int {
+	sshipCost := make(map[string]int)
+	sshipCost["Fighter"] = 1
+	sshipCost["Shuttle"] = 2
+	sshipCost["Free Merchant"] = 1
+	sshipCost["Naval Courier"] = 3
+	sshipCost["Patrol Boat"] = 4
+	sshipCost["Frigate"] = 7
+	sshipCost["Bulk Freighter"] = 7
+	sshipCost["Cruiser"] = 29
+	sshipCost["Siege Cruiser"] = 28
+	sshipCost["Troop Transport"] = 13
+	sshipCost["Logistics Ship"] = 23
+	sshipCost["Battleship"] = 239
+	sshipCost["Carrier"] = 363
+	sshipCost["Bannerjee 12"] = 9
+	sshipCost["Peerless"] = 12
+	sshipCost["Shantadurga"] = 41
+	sshipCost["Scutum"] = 78
+	sshipCost["Arx"] = 96
+	return sshipCost[key]
 }

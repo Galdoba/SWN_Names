@@ -36,7 +36,19 @@ func main() {
 	fmt.Println(name, Friend(w.WorldTag1, w.WorldTag2))
 
 	fmt.Println("BP CALC TEST----------------------------")
-	baseBP(w)
+	// baseBP(w)
+	// nextTierBP(w)
+	// fmt.Println(w.PopulationNum)
+	// check := w.PopulationNum
+	// for check > 100 {
+	// 	fmt.Println(check)
+	// 	check = check / 10
+
+	// }
+	// fmt.Println(check, "%")
+
+	// dif := nextTierBP(w) - baseBP(w)
+	// fmt.Println(dif*check/100+baseBP(w), nextTierBP(w), baseBP(w))
 
 }
 
