@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"strconv"
 )
 
@@ -11,6 +10,9 @@ type World struct {
 	Biosphere      string
 	Population     string
 	PopulationNum  int
+	PopCode        int
+	GovCode        int
+	LawCode        int
 	TechLevel      string
 	WorldTag1      string
 	WorldTag2      string
@@ -32,6 +34,7 @@ func NewWorld() *World {
 	world.rollLivingStandard()
 	world.calculateBP()
 	world.adjustBP()
+	world.law()
 	world.Export = CreateCommodities(10)
 	world.TradeSpecifics = marketSpecific()
 	//world.PopulateNum()
@@ -60,8 +63,14 @@ func (w *World) toString() string {
 	str = str + "WorldTag1: " + w.WorldTag1 + "\n"
 	str = str + "WorldTag2: " + w.WorldTag2 + "\n"
 	str = str + "TradeTag: " + w.TradeTag + "\n"
-	str = str + "World trade specific:" + pickCargoType(w.TradeSpecifics[0]) + "-2," + pickCargoType(w.TradeSpecifics[1]) + "-1," + pickCargoType(w.TradeSpecifics[2]) + "+1," + pickCargoType(w.TradeSpecifics[3]) + "+2\n"
+	str = str + "World trade specific: " + pickCargoType(w.TradeSpecifics[0]) + "-2, " + pickCargoType(w.TradeSpecifics[1]) + "-1, " + pickCargoType(w.TradeSpecifics[2]) + "+1, " + pickCargoType(w.TradeSpecifics[3]) + "+2\n"
 	str = str + "LivingStandard: " + w.LivingStandard + " (" + strconv.Itoa(w.BP) + " BP or " + strconv.Itoa(w.BP*200000) + ")\n"
+	str = str + "Law Level: " + strconv.Itoa(w.LawCode) + "\n"
+	str = str + "\nWorldTag1 (descr): " + describeTag(w.WorldTag1) + "\n"
+	str = str + "\nWorldTag2 (descr): " + describeTag(w.WorldTag2) + "\n"
+	str = str + "\nSociety: " + oneRollSociety() + "\n"
+	str = str + "\nRulers: " + oneRollRulers() + "\n"
+	str = str + "\nCommon Folk: " + oneRollRuled() + "\n"
 	return str
 }
 
@@ -74,31 +83,39 @@ func (w *World) Populate() {
 
 	case 3:
 		w.Population = "Outpost"
-
+		w.PopCode = 4
 	case 4:
 		w.Population = "K"
 		w.PopulationNum = roll1dX(400, 100)
+		w.PopCode = 5
 	case 5:
 		w.Population = "K"
 		w.PopulationNum = roll1dX(900, 100)
+		w.PopCode = 5
 	case 6:
 		w.Population = "M"
 		w.PopulationNum = roll1dX(10, 0)
+		w.PopCode = 6
 	case 7:
 		w.Population = "M"
 		w.PopulationNum = roll1dX(40, 10)
+		w.PopCode = 7
 	case 8:
 		w.Population = "M"
 		w.PopulationNum = roll1dX(90, 10)
+		w.PopCode = 7
 	case 9:
 		w.Population = "M"
 		w.PopulationNum = roll1dX(400, 100)
+		w.PopCode = 8
 	case 10:
 		w.Population = "M"
 		w.PopulationNum = roll1dX(900, 100)
+		w.PopCode = 8
 	case 11:
 		w.Population = "B"
 		w.PopulationNum = roll1dX(10, 0)
+		w.PopCode = 9
 	case 12:
 		w.Population = "Alien"
 	}
@@ -446,8 +463,6 @@ func baseBP(w *World) int {
 	tier := w.popTierCode()
 	lsCode := lifestyleCode(w.LivingStandard)
 	baseBPCode := tier*10 + lsCode
-	fmt.Println(bpFromMap(baseBPCode))
-
 	return bpFromMap(baseBPCode)
 }
 
@@ -456,8 +471,6 @@ func nextTierBP(w *World) int {
 	tier := w.popTierCode()
 	lsCode := lifestyleCode(w.LivingStandard)
 	baseBPCode := tier*10 + lsCode + 10
-	fmt.Println(bpFromMap(baseBPCode))
-
 	return bpFromMap(baseBPCode)
 }
 
@@ -908,4 +921,15 @@ func shipYerlyBP(key string) int {
 	sshipCost["Scutum"] = 78
 	sshipCost["Arx"] = 96
 	return sshipCost[key]
+}
+
+func (w *World) law() {
+	w.GovCode = rollXdY(2, 6) - 7 + w.PopCode
+	if w.GovCode < 0 {
+		w.GovCode = 0
+	}
+	w.LawCode = rollXdY(2, 6) - 7 + w.GovCode
+	if w.LawCode < 0 {
+		w.LawCode = 0
+	}
 }

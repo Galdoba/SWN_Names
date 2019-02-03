@@ -1,9 +1,5 @@
 package main
 
-import (
-	"fmt"
-)
-
 //Commodite - товар. что-то чем торгуют
 type Commodite struct {
 	costPerUnit int
@@ -219,7 +215,6 @@ func marketSpecific() []int {
 		mod[2] = roll1dX(20, -1)
 		mod[3] = roll1dX(20, -1)
 	}
-	fmt.Println("World trade specific: ", pickCargoType(mod[0]), "-2, ", pickCargoType(mod[1]), "-1, ", pickCargoType(mod[2]), "+1, ", pickCargoType(mod[3]), "+2")
 	return mod
 }
 

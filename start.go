@@ -2,54 +2,46 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"os"
+	"strconv"
 )
 
 func main() {
-	randomSeed()
+	seed := randomSeed()
+	save := 0
 
-	w := NewWorld()
-
-	fmt.Println(w.toString())
-
-	fmt.Println("Cultural report:")
-	fmt.Println(oneRollSociety())
-	fmt.Println(describeTag(w.WorldTag1))
-	fmt.Println(describeTag(w.WorldTag2))
+	fmt.Println("Planet Sugested Name:", GiveName(randomSite(), "Place", -1))
 	fmt.Println("")
-	fmt.Println("Political Report:")
-	fmt.Println(oneRollRulers())
-	fmt.Println(oneRollRuled())
-	//r := roll1dX(len(worldTags()), -1)
-	//fmt.Println(Story(r, w.WorldTag1, w.WorldTag2))
-
-	fmt.Println("----------------------------")
-	createVitalPointMilitary()
-
-	fmt.Println("----------------------------")
-	var comSl []Commodite
-	for i := 0; i < 10; i++ {
-		com := NewCommoditie()
-		fmt.Println(com)
-		comSl = append(comSl, *com)
+	w := World{}
+	for save != 1 {
+		seed := randomSeed()
+		fmt.Println("Seed =", seed)
+		w = *NewWorld()
+		fmt.Println(w.toString())
+		save, _ = TakeOptions("Save Planet?", "Yes", "No")
 	}
-	name := RandomName(false)
-	fmt.Println(name, Friend(w.WorldTag1, w.WorldTag2))
-
-	fmt.Println("BP CALC TEST----------------------------")
-	// baseBP(w)
-	// nextTierBP(w)
-	// fmt.Println(w.PopulationNum)
-	// check := w.PopulationNum
-	// for check > 100 {
-	// 	fmt.Println(check)
-	// 	check = check / 10
-
-	// }
-	// fmt.Println(check, "%")
-
-	// dif := nextTierBP(w) - baseBP(w)
-	// fmt.Println(dif*check/100+baseBP(w), nextTierBP(w), baseBP(w))
-
+	fmt.Println("Name Planet:")
+	planetName := InputString()
+	fileOut, err := os.Create(planetName + ".txt")
+	if err != nil {
+		log.Fatal("Cannot create file", err)
+	}
+	defer fileOut.Close()
+	fmt.Fprintf(fileOut, "Seed: "+strconv.Itoa(int(seed))+"\n")
+	fmt.Fprintf(fileOut, "Planet: "+planetName+"\n")
+	fmt.Fprintf(fileOut, w.toString())
+	fmt.Fprintf(fileOut, "Sample Story:\n")
+	r1 := roll1dX(100, 0)
+	fmt.Fprintf(fileOut, Story(r1, w.WorldTag1, w.WorldTag2))
+	fmt.Fprintf(fileOut, " \n")
+	fmt.Fprintf(fileOut, " \n")
+	r2 := roll1dX(100, 0)
+	fmt.Fprintf(fileOut, Story(r2, w.WorldTag1, w.WorldTag2))
+	fmt.Fprintf(fileOut, " \n")
+	fmt.Fprintf(fileOut, " \n")
+	r3 := roll1dX(100, 0)
+	fmt.Fprintf(fileOut, Story(r3, w.WorldTag1, w.WorldTag2))
 }
 
 // file, err := os.Open("tag.txt")
@@ -118,24 +110,10 @@ func main() {
 // // currentTag = ""
 // //fmt.Println(oneRollContact())
 
-func createVitalPointMilitary() {
-	point := []string{
-		"Elaborate fortification ",
-		"Site with fine natural defenses ",
-		"Ancient or new-made ruins ",
-		"Newly-erected strongpoint ",
-		"Recently-seized outpost ",
-		"Transit chokepoint ",
-	}
-	vital := []string{
-		"Commands a strategic transit route.",
-		"Would savage any advance past it.",
-		"Has supplies to support an offensive.",
-		"Is a major recruit mustering point.",
-		"Is an operational base for a major command.",
-		"Is threatening an enemy position.",
-	}
-	p := roll1dX(len(point), -1)
-	v := roll1dX(len(vital), -1)
-	fmt.Println(point[p] + "is vital because it " + vital[v])
-}
+/*
+
+
+
+
+
+ */
