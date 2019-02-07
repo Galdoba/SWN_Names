@@ -11,6 +11,20 @@ type vitalPoint struct {
 	meaning string
 }
 
+type Army struct {
+	leader     Leader
+	manpower   int
+	tl         int
+	totalUnits int
+}
+
+func NewArmy(manpower int, tl int) *Army {
+	army := &Army{}
+	army.leader = *NewLeader()
+
+	return army
+}
+
 type Leader struct {
 	name     string
 	leadSkl  int
@@ -18,7 +32,6 @@ type Leader struct {
 	intAtr   int
 	wisAtr   int
 	chaAtr   int
-	tl       int
 	Units    int
 	/*
 		actions:
@@ -30,15 +43,15 @@ type Leader struct {
 }
 
 func NewLeader() *Leader {
-	leader := Leader{}
+	leader := &Leader{}
 	leader.name = RandomName(false)
 	leader.intAtr = rollXdY(3, 6)
 	leader.wisAtr = rollXdY(3, 6)
 	leader.chaAtr = rollXdY(3, 6)
 	leader.leadSkl = setSkill()
 	leader.adminSkl = setSkill()
-	leader.tl = setSkill() + 1
-	return &leader
+
+	return leader
 }
 func (l *Leader) toString() string {
 	str := ""
@@ -50,18 +63,24 @@ func (l *Leader) toString() string {
 	str = combineStrings(str, "Relevant Skills\n")
 	str = combineStrings(str, "Lead        : "+strconv.Itoa(l.leadSkl)+"\n")
 	str = combineStrings(str, "Admin       : "+strconv.Itoa(l.adminSkl)+"\n")
-	str = combineStrings(str, "TL          : "+strconv.Itoa(l.tl)+"\n")
 	return str
 }
 
-func (l *Leader) totalUnits() {
-	un := atrMod(l.intAtr) + atrMod(l.wisAtr) + atrMod(l.chaAtr) + atrMod(l.adminSkl) + atrMod(l.leadSkl)
-	if l.leadSkl == 0 {
-		un--
+func (l *Leader) totalUnits() int {
+	un := atrMod(l.intAtr) + atrMod(l.wisAtr) + atrMod(l.chaAtr)
+	skillBuff := l.leadSkl
+	if skillBuff > l.adminSkl {
+		skillBuff = l.adminSkl
 	}
-	if l.adminSkl == 0 {
+	if skillBuff == 0 {
 		un--
+	} else {
+		un = un + skillBuff
 	}
+	if un < 1 {
+		un = 1
+	}
+	return un
 }
 
 func atrMod(i int) int {

@@ -15,16 +15,19 @@ func main() {
 	//makeTagsFunction()
 	fmt.Println("Planet Sugested Name:", GiveName(randomSite(), "Place", -1))
 	fmt.Println("")
-	w := World{}
+	w := &World{}
 	for save != 1 {
 		seed := randomSeed()
 		fmt.Println("Seed =", seed)
-		w = *NewWorld()
+		w = NewWorld()
 		fmt.Println(w.toString())
+		fmt.Println("w.TotalPopulation()", w.TotalPopulation())
 		fmt.Println(TradeAntagonists(w.TradeTag))
 		fmt.Println(TradeAuthorities(w.TradeTag))
 		leader := NewLeader()
+		army := NewArmy(w.TotalPopulation()/100, w.TechLevelInt())
 		fmt.Println(leader.toString())
+		fmt.Println(army)
 		save, _ = TakeOptions("Save Planet?", "Yes", "No")
 	}
 	fmt.Println("Name Planet:")

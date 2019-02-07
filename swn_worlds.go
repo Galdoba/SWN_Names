@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"strconv"
 )
 
@@ -24,7 +25,7 @@ type World struct {
 }
 
 func NewWorld() *World {
-	world := World{}
+	world := &World{}
 	world.rollAtmosphere()
 	world.rollTemperature()
 	world.rollBiosphere()
@@ -39,7 +40,7 @@ func NewWorld() *World {
 	world.Export = CreateCommodities(10)
 	world.TradeSpecifics = marketSpecific()
 	//world.PopulateNum()
-	return &world
+	return world
 }
 
 func (w *World) rollWorldTags() {
@@ -256,6 +257,30 @@ func (w *World) pickTechlevel(index int) {
 	default:
 		w.TechLevel = "None"
 	}
+}
+
+func (w *World) TechLevelInt() int {
+	switch w.TechLevel {
+	case "TL0":
+		return 0
+	case "TL1":
+		return 1
+	case "TL2":
+		return 2
+	case "TL3":
+		return 3
+	case "TL3+":
+		return 3
+	case "TL4-":
+		return 4
+	case "TL4":
+		return 4
+	case "TL4+":
+		return 4
+	case "TL5":
+		return 5
+	}
+	return -1
 }
 
 func (w *World) rollTechLevel() {
@@ -977,4 +1002,15 @@ func (w *World) law() {
 	if w.LawCode < 0 {
 		w.LawCode = 0
 	}
+}
+func (w *World) TotalPopulation() int {
+	fmt.Println(w.popTierCode())
+	tPop := w.PopulationNum * 1000
+	if w.Population == "M" {
+		tPop = tPop * 1000
+	}
+	if w.Population == "B" {
+		tPop = tPop * 1000000
+	}
+	return tPop
 }
