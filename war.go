@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 type vitalPoint struct {
 	vpType  string
@@ -8,13 +11,15 @@ type vitalPoint struct {
 	meaning string
 }
 
-type leader struct {
+type Leader struct {
 	name     string
 	leadSkl  int
 	adminSkl int
 	intAtr   int
 	wisAtr   int
 	chaAtr   int
+	tl       int
+	Units    int
 	/*
 		actions:
 		Attack
@@ -22,6 +27,70 @@ type leader struct {
 		Rest
 
 	*/
+}
+
+func NewLeader() *Leader {
+	leader := Leader{}
+	leader.name = RandomName(false)
+	leader.intAtr = rollXdY(3, 6)
+	leader.wisAtr = rollXdY(3, 6)
+	leader.chaAtr = rollXdY(3, 6)
+	leader.leadSkl = setSkill()
+	leader.adminSkl = setSkill()
+	leader.tl = setSkill() + 1
+	return &leader
+}
+func (l *Leader) toString() string {
+	str := ""
+	str = combineStrings(str, "Name: "+l.name+"\n")
+	str = combineStrings(str, "Attributes\n")
+	str = combineStrings(str, "Intelligence: "+strconv.Itoa(l.intAtr)+" ("+atrModS(l.intAtr)+")\n")
+	str = combineStrings(str, "Wisdom      : "+strconv.Itoa(l.wisAtr)+" ("+atrModS(l.wisAtr)+")\n")
+	str = combineStrings(str, "Charisma    : "+strconv.Itoa(l.chaAtr)+" ("+atrModS(l.chaAtr)+")\n")
+	str = combineStrings(str, "Relevant Skills\n")
+	str = combineStrings(str, "Lead        : "+strconv.Itoa(l.leadSkl)+"\n")
+	str = combineStrings(str, "Admin       : "+strconv.Itoa(l.adminSkl)+"\n")
+	str = combineStrings(str, "TL          : "+strconv.Itoa(l.tl)+"\n")
+	return str
+}
+
+func (l *Leader) totalUnits() {
+	un := atrMod(l.intAtr) + atrMod(l.wisAtr) + atrMod(l.chaAtr) + atrMod(l.adminSkl) + atrMod(l.leadSkl)
+	if l.leadSkl == 0 {
+		un--
+	}
+	if l.adminSkl == 0 {
+		un--
+	}
+}
+
+func atrMod(i int) int {
+	if i > 17 {
+		return 2
+	}
+	if i > 13 {
+		return 1
+	}
+	if i < 4 {
+		return -2
+	}
+	if i < 8 {
+		return -1
+	}
+	return 0
+}
+
+func atrModS(i int) string {
+	return strconv.Itoa(atrMod(i))
+}
+
+func setSkill() int {
+	r := rollXdY(2, 6)
+	skill := (r / 2) - 2
+	if skill < 0 {
+		skill = 0
+	}
+	return skill
 }
 
 func diverse() {
@@ -43,7 +112,7 @@ func diverse() {
 	fmt.Println("a =", a, "b =", b, "c =", c)
 }
 
-func main() {
+func main0() {
 	randomSeed()
 	for i := 0; i < 8; i++ {
 		fmt.Println("Vital point", i+1, ":")

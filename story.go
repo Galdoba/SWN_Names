@@ -121,6 +121,8 @@ func Story(index int, t1 string, t2 string) string {
 	return allStories[index]
 }
 
+
+
 func Enemy(t1, t2 string) string {
 	var enemySlice []string
 	enemyMap := createEnemiesMap()
@@ -129,6 +131,15 @@ func Enemy(t1, t2 string) string {
 	enemySlice = append(enemyMap[tag1], enemyMap[tag2]...)
 	r := roll1dX(len(enemySlice), -1)
 	//fmt.Println("Enemy index -", r, "of", len(enemySlice), enemySlice)
+	return enemySlice[r]
+}
+
+func TradeAuthorities(tag string) string {
+	var enemySlice []string
+	enemyMap := createTradeAuthorityMap()
+	ftag := fixPlanetTag(tag)
+	enemySlice = enemyMap[ftag]
+	r := roll1dX(len(enemySlice), -1)
 	return enemySlice[r]
 }
 
@@ -142,6 +153,15 @@ func Friend(t1, t2 string) string {
 	return friendSlice[r]
 }
 
+func TradeAntagonists(tag string) string {
+	var antagonSlice []string
+	antagonMap := createTradeAntogonistMap()
+	ftag := fixPlanetTag(tag)
+	antagonSlice = antagonMap[ftag]
+	r := roll1dX(len(antagonSlice), -1)
+	return antagonSlice[r]
+}
+
 func Complication(t1, t2 string) string {
 	var complicationSlice []string
 	complicationMap := createComplicationsMap()
@@ -150,6 +170,15 @@ func Complication(t1, t2 string) string {
 	complicationSlice = append(complicationMap[tag1], complicationMap[tag2]...)
 	r := roll1dX(len(complicationSlice), -1)
 	return complicationSlice[r]
+}
+
+func TradeComplication(tag string) string {
+	var complSlice []string
+	complMap := createTradeComplicationsMap()
+	ftag := fixPlanetTag(tag)
+	complSlice = complMap[ftag]
+	r := roll1dX(len(complSlice), -1)
+	return complSlice[r]
 }
 
 func Thing(t1, t2 string) string {
@@ -162,6 +191,15 @@ func Thing(t1, t2 string) string {
 	return thingSlice[r]
 }
 
+func TradeThing(tag string) string {
+	var thingSlice []string
+	thingMap := createTradeThingsMap()
+	ftag := fixPlanetTag(tag)
+	thingSlice = thingMap[ftag]
+	r := roll1dX(len(thingSlice), -1)
+	return thingSlice[r]
+}
+
 func Place(t1, t2 string) string {
 	var placeSlice []string
 	placeMap := createPlacesMap()
@@ -170,6 +208,15 @@ func Place(t1, t2 string) string {
 	placeSlice = append(placeMap[tag1], placeMap[tag2]...)
 	r := roll1dX(len(placeSlice), -1)
 	return placeSlice[r]
+}
+
+func TradeRegulation(tag string) string {
+	var regulationsSlice []string
+	regulationsMap := createTradeThingsMap()
+	ftag := fixPlanetTag(tag)
+	regulationsSlice = regulationsMap[ftag]
+	r := roll1dX(len(regulationsSlice), -1)
+	return regulationsSlice[r]
 }
 
 func fixPlanetTag(currentTag string) string {
@@ -3338,6 +3385,866 @@ func createPlacesMap() map[string][]string {
 	return PlaceTagMap
 }
 
+func createTradeAuthorityMap() map[string][]string {
+	tAthorityTagMap := make(map[string][]string)
+	AlientAthority := []string{}
+	AlientAthority = append(AlientAthority, "Member of a special trading caste")
+	AlientAthority = append(AlientAthority, "Bureaucrat that communicates in strange idioms")
+	AlientAthority = append(AlientAthority, "Judicial official of an incomprehensible law")
+	AlientAthority = append(AlientAthority, "Gone-native human transplant with full authority over human traders")
+	tAthorityTagMap["Alien"] = AlientAthority
+
+	ClosedtAthority := []string{}
+	ClosedtAthority = append(ClosedtAthority, "Zealously xenophobic security officer")
+	ClosedtAthority = append(ClosedtAthority, "Guardian of cultural purity")
+	ClosedtAthority = append(ClosedtAthority, "Interstellar quarantine officer")
+	ClosedtAthority = append(ClosedtAthority, "Brutish monopolist")
+	tAthorityTagMap["Closed"] = ClosedtAthority
+
+	CommunisttAthority := []string{}
+	CommunisttAthority = append(CommunisttAthority, "Eager bureaucrat with a poor grasp on private property")
+	CommunisttAthority = append(CommunisttAthority, "Cynical apparatchik who just wants his share")
+	CommunisttAthority = append(CommunisttAthority, "Local factory manager desperate to make quota")
+	CommunisttAthority = append(CommunisttAthority, "'Fixer' for the regime looking for vital spare parts")
+	tAthorityTagMap["Communist"] = CommunisttAthority
+
+	DisorganizedtAthority := []string{}
+	DisorganizedtAthority = append(DisorganizedtAthority, "Egomaniacal prophet of the new dispensation")
+	DisorganizedtAthority = append(DisorganizedtAthority, "Desperate remnant-lord of the old order")
+	DisorganizedtAthority = append(DisorganizedtAthority, "Survivalist tribe chieftain")
+	DisorganizedtAthority = append(DisorganizedtAthority, "Leader of a recognized sanctuary from the chaos")
+	tAthorityTagMap["Disorganized"] = DisorganizedtAthority
+
+	DyingtAthority := []string{}
+	DyingtAthority = append(DyingtAthority, "Sweating local ruler bent on escape for their family")
+	DyingtAthority = append(DyingtAthority, "Grim chooser of the slain apportioning dwindling resources")
+	DyingtAthority = append(DyingtAthority, "Military officer providing security for the remaining far traders")
+	DyingtAthority = append(DyingtAthority, "Resigned religious leader working to save his flock")
+	tAthorityTagMap["Dying"] = DyingtAthority
+
+	FractioustAthority := []string{}
+	FractioustAthority = append(FractioustAthority, "De facto but discreet faction leader")
+	FractioustAthority = append(FractioustAthority, "Figurehead leader controlled by hidden masters")
+	FractioustAthority = append(FractioustAthority, "Eminently corruptible bureaucrat working for the highest bidder")
+	FractioustAthority = append(FractioustAthority, "Desperate faction member on his way down the ladder of power")
+	tAthorityTagMap["Fractious"] = FractioustAthority
+
+	KleptocratictAthority := []string{}
+	KleptocratictAthority = append(KleptocratictAthority, "Corpulent port master with detestable tastes")
+	KleptocratictAthority = append(KleptocratictAthority, "Local trade official who doubles as a crime boss")
+	KleptocratictAthority = append(KleptocratictAthority, "Supervisor of a security department that's just another gang")
+	KleptocratictAthority = append(KleptocratictAthority, "Paranoid bureaucrat being pressured by numerous murderous 'friends'")
+	tAthorityTagMap["Kleptocratic"] = KleptocratictAthority
+
+	LaissezFairetAthority := []string{}
+	LaissezFairetAthority = append(LaissezFairetAthority, "Entrepreneurially-minded bureaucrat")
+	LaissezFairetAthority = append(LaissezFairetAthority, "Harried goods inspector")
+	LaissezFairetAthority = append(LaissezFairetAthority, "Official hunter of offworld rarities for the government")
+	LaissezFairetAthority = append(LaissezFairetAthority, "Hidebound administrator relic of a more mercantilist age")
+	tAthorityTagMap["LaissezFaire"] = LaissezFairetAthority
+
+	MegacorpstAthority := []string{}
+	MegacorpstAthority = append(MegacorpstAthority, "Colorless Mr. Johnson with trust issues")
+	MegacorpstAthority = append(MegacorpstAthority, "Government bureaucrat working for a patron corp")
+	MegacorpstAthority = append(MegacorpstAthority, "Military officer wanting hardware the corps don't have")
+	MegacorpstAthority = append(MegacorpstAthority, "Utterly mercenary port master")
+	tAthorityTagMap["Megacorps"] = MegacorpstAthority
+
+	MilitarytAthority := []string{}
+	MilitarytAthority = append(MilitarytAthority, "Quartermaster military official")
+	MilitarytAthority = append(MilitarytAthority, "Military port police")
+	MilitarytAthority = append(MilitarytAthority, "Internal security spy-hunter")
+	MilitarytAthority = append(MilitarytAthority, "Black ops supply officer")
+	tAthorityTagMap["Military"] = MilitarytAthority
+
+	OpenedtAthority := []string{}
+	OpenedtAthority = append(OpenedtAthority, "Confused minister of the local trade bureaucracy")
+	OpenedtAthority = append(OpenedtAthority, "Personally ambitious official")
+	OpenedtAthority = append(OpenedtAthority, "Leader of the faction that advocated for opening the world")
+	OpenedtAthority = append(OpenedtAthority, "New port master with no idea how to do his job")
+	tAthorityTagMap["Opened"] = OpenedtAthority
+
+	PanopticontAthority := []string{}
+	PanopticontAthority = append(PanopticontAthority, "Spaceport monitor official")
+	PanopticontAthority = append(PanopticontAthority, "AI surveillance controller")
+	PanopticontAthority = append(PanopticontAthority, "Official empowered to turn off surveillance")
+	PanopticontAthority = append(PanopticontAthority, "Local elite of the Great Unwatched")
+	tAthorityTagMap["Panopticon"] = PanopticontAthority
+
+	PrimitivetAthority := []string{}
+	PrimitivetAthority = append(PrimitivetAthority, "Confused local autocrat")
+	PrimitivetAthority = append(PrimitivetAthority, "Unrelentingly hidebound guildmaster")
+	PrimitivetAthority = append(PrimitivetAthority, "Local official with wildly inflated expectations about far traders")
+	PrimitivetAthority = append(PrimitivetAthority, "Local grandee unable to understand that her authority is not universal")
+	tAthorityTagMap["Primitive"] = PrimitivetAthority
+
+	RestrictedtAthority := []string{}
+	RestrictedtAthority = append(RestrictedtAthority, "AI robot of the synthetic ruling class")
+	RestrictedtAthority = append(RestrictedtAthority, "Tech-priest devoted to the mysteries")
+	RestrictedtAthority = append(RestrictedtAthority, "Cynical warlord with no delusions about the tech")
+	RestrictedtAthority = append(RestrictedtAthority, "Ruthless inquisitor rooting out illicit tech")
+	tAthorityTagMap["Restricted"] = RestrictedtAthority
+
+	ScarcitytAthority := []string{}
+	ScarcitytAthority = append(ScarcitytAthority, "Barbarous chieftain adorned in tokens of the material")
+	ScarcitytAthority = append(ScarcitytAthority, "Grim gray technocrat in charge of distribution")
+	ScarcitytAthority = append(ScarcitytAthority, "Engineering official responsible for production")
+	ScarcitytAthority = append(ScarcitytAthority, "Ritualized semi-priestly official in charge of the material")
+	tAthorityTagMap["Scarcity"] = ScarcitytAthority
+
+	SecrettAthority := []string{}
+	SecrettAthority = append(SecrettAthority, "Government trade official in black")
+	SecrettAthority = append(SecrettAthority, "UFO enthusiast with a secret landing site")
+	SecrettAthority = append(SecrettAthority, "Cynical business tycoon")
+	SecrettAthority = append(SecrettAthority, "Illuminati minion with business connections")
+	tAthorityTagMap["Secret"] = SecrettAthority
+
+	SophisticatedtAthority := []string{}
+	SophisticatedtAthority = append(SophisticatedtAthority, "Supercilious official in need of 'favors'")
+	SophisticatedtAthority = append(SophisticatedtAthority, "Disinterested mandarin unconvinced of trade's value")
+	SophisticatedtAthority = append(SophisticatedtAthority, "Blase local tycoon wanting new products")
+	SophisticatedtAthority = append(SophisticatedtAthority, "Jaded entertainer seeking fresh inspiration")
+	tAthorityTagMap["Sophisticated"] = SophisticatedtAthority
+
+	TheocratictAthority := []string{}
+	TheocratictAthority = append(TheocratictAthority, "Overfed priest-bureaucrat with very secular concerns")
+	TheocratictAthority = append(TheocratictAthority, "Underpriestess looking to make a vacancy above her")
+	TheocratictAthority = append(TheocratictAthority, "Purely nominal cleric-official concerned only with the social forms")
+	TheocratictAthority = append(TheocratictAthority, "Leader of a persecuted sect interested in offworld allies")
+	tAthorityTagMap["Theocratic"] = TheocratictAthority
+
+	ThrivingtAthority := []string{}
+	ThrivingtAthority = append(ThrivingtAthority, "Befuddled official suddenly responsible for much more trade than ever before")
+	ThrivingtAthority = append(ThrivingtAthority, "Nouveau-riche tycoon with wild ambitions")
+	ThrivingtAthority = append(ThrivingtAthority, "Local desperate for offworlder help in exploiting an opportunity")
+	ThrivingtAthority = append(ThrivingtAthority, "Deeply suspicious old-guard elite")
+	tAthorityTagMap["Thriving"] = ThrivingtAthority
+
+	TributetAthority := []string{}
+	TributetAthority = append(TributetAthority, "Dead-eyed tribute collector")
+	TributetAthority = append(TributetAthority, "Official in charge of handling offworlder contributions")
+	TributetAthority = append(TributetAthority, "Collector of 'special orders' from the elite")
+	TributetAthority = append(TributetAthority, "Local desperate to make his quota somehow")
+	tAthorityTagMap["Tribute"] = TributetAthority
+
+	TyrannicaltAthority := []string{}
+	TyrannicaltAthority = append(TyrannicaltAthority, "Gray-souled bureaucrat seeking an edge")
+	TyrannicaltAthority = append(TyrannicaltAthority, "Overfed scion of the ruling class")
+	TyrannicaltAthority = append(TyrannicaltAthority, "Personal shopper for the tyrant")
+	TyrannicaltAthority = append(TyrannicaltAthority, "Military officer seeking special orders")
+	tAthorityTagMap["Tyrannical"] = TyrannicaltAthority
+
+	UsurpedtAthority := []string{}
+	UsurpedtAthority = append(UsurpedtAthority, "Colonial customs officer with a distaste for the locals")
+	UsurpedtAthority = append(UsurpedtAthority, "Plastic-souled combine bureaucrat who wants off the world")
+	UsurpedtAthority = append(UsurpedtAthority, "Local collaborator hated by their neighbors")
+	UsurpedtAthority = append(UsurpedtAthority, "'Negotiator' who handles all contact with buyers and sellers")
+	tAthorityTagMap["Usurped"] = UsurpedtAthority
+
+	VendortAthority := []string{}
+	VendortAthority = append(VendortAthority, "Chief manufacturer of the good")
+	VendortAthority = append(VendortAthority, "Religious official in charge of the good's disbursal to the populace")
+	VendortAthority = append(VendortAthority, "Labor union chief involved with making the good")
+	VendortAthority = append(VendortAthority, "Tax collector bent on stopping the smuggling of the good")
+	tAthorityTagMap["Vendor"] = VendortAthority
+
+	XenophobictAthority := []string{}
+	XenophobictAthority = append(XenophobictAthority, "Profoundly disgusted bureaucrat")
+	XenophobictAthority = append(XenophobictAthority, "Furtive corporate executive fearing discovery")
+	XenophobictAthority = append(XenophobictAthority, "Official who thinks the PCs have no moral reservations about any work")
+	XenophobictAthority = append(XenophobictAthority, "Desperate local willing to deal with the devil for some vital thing")
+	tAthorityTagMap["Xenophobic"] = XenophobictAthority
+	return tAthorityTagMap
+}
+
+func createTradeAntogonistMap() map[string][]string {
+	tAntagonistTagMap := make(map[string][]string)
+	AlientAntagonist := []string{}
+	AlientAntagonist = append(AlientAntagonist, "Amoral far trader selling the aliens tech dangerous to humans")
+	AlientAntagonist = append(AlientAntagonist, "Alien renegade seeking offworld goods for its plots")
+	AlientAntagonist = append(AlientAntagonist, "Alien trader trying to sell local artifacts forbidden from export")
+	AlientAntagonist = append(AlientAntagonist, "Alien selling goods that are actually very dangerous")
+	tAntagonistTagMap["Alien"] = AlientAntagonist
+
+	ClosedtAntagonist := []string{}
+	ClosedtAntagonist = append(ClosedtAntagonist, "Corrupt local potentate")
+	ClosedtAntagonist = append(ClosedtAntagonist, "Bribed quarantine enforcer")
+	ClosedtAntagonist = append(ClosedtAntagonist, "Relentless far trader smuggler")
+	ClosedtAntagonist = append(ClosedtAntagonist, "Native aspiring to break the seal")
+	tAntagonistTagMap["Closed"] = ClosedtAntagonist
+
+	CommunisttAntagonist := []string{}
+	CommunisttAntagonist = append(CommunisttAntagonist, "Vengeful survivor of the former propertied class")
+	CommunisttAntagonist = append(CommunisttAntagonist, "'Enemy of the people' out to overthrow the government")
+	CommunisttAntagonist = append(CommunisttAntagonist, "Far trader with moral objections to dealing with communists")
+	CommunisttAntagonist = append(CommunisttAntagonist, "Aspiring tyrant seeking to seize control of the world")
+	tAntagonistTagMap["Communist"] = CommunisttAntagonist
+
+	DisorganizedtAntagonist := []string{}
+	DisorganizedtAntagonist = append(DisorganizedtAntagonist, "Aspiring offworlder planetary warlord")
+	DisorganizedtAntagonist = append(DisorganizedtAntagonist, "Offworld government agent seeking control")
+	DisorganizedtAntagonist = append(DisorganizedtAntagonist, "Local lord cooperating with an amoral trader")
+	DisorganizedtAntagonist = append(DisorganizedtAntagonist, "Organlegger trading copious spare parts")
+	tAntagonistTagMap["Disorganized"] = DisorganizedtAntagonist
+
+	DyingtAntagonist := []string{}
+	DyingtAntagonist = append(DyingtAntagonist, "Desperate local grandee bent on ship theft")
+	DyingtAntagonist = append(DyingtAntagonist, "Ruthless local ready to do absolutely anything to get their loved ones away")
+	DyingtAntagonist = append(DyingtAntagonist, "Furious demagogue convinced the doom is the work of offworlders")
+	DyingtAntagonist = append(DyingtAntagonist, "Cheat selling passage on the PCs' ship without telling them")
+	tAntagonistTagMap["Dying"] = DyingtAntagonist
+
+	FractioustAntagonist := []string{}
+	FractioustAntagonist = append(FractioustAntagonist, "Faction member seeking to discredit a troublesome superior")
+	FractioustAntagonist = append(FractioustAntagonist, "Saboteur seeking offworlder weapons")
+	FractioustAntagonist = append(FractioustAntagonist, "Reformer seeking offworld resources")
+	FractioustAntagonist = append(FractioustAntagonist, "Renegade seeking a plague on all their houses")
+	tAntagonistTagMap["Fractious"] = FractioustAntagonist
+
+	KleptocratictAntagonist := []string{}
+	KleptocratictAntagonist = append(KleptocratictAntagonist, "Abominably corrupt ruler who demands loathsome tribute")
+	KleptocratictAntagonist = append(KleptocratictAntagonist, "Hard-bitten underclass entrepreneur with no god but profit")
+	KleptocratictAntagonist = append(KleptocratictAntagonist, "Offworld reformer who blames far traders as the root of the problem")
+	KleptocratictAntagonist = append(KleptocratictAntagonist, "Savagely vengeful renegade")
+	tAntagonistTagMap["Kleptocratic"] = KleptocratictAntagonist
+
+	LaissezFairetAntagonist := []string{}
+	LaissezFairetAntagonist = append(LaissezFairetAntagonist, "Amoral merchant trading in foul things")
+	LaissezFairetAntagonist = append(LaissezFairetAntagonist, "Aspiring monopolist seeking to control the market")
+	LaissezFairetAntagonist = append(LaissezFairetAntagonist, "Lobbyist seeking to control the regulators")
+	LaissezFairetAntagonist = append(LaissezFairetAntagonist, "Failed merchant who blames far traders")
+	tAntagonistTagMap["LaissezFaire"] = LaissezFairetAntagonist
+
+	MegacorpstAntagonist := []string{}
+	MegacorpstAntagonist = append(MegacorpstAntagonist, "Industrial saboteur working for a rival")
+	MegacorpstAntagonist = append(MegacorpstAntagonist, "Official who hates 'destabilizing' far traders")
+	MegacorpstAntagonist = append(MegacorpstAntagonist, "Violent anti-corp terroristslash-freedom fighter")
+	MegacorpstAntagonist = append(MegacorpstAntagonist, "Megacorp creation gone rogue ")
+	tAntagonistTagMap["Megacorps"] = MegacorpstAntagonist
+
+	MilitarytAntagonist := []string{}
+	MilitarytAntagonist = append(MilitarytAntagonist, "Zealot confiscating goods 'for the war effort'")
+	MilitarytAntagonist = append(MilitarytAntagonist, "Ruthless enforcer of military quarantine")
+	MilitarytAntagonist = append(MilitarytAntagonist, "Enemy saboteur bent on ruining far traders")
+	MilitarytAntagonist = append(MilitarytAntagonist, "Deserter looking to make a profit")
+	tAntagonistTagMap["Military"] = MilitarytAntagonist
+
+	OpenedtAntagonist := []string{}
+	OpenedtAntagonist = append(OpenedtAntagonist, "Angry xenophobic local")
+	OpenedtAntagonist = append(OpenedtAntagonist, "Ruthlessly exploitative far trader rival")
+	OpenedtAntagonist = append(OpenedtAntagonist, "Offworld ambassador with a grudge against the far trader")
+	OpenedtAntagonist = append(OpenedtAntagonist, "Local ruler who expects pliant service from the offworlders")
+	tAntagonistTagMap["Opened"] = OpenedtAntagonist
+
+	PanopticontAntagonist := []string{}
+	PanopticontAntagonist = append(PanopticontAntagonist, "Monitor saboteur")
+	PanopticontAntagonist = append(PanopticontAntagonist, "Official paranoid about unobserved far traders")
+	PanopticontAntagonist = append(PanopticontAntagonist, "Offworlder seeking to subvert the monitors for their own purposes")
+	PanopticontAntagonist = append(PanopticontAntagonist, "Avid blackmailer")
+	tAntagonistTagMap["Panopticon"] = PanopticontAntagonist
+
+	PrimitivetAntagonist := []string{}
+	PrimitivetAntagonist = append(PrimitivetAntagonist, "Official privately determined to drive the offworlders away")
+	PrimitivetAntagonist = append(PrimitivetAntagonist, "Local crime boss desperate to steal offworld goods")
+	PrimitivetAntagonist = append(PrimitivetAntagonist, "Local demagogue bent on extorting the offworlders")
+	PrimitivetAntagonist = append(PrimitivetAntagonist, "Far trader who really dislikes competition")
+	tAntagonistTagMap["Primitive"] = PrimitivetAntagonist
+
+	RestrictedtAntagonist := []string{}
+	RestrictedtAntagonist = append(RestrictedtAntagonist, "Rebel bent on getting a new source for tech")
+	RestrictedtAntagonist = append(RestrictedtAntagonist, "Elite in desperate need of replacements for dying tech")
+	RestrictedtAntagonist = append(RestrictedtAntagonist, "Far trader inclined to destroy the monopoly")
+	RestrictedtAntagonist = append(RestrictedtAntagonist, "Colonial offworld official enforcing the rules on the hapless locals")
+	tAntagonistTagMap["Restricted"] = RestrictedtAntagonist
+
+	ScarcitytAntagonist := []string{}
+	ScarcitytAntagonist = append(ScarcitytAntagonist, "Saboteur bent on destroying a rival's supply of the material")
+	ScarcitytAntagonist = append(ScarcitytAntagonist, "Radical redistributionist with no fear of the consequences")
+	ScarcitytAntagonist = append(ScarcitytAntagonist, "Far trader bent on keeping the material scarce")
+	ScarcitytAntagonist = append(ScarcitytAntagonist, "Local elite trying to make sure the status remains quo")
+	tAntagonistTagMap["Scarcity"] = ScarcitytAntagonist
+
+	SecrettAntagonist := []string{}
+	SecrettAntagonist = append(SecrettAntagonist, "Investigative reporter")
+	SecrettAntagonist = append(SecrettAntagonist, "Business competitor baffled at the new products")
+	SecrettAntagonist = append(SecrettAntagonist, "Rival government saboteur")
+	SecrettAntagonist = append(SecrettAntagonist, "Relentless conspiracy theorist")
+	tAntagonistTagMap["Secret"] = SecrettAntagonist
+
+	SophisticatedtAntagonist := []string{}
+	SophisticatedtAntagonist = append(SophisticatedtAntagonist, "Con-man playing on far traders' expectations of bumpkin locals")
+	SophisticatedtAntagonist = append(SophisticatedtAntagonist, "Offworlder agent working indirectly against a rival power")
+	SophisticatedtAntagonist = append(SophisticatedtAntagonist, "Decadent local demanding grim amusement")
+	SophisticatedtAntagonist = append(SophisticatedtAntagonist, "Apparently wealthy local actually in dire financial straits")
+	tAntagonistTagMap["Sophisticated"] = SophisticatedtAntagonist
+
+	TheocratictAntagonist := []string{}
+	TheocratictAntagonist = append(TheocratictAntagonist, "Extremely militant heretic")
+	TheocratictAntagonist = append(TheocratictAntagonist, "Xenophobic zealot bent on purging offworlder corruption")
+	TheocratictAntagonist = append(TheocratictAntagonist, "Offworld cultural saboteur seeking to cripple the world's society on a rival's behalf")
+	TheocratictAntagonist = append(TheocratictAntagonist, "Far trader trying to move forbidden goods on the world")
+	tAntagonistTagMap["Theocratic"] = TheocratictAntagonist
+
+	ThrivingtAntagonist := []string{}
+	ThrivingtAntagonist = append(ThrivingtAntagonist, "Suddenly wealthy local who plots revenge for old slights")
+	ThrivingtAntagonist = append(ThrivingtAntagonist, "Far trader who wants to capture the local market")
+	ThrivingtAntagonist = append(ThrivingtAntagonist, "Deposed elite who wants to end the 'chaos' of the boom")
+	ThrivingtAntagonist = append(ThrivingtAntagonist, "Megalomaniac local who plans sector dominance")
+	tAntagonistTagMap["Thriving"] = ThrivingtAntagonist
+
+	TributetAntagonist := []string{}
+	TributetAntagonist = append(TributetAntagonist, "Offworlder scheming to steal the tribute")
+	TributetAntagonist = append(TributetAntagonist, "Local elite unable to understand that they can't simply take everything")
+	TributetAntagonist = append(TributetAntagonist, "Deluded elite with impossible demands on far traders")
+	TributetAntagonist = append(TributetAntagonist, "Ruthless tribute collector snatching whatever he can")
+	tAntagonistTagMap["Tribute"] = TributetAntagonist
+
+	TyrannicaltAntagonist := []string{}
+	TyrannicaltAntagonist = append(TyrannicaltAntagonist, "Rebel who blames offworlders for the tyrant's power")
+	TyrannicaltAntagonist = append(TyrannicaltAntagonist, "Brutal secret police chief with suspicions of offworlders")
+	TyrannicaltAntagonist = append(TyrannicaltAntagonist, "Zealous party propaganda chief seeking offworlder support")
+	TyrannicaltAntagonist = append(TyrannicaltAntagonist, "Suicidal saboteur out to destroy far trade")
+	tAntagonistTagMap["Tyrannical"] = TyrannicaltAntagonist
+
+	UsurpedtAntagonist := []string{}
+	UsurpedtAntagonist = append(UsurpedtAntagonist, "Bitter local nationalist")
+	UsurpedtAntagonist = append(UsurpedtAntagonist, "Reckless far trader smuggler")
+	UsurpedtAntagonist = append(UsurpedtAntagonist, "Corrupt customs official")
+	UsurpedtAntagonist = append(UsurpedtAntagonist, "Brutal trade enforcer ")
+	tAntagonistTagMap["Usurped"] = UsurpedtAntagonist
+
+	VendortAntagonist := []string{}
+	VendortAntagonist = append(VendortAntagonist, "Brutal and red-handed smuggler")
+	VendortAntagonist = append(VendortAntagonist, "Saboteur who seeks to destroy a supplier of the good")
+	VendortAntagonist = append(VendortAntagonist, "Con man selling fake or adulterated goods")
+	VendortAntagonist = append(VendortAntagonist, "Extortionist threatening to cut off the supply of the good")
+	tAntagonistTagMap["Vendor"] = VendortAntagonist
+
+	XenophobictAntagonist := []string{}
+	XenophobictAntagonist = append(XenophobictAntagonist, "Purity-minded local demagogue")
+	XenophobictAntagonist = append(XenophobictAntagonist, "Investigator for 'alien influences'")
+	XenophobictAntagonist = append(XenophobictAntagonist, "Politician seeking to tie his rivals to offworlders")
+	XenophobictAntagonist = append(XenophobictAntagonist, "Local who wants to bury his former contracts permanently")
+	tAntagonistTagMap["Xenophobic"] = XenophobictAntagonist
+	return tAntagonistTagMap
+}
+
+func createTradeThingsMap() map[string][]string {
+	tThingsTagMap := make(map[string][]string)
+	AlientThings := []string{}
+	AlientThings = append(AlientThings, "Alien religious artifacts")
+	AlientThings = append(AlientThings, "Exotic alien tech")
+	AlientThings = append(AlientThings, "Alien slave caste")
+	AlientThings = append(AlientThings, "Precious biological extract from dead aliens")
+	tThingsTagMap["Alien"] = AlientThings
+
+	ClosedtThings := []string{}
+	ClosedtThings = append(ClosedtThings, "Blatantly offworld goods")
+	ClosedtThings = append(ClosedtThings, "Uniquely precious cultural artifacts")
+	ClosedtThings = append(ClosedtThings, "Key or tools for bypassing trade barriers")
+	ClosedtThings = append(ClosedtThings, "Offworld goods disguised as precious local products")
+	tThingsTagMap["Closed"] = ClosedtThings
+
+	CommunisttThings := []string{}
+	CommunisttThings = append(CommunisttThings, "Stock of overproduced goods")
+	CommunisttThings = append(CommunisttThings, "Crude but tough equipment")
+	CommunisttThings = append(CommunisttThings, "Last cache of some underproduced product on the planet")
+	CommunisttThings = append(CommunisttThings, "Goods seized from capitalist roaders and wreckers")
+	tThingsTagMap["Communist"] = CommunisttThings
+
+	DisorganizedtThings := []string{}
+	DisorganizedtThings = append(DisorganizedtThings, "Losers of local quarrels made into slaves")
+	DisorganizedtThings = append(DisorganizedtThings, "Caches of the old government's weapons of mass destruction")
+	DisorganizedtThings = append(DisorganizedtThings, "Stockpile of the resource the locals are fighting over")
+	DisorganizedtThings = append(DisorganizedtThings, "Salvage from a ruined lab or city")
+	tThingsTagMap["Disorganized"] = DisorganizedtThings
+
+	DyingtThings := []string{}
+	DyingtThings = append(DyingtThings, "A king's ransom gathered to buy passage for a now-dead ruler")
+	DyingtThings = append(DyingtThings, "Precious cultural relics symbolic of the world")
+	DyingtThings = append(DyingtThings, "Cold sleep pods for hundreds of infants")
+	DyingtThings = append(DyingtThings, "A cache of usable spike drive cores")
+	tThingsTagMap["Dying"] = DyingtThings
+
+	FractioustThings := []string{}
+	FractioustThings = append(FractioustThings, "Forbidden tech meant for a faction's leadership")
+	FractioustThings = append(FractioustThings, "Restricted data stolen from a faction")
+	FractioustThings = append(FractioustThings, "Precious resource the factions are fighting over")
+	FractioustThings = append(FractioustThings, "Offworld tech shipment meant for 'freedom fighters'")
+	tThingsTagMap["Fractious"] = FractioustThings
+
+	KleptocratictThings := []string{}
+	KleptocratictThings = append(KleptocratictThings, "Goods 'mislaid' as a bribe payment")
+	KleptocratictThings = append(KleptocratictThings, "The forbidden tech that all the local factions want")
+	KleptocratictThings = append(KleptocratictThings, "The goods due as protection money to keep someone from getting killed")
+	KleptocratictThings = append(KleptocratictThings, "An offworld criminal's stash of looted goods")
+	tThingsTagMap["Kleptocratic"] = KleptocratictThings
+
+	LaissezFairetThings := []string{}
+	LaissezFairetThings = append(LaissezFairetThings, "Forbidden goods unknown on other civilized worlds")
+	LaissezFairetThings = append(LaissezFairetThings, "Recently-outlawed wares hidden for later pickup")
+	LaissezFairetThings = append(LaissezFairetThings, "Defrauded goods cached for later claiming")
+	LaissezFairetThings = append(LaissezFairetThings, "Cases of the One Thing Outlawed Here")
+	tThingsTagMap["LaissezFaire"] = LaissezFairetThings
+
+	MegacorpstThings := []string{}
+	MegacorpstThings = append(MegacorpstThings, "Exotic R&D product")
+	MegacorpstThings = append(MegacorpstThings, "Warehouse of goods left in legal limbo by a subsidiary")
+	MegacorpstThings = append(MegacorpstThings, "Product of some brutal human experimentation")
+	MegacorpstThings = append(MegacorpstThings, "Vital parts for a crucial manufacturing facility")
+	tThingsTagMap["Megacorps"] = MegacorpstThings
+
+	MilitarytThings := []string{}
+	MilitarytThings = append(MilitarytThings, "High-tech military prototype gear")
+	MilitarytThings = append(MilitarytThings, "Supplies vital to a beleaguered unit")
+	MilitarytThings = append(MilitarytThings, "Crates of weapons banned by local laws of war")
+	MilitarytThings = append(MilitarytThings, "Luxuries beloved of high brass")
+	tThingsTagMap["Military"] = MilitarytThings
+
+	OpenedtThings := []string{}
+	OpenedtThings = append(OpenedtThings, "Pretech spare parts useless to the locals but priceless offworld")
+	OpenedtThings = append(OpenedtThings, "Cargo container full of enormously disruptive offworld tech")
+	OpenedtThings = append(OpenedtThings, "Access codes to a military space station inaccessible since the Scream")
+	OpenedtThings = append(OpenedtThings, "Cache of goods that the locals don't realize are extremely valuable")
+	tThingsTagMap["Opened"] = OpenedtThings
+
+	PanopticontThings := []string{}
+	PanopticontThings = append(PanopticontThings, "Monitor-proof shielding shipment")
+	PanopticontThings = append(PanopticontThings, "Cargo of hyper-advanced surveillance gear")
+	PanopticontThings = append(PanopticontThings, "Semi-intelligent monitoring hardware")
+	PanopticontThings = append(PanopticontThings, "Entertaining but extremely illicit surveillance logs")
+	tThingsTagMap["Panopticon"] = PanopticontThings
+
+	PrimitivetThings := []string{}
+	PrimitivetThings = append(PrimitivetThings, "Colony-era pretech parts that are useless to the locals")
+	PrimitivetThings = append(PrimitivetThings, "Amazingly refined art or liquors")
+	PrimitivetThings = append(PrimitivetThings, "Exquisitely-bred and trained warbeasts")
+	PrimitivetThings = append(PrimitivetThings, "Papers proving ownership of local serfs or slaves")
+	tThingsTagMap["Primitive"] = PrimitivetThings
+
+	RestrictedtThings := []string{}
+	RestrictedtThings = append(RestrictedtThings, "Cache of tech lost when the owner was killed")
+	RestrictedtThings = append(RestrictedtThings, "'Cloaked' tech that looks like allowed objects")
+	RestrictedtThings = append(RestrictedtThings, "Superior local tech reserved for elites")
+	RestrictedtThings = append(RestrictedtThings, "Trove of the incredibly dangerous tech that provoked the restrictions in the first place")
+	tThingsTagMap["Restricted"] = RestrictedtThings
+
+	ScarcitytThings := []string{}
+	ScarcitytThings = append(ScarcitytThings, "Secret warehouse of the material")
+	ScarcitytThings = append(ScarcitytThings, "Material lost in fighting long ago")
+	ScarcitytThings = append(ScarcitytThings, "Ancient tech that creates the material")
+	ScarcitytThings = append(ScarcitytThings, "A virus or nanocontagion that destroys the material")
+	tThingsTagMap["Scarcity"] = ScarcitytThings
+
+	SecrettThings := []string{}
+	SecrettThings = append(SecrettThings, "Slaves comprising people the locals want 'disappeared'")
+	SecrettThings = append(SecrettThings, "Government-extracted resources")
+	SecrettThings = append(SecrettThings, "Stealth technology to defeat local scanners")
+	SecrettThings = append(SecrettThings, "Irrefutable evidence of 'alien' contact")
+	tThingsTagMap["Secret"] = SecrettThings
+
+	SophisticatedtThings := []string{}
+	SophisticatedtThings = append(SophisticatedtThings, "Inexplicably compelling collection of artwork")
+	SophisticatedtThings = append(SophisticatedtThings, "Magnificent relic of a long-lost civilization")
+	SophisticatedtThings = append(SophisticatedtThings, "Local specialty jealously kept on-world")
+	SophisticatedtThings = append(SophisticatedtThings, "Precious trove of data logs on now-lost societies")
+	tThingsTagMap["Sophisticated"] = SophisticatedtThings
+
+	TheocratictThings := []string{}
+	TheocratictThings = append(TheocratictThings, "Beautiful religious artwork")
+	TheocratictThings = append(TheocratictThings, "Technology sacred to the faith")
+	TheocratictThings = append(TheocratictThings, "Priceless relics of the religion")
+	TheocratictThings = append(TheocratictThings, "Stores of religious tithes that went missing")
+	tThingsTagMap["Theocratic"] = TheocratictThings
+
+	ThrivingtThings := []string{}
+	ThrivingtThings = append(ThrivingtThings, "Products of an upgraded factory")
+	ThrivingtThings = append(ThrivingtThings, "Motherlode of precious mineral")
+	ThrivingtThings = append(ThrivingtThings, "Trove of goods bought by a now-dead entrepreneur")
+	ThrivingtThings = append(ThrivingtThings, "Vital industrial equipment lost in transit")
+	tThingsTagMap["Thriving"] = ThrivingtThings
+
+	TributetThings := []string{}
+	TributetThings = append(TributetThings, "Store of tribute material")
+	TributetThings = append(TributetThings, "Tech to vastly increase tribute production")
+	TributetThings = append(TributetThings, "Tech the elite use to help enforce the tribute")
+	TributetThings = append(TributetThings, "Precious byproduct of tribute creation unknown to the locals")
+	tThingsTagMap["Tribute"] = TributetThings
+
+	TyrannicaltThings := []string{}
+	TyrannicaltThings = append(TyrannicaltThings, "Wealth taken from enemies of the state")
+	TyrannicaltThings = append(TyrannicaltThings, "Slave-produced goods")
+	TyrannicaltThings = append(TyrannicaltThings, "Advanced surveillance tech")
+	TyrannicaltThings = append(TyrannicaltThings, "Store of exceptionally vicious weaponry")
+	tThingsTagMap["Tyrannical"] = TyrannicaltThings
+
+	UsurpedtThings := []string{}
+	UsurpedtThings = append(UsurpedtThings, "Tightly-restricted local specialty")
+	UsurpedtThings = append(UsurpedtThings, "Cache of goods taken by the usurpers as profit")
+	UsurpedtThings = append(UsurpedtThings, "Equipment vital to maintaining the trade stranglehold")
+	UsurpedtThings = append(UsurpedtThings, "Weapons cache meant for local rebels ")
+	tThingsTagMap["Usurped"] = UsurpedtThings
+
+	VendortThings := []string{}
+	VendortThings = append(VendortThings, "Secret untaxed cache of this good")
+	VendortThings = append(VendortThings, "Machinery vital in its creation or extraction")
+	VendortThings = append(VendortThings, "Prototype of a synthetic equivalent that threatens to destroy their monopoly")
+	VendortThings = append(VendortThings, "Tainted or otherwise dangerous batch of this good")
+	tThingsTagMap["Vendor"] = VendortThings
+
+	XenophobictThings := []string{}
+	XenophobictThings = append(XenophobictThings, "Store of goods too obviously alien to release to the market")
+	XenophobictThings = append(XenophobictThings, "Local specialty kept from outsiders")
+	XenophobictThings = append(XenophobictThings, "Cache of goods hidden by a lynched trader")
+	XenophobictThings = append(XenophobictThings, "Local treasure of incalculable value to natives")
+	tThingsTagMap["Xenophobic"] = XenophobictThings
+	return tThingsTagMap
+}
+
+func createTradeComplicationsMap() map[string][]string {
+	tComplicationsTagMap := make(map[string][]string)
+	AlientComplications := []string{}
+	AlientComplications = append(AlientComplications, "The locals suddenly become very dangerous due to alien ritual behavior or biological impulses")
+	AlientComplications = append(AlientComplications, "Aliens suddenly demand a particular good to continue trading")
+	AlientComplications = append(AlientComplications, "Aliens become enraged over inexplicable slight")
+	AlientComplications = append(AlientComplications, "Alien rebels start fighting for control of human trade")
+	tComplicationsTagMap["Alien"] = AlientComplications
+
+	ClosedtComplications := []string{}
+	ClosedtComplications = append(ClosedtComplications, "The planet was wide open until very recently")
+	ClosedtComplications = append(ClosedtComplications, "An exceptionally vicious local ruler wants to open outside trade to support his regime")
+	ClosedtComplications = append(ClosedtComplications, "The local culture forces people to profess public contempt for all offworld goods")
+	ClosedtComplications = append(ClosedtComplications, "Seemingly innocuous offworld tech caused a horrific disaster")
+	tComplicationsTagMap["Closed"] = ClosedtComplications
+
+	CommunisttComplications := []string{}
+	CommunisttComplications = append(CommunisttComplications, "The locals actually have the AIs or cornucopia factories to make it work tolerably")
+	CommunisttComplications = append(CommunisttComplications, "The communism is for the commoners while the elite actually own property")
+	CommunisttComplications = append(CommunisttComplications, "The communism is a thin facade over a grim totalitarian state")
+	CommunisttComplications = append(CommunisttComplications, "The communism is recent and everything seems to be working well so far")
+	tComplicationsTagMap["Communist"] = CommunisttComplications
+
+	DisorganizedtComplications := []string{}
+	DisorganizedtComplications = append(DisorganizedtComplications, "The local balkanization is relatively stable among numerous small powers")
+	DisorganizedtComplications = append(DisorganizedtComplications, "The disorganization is peaceful in nature and the product of genteel disagreements")
+	DisorganizedtComplications = append(DisorganizedtComplications, "The planet is experiencing an inevitable and brutal population cull")
+	DisorganizedtComplications = append(DisorganizedtComplications, "The chaos is recent enough that the locals still have many artifacts of the old order")
+	tComplicationsTagMap["Disorganized"] = DisorganizedtComplications
+
+	DyingtComplications := []string{}
+	DyingtComplications = append(DyingtComplications, "Only the world's elite realize that they are doomed")
+	DyingtComplications = append(DyingtComplications, "Half the planet is still convinced there is hope")
+	DyingtComplications = append(DyingtComplications, "Outside rivals actively seek the death of the world")
+	DyingtComplications = append(DyingtComplications, "The doom can be averted with lost alien tech")
+	tComplicationsTagMap["Dying"] = DyingtComplications
+
+	FractioustComplications := []string{}
+	FractioustComplications = append(FractioustComplications, "All of the factions honestly mean well")
+	FractioustComplications = append(FractioustComplications, "One faction is clearly dominant but opposed by all the others")
+	FractioustComplications = append(FractioustComplications, "One faction has heavy offworld support")
+	FractioustComplications = append(FractioustComplications, "The factions are very good at hiding their membership")
+	tComplicationsTagMap["Fractious"] = FractioustComplications
+
+	KleptocratictComplications := []string{}
+	KleptocratictComplications = append(KleptocratictComplications, "A reformist movement is growing stronger but is hostile to far traders")
+	KleptocratictComplications = append(KleptocratictComplications, "The society used to be much less corrupt before a disaster or war")
+	KleptocratictComplications = append(KleptocratictComplications, "The corruption is carefully and ruthlessly hidden from the populace")
+	KleptocratictComplications = append(KleptocratictComplications, "Without the grease of corruption the local legal framework would paralyze society")
+	tComplicationsTagMap["Kleptocratic"] = KleptocratictComplications
+
+	LaissezFairetComplications := []string{}
+	LaissezFairetComplications = append(LaissezFairetComplications, "The new liberty is fragile and old economic powers want the market restrained in their favor")
+	LaissezFairetComplications = append(LaissezFairetComplications, "Economic losers in the market are growing violent")
+	LaissezFairetComplications = append(LaissezFairetComplications, "A government faction fears the market is starting to threaten their power")
+	LaissezFairetComplications = append(LaissezFairetComplications, "Society is thrown in flux by the sudden flood of new wealth")
+	tComplicationsTagMap["LaissezFaire"] = LaissezFairetComplications
+
+	MegacorpstComplications := []string{}
+	MegacorpstComplications = append(MegacorpstComplications, "The corps are actually making the standard of living very good here")
+	MegacorpstComplications = append(MegacorpstComplications, "The corps hold the key to some process vital to local survival")
+	MegacorpstComplications = append(MegacorpstComplications, "The corps maintain functional pretech facilities")
+	MegacorpstComplications = append(MegacorpstComplications, "The corps are actually deniable government proxies completely in thrall to the local rulers")
+	tComplicationsTagMap["Megacorps"] = MegacorpstComplications
+
+	MilitarytComplications := []string{}
+	MilitarytComplications = append(MilitarytComplications, "All civilians are essentially slave labor unless they can enter the military caste")
+	MilitarytComplications = append(MilitarytComplications, "The world is rapidly tearing itself apart with the fighting")
+	MilitarytComplications = append(MilitarytComplications, "The dominant military power hates far traders as destabilizing wild cards")
+	MilitarytComplications = append(MilitarytComplications, "Foreign worlds use the planet as a testing ground for military tech")
+	tComplicationsTagMap["Military"] = MilitarytComplications
+
+	OpenedtComplications := []string{}
+	OpenedtComplications = append(OpenedtComplications, "The locals opened up trade because they need the far traders to save the planet from something")
+	OpenedtComplications = append(OpenedtComplications, "The locals are convinced the far traders are Space Gods or something similar")
+	OpenedtComplications = append(OpenedtComplications, "Another world's government wants them quarantined for economic or religious reasons")
+	OpenedtComplications = append(OpenedtComplications, "The locals think far traders all belong to the same company- and are culpable for each others' sins")
+	tComplicationsTagMap["Opened"] = OpenedtComplications
+
+	PanopticontComplications := []string{}
+	PanopticontComplications = append(PanopticontComplications, "Telepaths run an undetectable psychic comm network")
+	PanopticontComplications = append(PanopticontComplications, "Locals actually communicate via subtle contextual cues rather than the words they speak")
+	PanopticontComplications = append(PanopticontComplications, "The surveillance state is new and society is in turmoil over it")
+	PanopticontComplications = append(PanopticontComplications, "The watchers are actually looking for something specific and mortally dangerous")
+	tComplicationsTagMap["Panopticon"] = PanopticontComplications
+
+	PrimitivetComplications := []string{}
+	PrimitivetComplications = append(PrimitivetComplications, "A local priestess has cynically duped the locals into thinking her far trader partners are holy figures")
+	PrimitivetComplications = append(PrimitivetComplications, "The world is on the cusp of an explosively disruptive industrial revolution")
+	PrimitivetComplications = append(PrimitivetComplications, "The locals are Luddites for a reason that is or was rational")
+	PrimitivetComplications = append(PrimitivetComplications, "The last far trader to come through left chaos in his wake")
+	tComplicationsTagMap["Primitive"] = PrimitivetComplications
+
+	RestrictedtComplications := []string{}
+	RestrictedtComplications = append(RestrictedtComplications, "The tech is self-aware and using the elites")
+	RestrictedtComplications = append(RestrictedtComplications, "The restricted tech is extraordinarily dangerous on this particular world")
+	RestrictedtComplications = append(RestrictedtComplications, "The tech is vital to life and the elite's lynchpin of control")
+	RestrictedtComplications = append(RestrictedtComplications, "The tech is fueled by something precious or deplorable")
+	tComplicationsTagMap["Restricted"] = RestrictedtComplications
+
+	ScarcitytComplications := []string{}
+	ScarcitytComplications = append(ScarcitytComplications, "The scarcity is so recent that society is still coming to grips with it")
+	ScarcitytComplications = append(ScarcitytComplications, "The locals believe that the scarcity uplifts them and must be maintained")
+	ScarcitytComplications = append(ScarcitytComplications, "A crazed demagogue accuses the rulers of having a superabundant cache of the material")
+	ScarcitytComplications = append(ScarcitytComplications, "A nigh-unlimited supply or generation tech lies locked away behind ancient guards")
+	tComplicationsTagMap["Scarcity"] = ScarcitytComplications
+
+	SecrettComplications := []string{}
+	SecrettComplications = append(SecrettComplications, "The locals are convinced that space travel is impossible since the Scream")
+	SecrettComplications = append(SecrettComplications, "The locals are actually hyper-advanced and extremely isolationist")
+	SecrettComplications = append(SecrettComplications, "The planet's history gives them good reason to hate and fear offworlders")
+	SecrettComplications = append(SecrettComplications, "The locals are extremely hard to infiltrate")
+	tComplicationsTagMap["Secret"] = SecrettComplications
+
+	SophisticatedtComplications := []string{}
+	SophisticatedtComplications = append(SophisticatedtComplications, "The locals are actually simply invincibly arrogant rather than accomplished")
+	SophisticatedtComplications = append(SophisticatedtComplications, "They are cultural heirs to a very strange society or alien race")
+	SophisticatedtComplications = append(SophisticatedtComplications, "The locals are convinced that they should rule the sector")
+	SophisticatedtComplications = append(SophisticatedtComplications, "The locals are eager to export culture")
+	tComplicationsTagMap["Sophisticated"] = SophisticatedtComplications
+
+	TheocratictComplications := []string{}
+	TheocratictComplications = append(TheocratictComplications, "The local theocracy is a substantial improvement on what went before")
+	TheocratictComplications = append(TheocratictComplications, "The clergy secretly war with each other over obscure doctrinal differences")
+	TheocratictComplications = append(TheocratictComplications, "The theocracy is decadent but the locals can imagine no other life")
+	TheocratictComplications = append(TheocratictComplications, "The theocracy is in the midst of upheaval and the commoners are divided")
+	tComplicationsTagMap["Theocratic"] = TheocratictComplications
+
+	ThrivingtComplications := []string{}
+	ThrivingtComplications = append(ThrivingtComplications, "The boom is actually based on a false impression and is doomed to collapse gruesomely")
+	ThrivingtComplications = append(ThrivingtComplications, "A deeply unsympathetic group is prospering most from the boom")
+	ThrivingtComplications = append(ThrivingtComplications, "The losers in the boom would rather have the entire planet poor")
+	ThrivingtComplications = append(ThrivingtComplications, "Neighboring worlds are fearful of potential expansionism")
+	tComplicationsTagMap["Thriving"] = ThrivingtComplications
+
+	TributetComplications := []string{}
+	TributetComplications = append(TributetComplications, "The tribute is demanded by implacable Mandate-era tax robots")
+	TributetComplications = append(TributetComplications, "The peasants are ground under as the elite fight over who is to control the tribute")
+	TributetComplications = append(TributetComplications, "Tribute production interferes with creation of a much more valuable good")
+	TributetComplications = append(TributetComplications, "The far traders incidentally fit the criteria for deserving a share of the tribute if they can collect it")
+	tComplicationsTagMap["Tribute"] = TributetComplications
+
+	TyrannicaltComplications := []string{}
+	TyrannicaltComplications = append(TyrannicaltComplications, "Maltech gengineering has left the locals incapable of rebellion")
+	TyrannicaltComplications = append(TyrannicaltComplications, "The tyrant seems necessary to resist some grim threat")
+	TyrannicaltComplications = append(TyrannicaltComplications, "The tyrant has genuine popular support")
+	TyrannicaltComplications = append(TyrannicaltComplications, "Members of the former regime have formed a rebel underground")
+	tComplicationsTagMap["Tyrannical"] = TyrannicaltComplications
+
+	UsurpedtComplications := []string{}
+	UsurpedtComplications = append(UsurpedtComplications, "The local rulers desperately need the usurpers for something")
+	UsurpedtComplications = append(UsurpedtComplications, "The usurpers have colorably legitimate claims on the world's wealth")
+	UsurpedtComplications = append(UsurpedtComplications, "The usurpers are backed by extensive local collaboration")
+	UsurpedtComplications = append(UsurpedtComplications, "Only the usurpers know how to turn local resources into a rare specialty")
+	tComplicationsTagMap["Usurped"] = UsurpedtComplications
+
+	VendortComplications := []string{}
+	VendortComplications = append(VendortComplications, "The goods are the product of a brutally exploitative system")
+	VendortComplications = append(VendortComplications, "The goods are running out or being depleted")
+	VendortComplications = append(VendortComplications, "A foreign world has seized all trading rights for their own people")
+	VendortComplications = append(VendortComplications, "Vast stores of these goods are yet untapped or undiscovered and have provoked a gold rush")
+	tComplicationsTagMap["Vendor"] = VendortComplications
+
+	XenophobictComplications := []string{}
+	XenophobictComplications = append(XenophobictComplications, "The locals have been misled by manipulative rulers")
+	XenophobictComplications = append(XenophobictComplications, "The locals blame offworlders for a great disaster")
+	XenophobictComplications = append(XenophobictComplications, "The natives have a deeply alien moral framework")
+	XenophobictComplications = append(XenophobictComplications, "Only the ruling class is xenophobic")
+	tComplicationsTagMap["Xenophobic"] = XenophobictComplications
+	return tComplicationsTagMap
+}
+
+func createTradeRegulationsMap() map[string][]string {
+	tRegulationsTagMap := make(map[string][]string)
+	AlientRegulations := []string{}
+	AlientRegulations = append(AlientRegulations, "Humans are restricted to trade zones")
+	AlientRegulations = append(AlientRegulations, "Traders are required to give passage to members of a non-starfaring species")
+	AlientRegulations = append(AlientRegulations, "Traders must prove themselves honorary members of the species")
+	AlientRegulations = append(AlientRegulations, "Offworld trade is always prefaced by harsh ritual")
+	tRegulationsTagMap["Alien"] = AlientRegulations
+
+	ClosedtRegulations := []string{}
+	ClosedtRegulations = append(ClosedtRegulations, "Trade is possible for 'friends of the people'")
+	ClosedtRegulations = append(ClosedtRegulations, "Trade at a very few traditional times and places is allowed")
+	ClosedtRegulations = append(ClosedtRegulations, "Offworld traders are universally treated as spies")
+	ClosedtRegulations = append(ClosedtRegulations, "Religious experts are allowed to handle offworld goods")
+	tRegulationsTagMap["Closed"] = ClosedtRegulations
+
+	CommunisttRegulations := []string{}
+	CommunisttRegulations = append(CommunisttRegulations, "Only state traders are allowed to buy and sell to offworlders")
+	CommunisttRegulations = append(CommunisttRegulations, "Offworlders must bring specific state-mandated goods to be allowed any trade")
+	CommunisttRegulations = append(CommunisttRegulations, "Only far traders with 'good politics' are allowed to trade")
+	CommunisttRegulations = append(CommunisttRegulations, "Far traders must demonstrate their commitment to the revolution to be allowed to trade")
+	tRegulationsTagMap["Communist"] = CommunisttRegulations
+
+	DisorganizedtRegulations := []string{}
+	DisorganizedtRegulations = append(DisorganizedtRegulations, "Trading with one group will incite bitter hatred from their neighbors")
+	DisorganizedtRegulations = append(DisorganizedtRegulations, "Trade is eagerly sought for weapons and other military supplies")
+	DisorganizedtRegulations = append(DisorganizedtRegulations, "The only serviced spaceport is constantly fought over but never itself attacked")
+	DisorganizedtRegulations = append(DisorganizedtRegulations, "All deals need to involve all sides of any live conflict")
+	tRegulationsTagMap["Disorganized"] = DisorganizedtRegulations
+
+	DyingtRegulations := []string{}
+	DyingtRegulations = append(DyingtRegulations, "Openly acknowledging the impending armageddon is a capital crime")
+	DyingtRegulations = append(DyingtRegulations, "All travel offworld is restricted to those permitted by the elite")
+	DyingtRegulations = append(DyingtRegulations, "Local currency is based on chances at a ship berth")
+	DyingtRegulations = append(DyingtRegulations, "Far traders must take a certain number of passengers in order to leave")
+	tRegulationsTagMap["Dying"] = DyingtRegulations
+
+	FractioustRegulations := []string{}
+	FractioustRegulations = append(FractioustRegulations, "Openly admitting the existence of the factions is a grave crime")
+	FractioustRegulations = append(FractioustRegulations, "The factions offer different trading terms with their own advantages and problems")
+	FractioustRegulations = append(FractioustRegulations, "Some factions have won over xenophobic locals by forbidding offworld trade")
+	FractioustRegulations = append(FractioustRegulations, "The leading faction is built on control of offworld trade")
+	tRegulationsTagMap["Fractious"] = FractioustRegulations
+
+	KleptocratictRegulations := []string{}
+	KleptocratictRegulations = append(KleptocratictRegulations, "Openly acknowledging the corruption is a grave crime")
+	KleptocratictRegulations = append(KleptocratictRegulations, "Bribes are never paid in money")
+	KleptocratictRegulations = append(KleptocratictRegulations, "Far traders are squeezed much more harshly than locals")
+	KleptocratictRegulations = append(KleptocratictRegulations, "Corruption is ruthlessly punished when revealed yet remains ubiquitous")
+	tRegulationsTagMap["Kleptocratic"] = KleptocratictRegulations
+
+	LaissezFairetRegulations := []string{}
+	LaissezFairetRegulations = append(LaissezFairetRegulations, "A person can sell anything here- even their own life and freedom")
+	LaissezFairetRegulations = append(LaissezFairetRegulations, "Local contract-law judges can be openly influenced by 'favors'")
+	LaissezFairetRegulations = append(LaissezFairetRegulations, "Contracts are all bearer documents and he who holds the physical document has the deal")
+	LaissezFairetRegulations = append(LaissezFairetRegulations, "Grand fraud is a capital crime")
+	tRegulationsTagMap["LaissezFaire"] = LaissezFairetRegulations
+
+	MegacorpstRegulations := []string{}
+	MegacorpstRegulations = append(MegacorpstRegulations, "No one wins a legal case without corp patronage")
+	MegacorpstRegulations = append(MegacorpstRegulations, "Corp agents have a license to kill")
+	MegacorpstRegulations = append(MegacorpstRegulations, "All business holdings must be corp-affiliated")
+	MegacorpstRegulations = append(MegacorpstRegulations, "The corps sell local sovereignty to the highest bidder")
+	tRegulationsTagMap["Megacorps"] = MegacorpstRegulations
+
+	MilitarytRegulations := []string{}
+	MilitarytRegulations = append(MilitarytRegulations, "Far traders are required to earn military ranks to trade")
+	MilitarytRegulations = append(MilitarytRegulations, "Far traders are expected to support military missions")
+	MilitarytRegulations = append(MilitarytRegulations, "Goods are subject to confiscation at times of military necessity")
+	MilitarytRegulations = append(MilitarytRegulations, "Far traders risk conscription")
+	tRegulationsTagMap["Military"] = MilitarytRegulations
+
+	OpenedtRegulations := []string{}
+	OpenedtRegulations = append(OpenedtRegulations, "Far traders don't yet have legal standing in the local courts")
+	OpenedtRegulations = append(OpenedtRegulations, "A rival trader has 'helped' the locals set up the trade laws to his own benefit")
+	OpenedtRegulations = append(OpenedtRegulations, "The locals have dusted off trade laws from before the Scream")
+	OpenedtRegulations = append(OpenedtRegulations, "Spaceship travel is permitted only to and from designated 'starports'")
+	tRegulationsTagMap["Opened"] = OpenedtRegulations
+
+	PanopticontRegulations := []string{}
+	PanopticontRegulations = append(PanopticontRegulations, "The local currency is based on privacy allotments")
+	PanopticontRegulations = append(PanopticontRegulations, "Local clothing is transparent")
+	PanopticontRegulations = append(PanopticontRegulations, "Concealment or deceit of any kind is a serious crime")
+	PanopticontRegulations = append(PanopticontRegulations, "The locals are incredibly good at detecting smuggled goods")
+	tRegulationsTagMap["Panopticon"] = PanopticontRegulations
+
+	PrimitivetRegulations := []string{}
+	PrimitivetRegulations = append(PrimitivetRegulations, "Offworld tech use is restricted to the native elite")
+	PrimitivetRegulations = append(PrimitivetRegulations, "Tech use is relegated to a tightly-policed underclass of laborers")
+	PrimitivetRegulations = append(PrimitivetRegulations, "Tech use is permitted only after dangerous purification rites")
+	PrimitivetRegulations = append(PrimitivetRegulations, "Tech use is considered a declaration of rebellion")
+	tRegulationsTagMap["Primitive"] = PrimitivetRegulations
+
+	RestrictedtRegulations := []string{}
+	RestrictedtRegulations = append(RestrictedtRegulations, "The tech isn't so important as the ritual or cultural meaning of holding it")
+	RestrictedtRegulations = append(RestrictedtRegulations, "Social rank is based on tech permissions")
+	RestrictedtRegulations = append(RestrictedtRegulations, "All tech is theoretically owned by the state and loaned to the worthy")
+	RestrictedtRegulations = append(RestrictedtRegulations, "Non-elite cannot use the tech even to save their own lives")
+	tRegulationsTagMap["Restricted"] = RestrictedtRegulations
+
+	ScarcitytRegulations := []string{}
+	ScarcitytRegulations = append(ScarcitytRegulations, "Wastage of the material is considered a hideously evil deed")
+	ScarcitytRegulations = append(ScarcitytRegulations, "Private trade in the material is forbidden")
+	ScarcitytRegulations = append(ScarcitytRegulations, "A special distributor caste manages all storage and disbursal of the material")
+	ScarcitytRegulations = append(ScarcitytRegulations, "The more of the material you possess the more spiritually worthy you are")
+	tRegulationsTagMap["Scarcity"] = ScarcitytRegulations
+
+	SecrettRegulations := []string{}
+	SecrettRegulations = append(SecrettRegulations, "Government agents track down and deal with secrecy breaches")
+	SecrettRegulations = append(SecrettRegulations, "Government departments duel each other for control of the trade")
+	SecrettRegulations = append(SecrettRegulations, "Government prices are decidedly stingy")
+	SecrettRegulations = append(SecrettRegulations, "Far traders must bring in certain goods to trade at all")
+	tRegulationsTagMap["Secret"] = SecrettRegulations
+
+	SophisticatedtRegulations := []string{}
+	SophisticatedtRegulations = append(SophisticatedtRegulations, "Outsiders must present tribute before they are allowed to trade")
+	SophisticatedtRegulations = append(SophisticatedtRegulations, "Far traders affiliated with savage worlds are unwelcome")
+	SophisticatedtRegulations = append(SophisticatedtRegulations, "The local customs house is unpleasantly good at preventing smuggling")
+	SophisticatedtRegulations = append(SophisticatedtRegulations, "Otherwise forbidden goods can be traded here in certain areas")
+	tRegulationsTagMap["Sophisticated"] = SophisticatedtRegulations
+
+	TheocratictRegulations := []string{}
+	TheocratictRegulations = append(TheocratictRegulations, "Offworlders are required to participate in potentially repugnant local rites")
+	TheocratictRegulations = append(TheocratictRegulations, "A valuable commodity is forbidden by religious law")
+	TheocratictRegulations = append(TheocratictRegulations, "Trade must be sanctified by permission from a querulous religious leader")
+	TheocratictRegulations = append(TheocratictRegulations, "Painfully stiff tithing requirements are on all trade")
+	tRegulationsTagMap["Theocratic"] = TheocratictRegulations
+
+	ThrivingtRegulations := []string{}
+	ThrivingtRegulations = append(ThrivingtRegulations, "The world's legal system is unprepared to handle the new business arrangements")
+	ThrivingtRegulations = append(ThrivingtRegulations, "The old guard is struggling to maintain former sumptuary laws")
+	ThrivingtRegulations = append(ThrivingtRegulations, "Threatened rulers are regulating to kill the boom before they are challenged")
+	ThrivingtRegulations = append(ThrivingtRegulations, "Economic nationalists are prohibiting offworld investment or holdings")
+	tRegulationsTagMap["Thriving"] = ThrivingtRegulations
+
+	TributetRegulations := []string{}
+	TributetRegulations = append(TributetRegulations, "Locals don't trust offworlders until they fill a tribute quota")
+	TributetRegulations = append(TributetRegulations, "All property belongs to the elite and the tribute is just what they choose to take")
+	TributetRegulations = append(TributetRegulations, "Social status among commoners is based on quota fulfillment")
+	TributetRegulations = append(TributetRegulations, "Legal cases always go to the party who has contributed more tribute")
+	tRegulationsTagMap["Tribute"] = TributetRegulations
+
+	TyrannicaltRegulations := []string{}
+	TyrannicaltRegulations = append(TyrannicaltRegulations, "Official 'minders' must remain with offworlders at all times")
+	TyrannicaltRegulations = append(TyrannicaltRegulations, "Commoners are forbidden from speaking with offworlders")
+	TyrannicaltRegulations = append(TyrannicaltRegulations, "Costly gifts of luxury goods are necessary to even begin trading")
+	TyrannicaltRegulations = append(TyrannicaltRegulations, "Far traders known to deal with the regime are subject to legal repercussions on neighboring worlds")
+	tRegulationsTagMap["Tyrannical"] = TyrannicaltRegulations
+
+	UsurpedtRegulations := []string{}
+	UsurpedtRegulations = append(UsurpedtRegulations, "Not even personal gear is allowed out of the starport without a tariff")
+	UsurpedtRegulations = append(UsurpedtRegulations, "Far traders are forbidden from communicating with sellers")
+	UsurpedtRegulations = append(UsurpedtRegulations, "Far traders are restricted to the starport")
+	UsurpedtRegulations = append(UsurpedtRegulations, "Far traders must befriend the usurpers before trade is allowed ")
+	tRegulationsTagMap["Usurped"] = UsurpedtRegulations
+
+	VendortRegulations := []string{}
+	VendortRegulations = append(VendortRegulations, "Local regulations to prevent smuggling are very elaborate")
+	VendortRegulations = append(VendortRegulations, "Revealing or stealing the manufacturing process is a capital crime")
+	VendortRegulations = append(VendortRegulations, "Sale of the good is allowed only to registered and approved buyers")
+	VendortRegulations = append(VendortRegulations, "Buyers require a local official as a patron if they are to obtain the good")
+	tRegulationsTagMap["Vendor"] = VendortRegulations
+
+	XenophobictRegulations := []string{}
+	XenophobictRegulations = append(XenophobictRegulations, "Offworlders are executed on discovery if the mob doesn't get them first")
+	XenophobictRegulations = append(XenophobictRegulations, "Locals will buy only goods that can be disguised as local wares")
+	XenophobictRegulations = append(XenophobictRegulations, "The locals view certain wares as being too good for offworlders")
+	XenophobictRegulations = append(XenophobictRegulations, "All trade must take place under the pretext of tribute and submission.")
+	tRegulationsTagMap["Xenophobic"] = XenophobictRegulations
+	return tRegulationsTagMap
+}
+
 func describeTag(tag string) string {
 	fixedTag := fixPlanetTag(tag)
 	descriptionTagMap := make(map[string]string)
@@ -3646,5 +4553,83 @@ func describeTag(tag string) string {
 	}
 
 	return descriptionTagMap[fixedTag]
+
+}
+
+func describeTradeTag(tag string) string {
+	fixedTag := fixPlanetTag(tag)
+	tDescrTagMap := make(map[string]string)
+	AlientDescr := "The denizens of this world are either aliens or else possess such a strange culture that they might as well be non-humans. Such societies tend to have strange estimates of value by ordinary human standards, often prizing substances of limited interstellar value or requiring bizarre procedures before business can be conducted. Dealing with alien societies is fraught with danger even by far trader standards, as it is easy for a human to trespass taboos that seem so obvious to their local dragoman that there is no thought to warn them beforehand."
+	tDescrTagMap["Alien"] = AlientDescr
+
+	ClosedtDescr := "The planet flatly refuses to conduct any trade with offworlders, or may be prevented from trading by some organization or power, or may simply be so strange that no coherent concept of 'trade' is possible. Primitive worlds have few ways to physically enforce this ban on landing, but their government or social structure has enough moral sway to prevent most members from breaking the prohibition. More advanced worlds may have orbital defenses to ensure that interloping far traders do not come where they are not wanted. Some such worlds permit landing and communication, but no significant business can be conducted- or at least, no significant legal business."
+	tDescrTagMap["Closed"] = ClosedtDescr
+
+	CommunisttDescr := "The world's economic system is communist in nature. All goods and all production are under the control of the state, and private trade tends to be minimal where it is not outright forbidden. On planets with very small populations, this communism tends to be of a crude variety expressed through familial obligations and a sense of shared labor for communities small enough to police their own members. Unlike ancient Terra, however, most worlds now lack the hyperintelligent AIs and precognitive economistpsychics that once made command economies practical on a planetary scale. As a consequence, most surviving large-scale communist worlds are gray places of calcified bureaucracy, populist rancor, or fresh-faced enthusiasm yet untempered by experience."
+	tDescrTagMap["Communist"] = CommunisttDescr
+
+	DisorganizedtDescr := "The world is a chaotic mass of tribes, statelets, warring classes, hostile ethnicities, atomized philosophical adherents, or some other churning mess of inchoate humanity. There is no real centralized power despite whatever proclamations may be made by the government of the hour, and no infrastructure for handling sophisticated trade. The people of different regions, castes, or cultures might be drastically different in their attitudes toward far traders, and the rules can change lethally in a matter of kilometers or minutes. While a far trader is free of the coordinated rapaciousness of a planetary government, he must fight off innumerable smaller exactions, and has no better avenue of justice than what he can get from the local ruler or his own strong arm."
+	tDescrTagMap["Disorganized"] = DisorganizedtDescr
+
+	DyingtDescr := "The world is in the process of collapse. Unlike the conventional anarchy of a savage world, basic human survival on this planet is becoming gradually more and more difficult, either from a hostile environment that the locals can no longer fend off, or from a cultural collapse so complete that basic survival processes can no longer be maintained. In some cases, astrophysical events such as impending solar flares or unstoppable rogue-planet impacts might spell the doom of an otherwise healthy world. The time pressure is usually not so intense as to cause complete social breakdown, but almost everyone on the planet realizes that their time is coming to a close. Trade still exists on such worlds only insofar as the locals are not convinced they can successfully steal a trader's ship, or if they think they have enough time to build their own with the help of outside supplies. In almost no case is it feasible to save anything but a tiny fraction of the world's population, and their leaders are usually determined to be the ones rescued. In a few cases, the death spiral might be reversible with enough outside tech and support- if the locals can be kept from mad panic."
+	tDescrTagMap["Dying"] = DyingtDescr
+
+	FractioustDescr := "Where a disorganized world is an incoherent mess, a fractious world is divided up into several strong, organized groups. These factions may have de facto existence in the form of rival nations or geographic regions, or they may be political artifacts of a disjointed planetary government, with different groups of officials jousting over control of offices and delegated authority. Most such worlds have not devolved into overt warfare, but tensions can range from a decided coolness toward rivals to assassination and deniable guerrilla strikes. "
+	tDescrTagMap["Fractious"] = FractioustDescr
+
+	KleptocratictDescr := "The planet has a dominant trade framework, but that framework is hopelessly corrupt. Nothing happens without money, and possession of wealth is license enough for every variety of crime and wrongdoing. The local officials are ferociously greedy, peeling every spare credit off a far trader and making very narrow estimates of how much profit the offworlder will need in order to justify return. The endless corruption makes for poverty and suffering among the common folk, but those who control the levers of wealth do very well."
+	tDescrTagMap["Kleptocratic"] = KleptocratictDescr
+
+	LaissezFairetDescr := "The planet has few if any trade laws, but retains enough social coherence and infrastructure to facilitate large-scale trade. Some worlds of this type recognize almost no trade laws except basic rules about fraud and contract enforcement and permit virtually anything to be bought and sold in their markets. Most laissez-faire worlds either have so few inhabitants that tariffs are unnecessary, or else have a deep cultural commitment to free trade, or are so populous and divided in power sources that no single faction or government can maintain restrictive trade practices. Minor far traders love these worlds, though greater trade princes tend to prefer captive markets."
+	tDescrTagMap["LaissezFaire"] = LaissezFairetDescr
+
+	MegacorpstDescr := "All significant economic activity above the individual freelancer is controlled by a relatively handful of giant corporations, either directly or through a web of subsidiary companies obedient to the megacorp's will. Some of these corporations might be private in origin and others might be state enterprises, but their size and importance has left them integral partners with whatever government might exist on this world, to the extent that many of them effectively are the governments of their spheres of influence. Their rivalry rarely extends to outright warfare, but deniable strikes and industrial espionage are a way of life on this world. On those worlds where public government has not entirely withered away the remaining states retain their independence by the strength of their military forces and their willingness to handle less profitable work for a stiff fee from the megacorps. So long as the money keeps coming and their military primacy is not threatened, such crony-capitalist leaders have little interest in what the megacorps do with 'customers'."
+	tDescrTagMap["Megacorps"] = MegacorpstDescr
+
+	MilitarytDescr := "The world is heavily militarized. For a rare few worlds this militarization may revolve around the space navy, with the citizens organized to support a fleet vastly in excess of the usual limits. For most military planets, however, the focus is on ground and atmospheric forces and the rivalries that have led to their growth. A world in this state might have huge conscript armies, completely militarized societies, or otherwise be dominated by the effort required to build and maintain huge numbers of people in martial professions. Such worlds may have limited wars breaking out in client nations or among allied vassal states. Others may be locked in generations-long trench warfare."
+	tDescrTagMap["Military"] = MilitarytDescr
+
+	OpenedtDescr := "An opened world is fresh to the game of interstellar contact, one willing to reestablish the ancient bonds of trade that once webbed worlds together. Regrettably, most of them are not entirely certain how the whole business is supposed to work. The natives have little experience in dealing with offworlders, often misinterpret their customs, and have certain assumptions and expectations that they never think to question... along with an often-overblown esteem for 'offworld tech'. Opened worlds usually have not had time to develop sophisticated starports, complex interstellar trade bureaucracies, or a jaded indifference to far traders."
+	tDescrTagMap["Opened"] = OpenedtDescr
+
+	PanopticontDescr := "The world is watched. Everything of consequence is monitored, every interaction recorded and logged. Panopticon worlds usually form only on planets sufficiently hostile to force bubble cities or similar contained, controlled habitats. In such compressed circumstances it becomes possible to track individuals to an extent that would be infeasible on more free-ranging worlds. Some panopticon worlds are relatively benign, but most exist in order to enable some ruthlessly oppressive power structure. In an effective panopticon society the only people with unpunished crimes are those responsible for monitoring the observations. The societies that grow from such soil tend to pair spectacularly corrupt overseers with a populace trained to a half-demented degree of dissembling."
+	tDescrTagMap["Panopticon"] = PanopticontDescr
+
+	PrimitivetDescr := "The world is technologically primitive. Their societies may be quite sophisticated in cultural, artistic, or aesthetic terms, but they lack the raw materials or expertise to move past the muscle-powered stages of technology. Few such worlds can support centralized governments or large numbers of non-farming specialists, and social organization tends to be oriented toward stability and survival. Far traders who can bring in tech to unlock formerly-inaccessible resource deposits or jumpstart an industrial base can unleash drastic changes on these worlds. The natives often lack the experience to recognize these impending changes before their world has transformed around them."
+	tDescrTagMap["Primitive"] = PrimitivetDescr
+
+	RestrictedtDescr := "The locals of this world labor under a regime that tightly restricts the employment of common technology. While most worlds have strictures against devices of mass destruction or private biological weaponry development, this world goes so far as to control the use of entire classes of technology- weapons, communications tech, medical science, or other society-changing artifacts. Use of this restricted tech is usually reserved to the local elites or priestly class, and its possession often comes with powerful cultural significance. Enforcement of these restrictions is usually at the hands of the tech's proper owners, though some worlds are locked into their laws by outside powers."
+	tDescrTagMap["Restricted"] = RestrictedtDescr
+
+	ScarcitytDescr := "The planet is miserably poor in some vital necessity for civilization. Food, water, breathable atmosphere, workable metals, or some other staple of human society is available in very limited amounts. Control of this commodity rests in the hands of the planet's elite, and most conflicts revolve around its apportionment. While most far traders lack the cargo space to bring in truly world-changing amounts of the material, tech that breaks the scarcity through superior production or extraction techniques can result in convulsive change to the society. Even so, many far traders prefer to bring in more limited amounts, the better to string out the local profits as long as possible."
+	tDescrTagMap["Scarcity"] = ScarcitytDescr
+
+	SecrettDescr := "Any trade with this world must be conducted secretly with those few local powers aware of the far traders' existence. The rest of the planet may be virulently xenophobic, or overseen by offworld imperialists, or the private economic fief of a different far trader empire. The locals may not even realize that interstellar travel is possible. Those permitted to conduct offworld trade are usually government representatives or secret societies aware of the truth. The construction of significant holdings on such a world can be difficult, with everything conducted through a complex series of local cutouts and native 'geniuses' recruited to explain new technology. The governments of such worlds vigorously discourage any attempt to widen a far trader's market."
+	tDescrTagMap["Secret"] = SecrettDescr
+
+	SophisticatedtDescr := "The world may or may not be a thriving hub of interstellar trade, but it is certainly comfortable with the idea and at ease with the concept of a wider cosmos. Sophisticated worlds may have large space navies or a long tradition of astronautic adventuring, but they show none of the usual awe toward far traders that more backward worlds might demonstrate. They know what the local sector has to offer and are quite canny about what they are willing to buy and sell. They may be more technologically advanced than most other worlds in the area, or have enough social contact with their neighbors to have formed a polyglot, cosmopolitan sort of local culture. If they have little trade contact with other worlds, it's likely because they're convinced that the barbarians have nothing to offer them."
+	tDescrTagMap["Sophisticated"] = SophisticatedtDescr
+
+	TheocratictDescr := "The planet is under the control of a theocratic government, either as a centralized religious bureaucracy or one dominated by numerous smaller sects. In the chaotic aftermath of the Scream the mutual ties and unquenchable hope provided by many organized faiths often left their clergy the most respected group on the planet. Over time, this respect easily transformed into outright rule. Those faiths that were best represented among colony worlds tended to be those that coped well with issues of technology and rationalism, but the Scream also encouraged a strong Luddite strain. The faith that is a cynical and tired bureaucracy on one world can be a creed of fire and bloody triumph on its neighbor, and a far trader sometimes cannot discern the difference until after they've been surrounded."
+	tDescrTagMap["Theocratic"] = TheocratictDescr
+
+	ThrivingtDescr := "The world is in the throes of an enormous economic boom. Whether through the discovery of new resources, the integration of new tech into their industrial base, or a renaissance of ideas and creativity, life on this world is getting better for almost everyone. If the world is not already a major player in sector affairs, it is likely to become so in the foreseeable future. While the good times are widely spread among the population, it is inevitable that someone is going to be left out- and former oligarchs and ruling elites tend to find such universal prosperity to be disruptive to the pillars of their former rule."
+	tDescrTagMap["Thriving"] = ThrivingtDescr
+
+	TributetDescr := "The world's economy revolves around providing tribute. It may be to a powerful local elite, or a colonizing offworld power, or a bizarre local custom of destruction. Whatever the specifics, society is designed to create large surpluses of necessary goods for the benefit of others. In the rare case that the tribute-collectors are offworlders, the tribute itself usually is in the form of some small, precious commodity that can be carried in limited interstellar cargo space. Local elites can be more widely rapacious, and whole nations can be set to slaving to produce the fantastic opulence enjoyed by a blessed few. Such tribute arrangements may have physical force to encourage the workers, but some degree of cultural acceptance is necessary for such a small minority to effectively commandeer the labor of so many. As such, the elites tend to be very sensitive about offworlders who question affairs."
+	tDescrTagMap["Tribute"] = TributetDescr
+
+	TyrannicaltDescr := "The planet is under the control of an all-encompassing tyranny. Multiple dictatorships might be locked in perpetual struggle, or the entire world might be gripped in a single fist. The only law is the will of the ruler and the prerogatives of their minions, and any deal lasts only so long as the tyrant finds it advantageous to keep it. Personal freedoms are nonexistent, and long-standing tyrannies might have so beaten the resistance out of their people that their only real threat to the ruler lies in a palace coup. Such worlds are eager to buy new tools of restraint and luxuries from distant worlds, though they can be risky trading partners. Their rulers are not accustomed to being balked."
+	tDescrTagMap["Tyrannical"] = TyrannicaltDescr
+
+	UsurpedtDescr := "The interstellar trade conducted on this world has been completely suborned by some outside power. The local government or society does not control the terms of the trade or benefit much, if at all, from the fruits of it. Most often this is the product of a weak world and a powerful far trader combine seizing control of the spaceports through a mixture of bribery and threats. Sometimes a foreign world is also able to force all trade to pass through its 'customs houses', often placed in orbit where less technologically-sophisticated locals can't overwhelm them with numbers. A few alien races might do the same thing- or humans might do such to an alien world unable to throw off this unwanted 'administrative assistance'. The locals receive only a pittance for their products and the far traders are gouged on the prices in turn, with the surplus collected by the usurping power."
+	tDescrTagMap["Usurped"] = UsurpedtDescr
+
+	VendortDescr := "There is a valuable thing this planet produces that can be found nowhere else, and the bulk of their offworld trade revolves around selling this thing and gathering the tariffs and taxes that come from it. It may be a rare plant, or a precious mineral, or the product of some still-functional pretech nanofactory, or the fruit of native ingenuity, or even the remnants of an advanced alien race. Whatever its specifics, this is the only planet in the area that can offer it, and they extract every possible credit from its trade. Control of this resource is very important to the locals, as the far traders will naturally cooperate with those capable of cutting off their supply."
+	tDescrTagMap["Vendor"] = VendortDescr
+
+	XenophobictDescr := "The locals hate offworlders. This hate may be born of some venerable crime against the planet, or it might just be the product of cultural loathing. Most planets naturally assume that their culture is morally or aesthetically superior to those of other worlds, but these people actively hate their neighbors. Offworlders are depraved, vicious, filthy beings who likely host a variety of social diseases and ought to be shunned or worse if they dare to show their faces on the clean soil of this world. Unsurprisingly, this makes trade a rather difficult business, but some among the governments and major corporations of this world are willing to make grim sacrifices to necessity. Of course, any such deals must be hidden from the populace or else mob violence is almost certain to ensue. Few traders have any love of landing on these worlds, but their very isolationism tends to make them fabulously profitable for those few ships that actually do arrive."
+	tDescrTagMap["Xenophobic"] = XenophobictDescr
+	return tDescrTagMap[fixedTag]
 
 }

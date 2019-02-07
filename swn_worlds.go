@@ -31,6 +31,7 @@ func NewWorld() *World {
 	world.Populate()
 	world.rollTechLevel()
 	world.rollWorldTags()
+	world.rollTradeTag()
 	world.rollLivingStandard()
 	world.calculateBP()
 	world.adjustBP()
@@ -47,6 +48,10 @@ func (w *World) rollWorldTags() {
 	for w.WorldTag1 == w.WorldTag2 {
 		w.WorldTag2 = randomWorldTag()
 	}
+}
+
+func (w *World) rollTradeTag() {
+	w.TradeTag = randomTradeTag()
 }
 
 func (w *World) toString() string {
@@ -68,6 +73,7 @@ func (w *World) toString() string {
 	str = str + "Law Level: " + strconv.Itoa(w.LawCode) + "\n"
 	str = str + "\nWorldTag1 (descr): " + describeTag(w.WorldTag1) + "\n"
 	str = str + "\nWorldTag2 (descr): " + describeTag(w.WorldTag2) + "\n"
+	str = str + "\nTrade Tag (descr): " + describeTradeTag(w.TradeTag) + "\n"
 	str = str + "\nSociety: " + oneRollSociety() + "\n"
 	str = str + "\nRulers: " + oneRollRulers() + "\n"
 	str = str + "\nCommon Folk: " + oneRollRuled() + "\n"
@@ -370,6 +376,45 @@ func pickWorldTag(index int) string {
 func randomWorldTag() string {
 	r := roll1dX(len(worldTags()), -1)
 	return pickWorldTag(r)
+}
+
+func tradeTags() []string {
+	tagList := []string{
+		"Alien",
+		"Closed",
+		"Communist",
+		"Disorganized",
+		"Dying",
+		"Fractious",
+		"Kleptocratic",
+		"Laissez Faire",
+		"Megacorps",
+		"Military",
+		"Opened",
+		"Panopticon",
+		"Primitive",
+		"Restricted",
+		"Scarcity",
+		"Secret",
+		"Sophisticated",
+		"Theocratic",
+		"Thriving",
+		"Tribute",
+		"Tyrannical",
+		"Usurped",
+		"Vendor",
+		"Xenophobic",
+	}
+	return tagList
+}
+
+func pickTradeTag(index int) string {
+	return tradeTags()[index]
+}
+
+func randomTradeTag() string {
+	r := roll1dX(len(tradeTags()), -1)
+	return pickTradeTag(r)
 }
 
 func (w *World) pickLivingStandard(index int) {

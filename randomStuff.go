@@ -108,6 +108,10 @@ func inRange(i, min, max int) bool {
 	return false
 }
 
+func combineStrings(s, add string) string {
+	return s + add
+}
+
 // function := map[string]func(int, int) int{
 // 	"someFunction1": someFunction1,
 // 	"someFunction2": someFunction2,
