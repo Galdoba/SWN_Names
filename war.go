@@ -12,27 +12,178 @@ type vitalPoint struct {
 }
 
 type Army struct {
-	leader     Leader
-	manpower   int
-	tl         int
-	totalUnits int
+	leader    Leader
+	manpower  int
+	tl        int
+	unitScore int
+	units     []Unit
+}
+
+type Unit struct {
+	name      string
+	strength  int
+	condition int
 }
 
 func NewArmy(manpower int, tl int) *Army {
 	army := &Army{}
 	army.leader = *NewLeader()
-
+	army.tl = tl
+	army.manpower = manpower
+	army.unitScore = army.leader.getCommandScore()
+	army.formCorps()
 	return army
 }
 
+func NewUnit(unitStr int) *Unit {
+	unit := &Unit{}
+	unit.condition = unitStr
+	unit.strength = unit.baseScore()
+	return unit
+}
+
+func (unit *Unit) SetModifiedStrengh(newScore int) {
+	unit.strength = newScore
+}
+
+func (unit *Unit) baseScore() int {
+	cond := unit.condition
+	switch cond / 4 {
+	case 0:
+		return 0
+	case 1:
+		return 1
+	case 2:
+		return 2
+	case 3:
+		return 4
+	case 4:
+		return 8
+	case 5:
+		return 12
+	case 6:
+		return 16
+	}
+	return -1
+}
+
+func (unit *Unit) toString() string {
+	return unit.unitStatusStr() + " " + unit.unitTypeStr()
+}
+
+func (unit *Unit) unitTypeStr() string {
+	cond := unit.condition
+	switch cond / 4 {
+	case 0:
+		return "Battalion"
+	case 1:
+		return "Brigade"
+	case 2:
+		return "Division"
+	case 3:
+		return "Corps"
+	case 4:
+		return "Army"
+	case 5:
+		return "Army Front"
+	case 6:
+		return "Theater"
+	}
+	return "Unknown"
+}
+
+func (unit *Unit) unitStatusStr() string {
+	cond := unit.condition
+	switch cond % 4 {
+	case 0:
+		return "Crippled"
+	case 1:
+		return "Bloodied"
+	case 2:
+		return "Ready"
+	case 3:
+		return "Fresh"
+	}
+	return "Unknown"
+}
+
+func (army *Army) formCorps() {
+	recruits := army.manpower
+	//var unitList []Unit
+	for i := 0; i < 30; i++ {
+		unit := NewUnit(i)
+		fmt.Println(unit.toString())
+	}
+
+	fmt.Println("Total recruits:", recruits)
+	for recruits/10000000 > 0 {
+		recruits = recruits - 10000000
+		enlisted := 10000000
+		if recruits < 0 {
+			enlisted = 10000000 + recruits
+
+		}
+		fmt.Println(enlisted, "men enlisted to Theater (power 16)")
+	}
+	for recruits/2000000 > 0 {
+		recruits = recruits - 2000000
+		enlisted := 2000000
+		if recruits < 0 {
+			enlisted = 2000000 + recruits
+		}
+		fmt.Println(enlisted, "men enlisted to Army Front (power 12)")
+	}
+	for recruits/200000 > 0 {
+		recruits = recruits - 200000
+		enlisted := 200000
+		if recruits < 0 {
+			enlisted = 200000 + recruits
+		}
+		fmt.Println(enlisted, "men enlisted to Army (power 8)")
+	}
+	for recruits/40000 > 0 {
+		recruits = recruits - 40000
+		enlisted := 40000
+		if recruits < 0 {
+			enlisted = 40000 + recruits
+		}
+		fmt.Println(enlisted, "men enlisted to Corps (power 4)")
+	}
+	for recruits/18000 > 0 {
+		recruits = recruits - 18000
+		enlisted := 18000
+		if recruits < 0 {
+			enlisted = 18000 + recruits
+		}
+		fmt.Println(enlisted, "men enlisted to Division (power 2)")
+	}
+	for recruits/5000 > 0 {
+		recruits = recruits - 5000
+		enlisted := 5000
+		if recruits < 0 {
+			enlisted = 5000 + recruits
+		}
+		fmt.Println(enlisted, "men enlisted to Brigade (power 1)")
+	}
+	for recruits/600 > 0 {
+		recruits = recruits - 600
+		enlisted := 600
+		if recruits < 0 {
+			enlisted = 600 + recruits
+		}
+		fmt.Println(enlisted, "men enlisted to Batalion (power 0)")
+	}
+
+}
+
 type Leader struct {
-	name     string
-	leadSkl  int
-	adminSkl int
-	intAtr   int
-	wisAtr   int
-	chaAtr   int
-	Units    int
+	name         string
+	leadSkl      int
+	adminSkl     int
+	intAtr       int
+	wisAtr       int
+	chaAtr       int
+	commandScore int
 	/*
 		actions:
 		Attack
@@ -66,7 +217,7 @@ func (l *Leader) toString() string {
 	return str
 }
 
-func (l *Leader) totalUnits() int {
+func (l *Leader) getCommandScore() int {
 	un := atrMod(l.intAtr) + atrMod(l.wisAtr) + atrMod(l.chaAtr)
 	skillBuff := l.leadSkl
 	if skillBuff > l.adminSkl {
