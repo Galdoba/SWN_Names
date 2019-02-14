@@ -31,6 +31,30 @@ func NewCommoditie() *Commodite {
 	return &commodity
 }
 
+func NewCommodityWithTag(tag string) *Commodite {
+	commodity := Commodite{}
+
+	commodity.getTags()
+	commodity.tags[0] = tag
+	size := roll1dX(20, 0)
+	if size == 1 {
+		commodity.tags = append(commodity.tags, "Compact")
+	}
+	if inRange(size, 19, 20) {
+		commodity.tags = append(commodity.tags, "Bulky")
+	}
+	rarity := roll1dX(20, 0)
+	if inRange(rarity, 1, 2) {
+		commodity.tags = append(commodity.tags, "Common")
+	}
+	if inRange(rarity, 20, 20) {
+		commodity.tags = append(commodity.tags, "Rare")
+	}
+	commodity.pricemod = priceMod(commodity.tags)
+	commodity.costPerUnit = price(commodity.pricemod)
+	return &commodity
+}
+
 func (c *Commodite) getTags() {
 	var tagArray []int
 	tagQty := roll1dX(2, 0)

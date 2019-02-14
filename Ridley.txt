@@ -1,0 +1,62 @@
+Seed: 1550112340073901400
+Planet: Ridley
+Atmosphere: Breathable Mix
+Temperature: Variable Cold
+Biosphere: Human-Miscible
+Population: 42M
+Tech Level: TL4
+WorldTag1: Tyranny
+WorldTag2: Gold Rush
+TradeTag: Closed
+World trade specific: Consumer-2, Mineral-1, Maltech+1, Vehicle+2
+World Export:
+ Commoditie 0:
+Commoditie Tags: Consumer,Sapient,
+ priceMod:2 pricePerUnit:25000
+ Commoditie 1:
+Commoditie Tags: Consumer,Agricultural,
+ priceMod:-2 pricePerUnit:1000
+ Commoditie 2:
+Commoditie Tags: Mineral,Postech,
+ priceMod:-1 pricePerUnit:2000
+ Commoditie 3:
+Commoditie Tags: Cultural,Tool,
+ priceMod:1 pricePerUnit:10000
+ Commoditie 4:
+Commoditie Tags: Cultural,Bulky,
+ priceMod:0 pricePerUnit:5000
+ Commoditie 5:
+Commoditie Tags: Military,
+ priceMod:1 pricePerUnit:10000
+ Commoditie 6:
+Commoditie Tags: Cultural,Common,
+ priceMod:-1 pricePerUnit:2000
+ Commoditie 7:
+Commoditie Tags: Cultural,Religious,
+ priceMod:0 pricePerUnit:5000
+ Commoditie 8:
+Commoditie Tags: Maltech,
+ priceMod:4 pricePerUnit:100000
+ Commoditie 9:
+Commoditie Tags: Luxury,Military,
+ priceMod:3 pricePerUnit:50000
+LivingStandard: Poor (263 BP or 52600000)
+Law Level: 5
+
+WorldTag1 (descr): The local government is brutal and indifferent to the will of the people. Laws may or may not exist, but the only one that matters is the whim of the rulers on any given day. Their minions swagger through the streets while the common folk live in terror of their appetites. The only people who stay wealthy are friends and servants of the ruling class.
+
+WorldTag2 (descr): Gold, silver, and other conventional precious minerals are common and cheap now that asteroid mining is practical for most worlds. But some minerals and compounds remain precious and rare, and this world has recently been discovered to have a supply of them. People from across the sector have come to strike it rich.
+
+Trade Tag (descr): The planet flatly refuses to conduct any trade with offworlders, or may be prevented from trading by some organization or power, or may simply be so strange that no coherent concept of 'trade' is possible. Primitive worlds have few ways to physically enforce this ban on landing, but their government or social structure has enough moral sway to prevent most members from breaking the prohibition. More advanced worlds may have orbital defenses to ensure that interloping far traders do not come where they are not wanted. Some such worlds permit landing and communication, but no significant business can be conducted- or at least, no significant legal business.
+
+Society: This colony is Founded during the Second Wave. Initial reason for colonization of this planet was: 'Trade hub'. Right now it is safe to say that This culture has persisted since founding. Modern political situation looks like There are dozens of significant societies. It is important to note that this planet benefits from Friendly alien population. Bunker-caches of stored valuables and tech connects history of this planet with Terran Mandate.
+
+Rulers: Basic form of rule can be described as Democracy, one sentient, one vote which draws it's legitimacy from Control of overwhelming martial force. All aspects of life are touched by the rulers. Rulling class experiencing inner conflict caused by Dividing power and offices among them. On the other hand major population think that Crimes against the ruled are ignored. Still They seem likely to fall soon. 
+
+Common Folk: Ruled Class consider themselves a single group which builds it's power on They control the state’s income stream. General population commited, Only individual can be met resistance, if even that. Their last Major Threat to the Rulers was a dangerous popular demagogue arose. Inside the Ruled Class there is Religious differences provoke trouble. Overall society's main trand is A communistic insurgency rising. 
+Sample Story:
+Vital life support or medical equipment has been sabotaged by offworlders or zealots, and must be repaired before time runs out. The only possible source of parts is at a Protest rally massacre, and the saboteurs can be expected to be working hard to get there and destroy them, too. 
+ 
+A Curious tourist is working for an offworld corporation to open a manufactory, and is ignoring local traditions that privilege certain social or ethnic groups, giving jobs to the most qualified workers instead. An angry Sneering bully-boy seeks to sabotage the factory. 
+ 
+A Secret mine has been seized by violent revolutionaries or rebels, and a Conspiring rebel is being held hostage by them.

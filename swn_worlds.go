@@ -37,8 +37,16 @@ func NewWorld() *World {
 	world.calculateBP()
 	world.adjustBP()
 	world.law()
-	world.Export = CreateCommodities(10)
+
 	world.TradeSpecifics = marketSpecific()
+	world.Export = append(world.Export, *NewCommodityWithTag(pickCargoType(world.TradeSpecifics[0])))
+	world.Export = append(world.Export, *NewCommodityWithTag(pickCargoType(world.TradeSpecifics[0])))
+	world.Export = append(world.Export, *NewCommodityWithTag(pickCargoType(world.TradeSpecifics[1])))
+	normCom := CreateCommodities(7)
+	for i := range normCom {
+		world.Export = append(world.Export, normCom[i])
+	}
+
 	//world.PopulateNum()
 	return world
 }
@@ -49,6 +57,26 @@ func (w *World) rollWorldTags() {
 	for w.WorldTag1 == w.WorldTag2 {
 		w.WorldTag2 = randomWorldTag()
 	}
+}
+
+func (w *World) showExport() string {
+	str := ""
+	for i := range w.Export {
+		str += "\n Commoditie " + strconv.Itoa(i) + ":\n"
+		str += commoditieStr(w.Export[i])
+	}
+	return str
+}
+
+func commoditieStr(c Commodite) string {
+	str := "Commoditie Tags: "
+	for i := range c.tags {
+		str += c.tags[i] + ","
+	}
+	str += "\n priceMod:" + strconv.Itoa(c.pricemod)
+	str += " pricePerUnit:" + strconv.Itoa(c.costPerUnit)
+
+	return str
 }
 
 func (w *World) rollTradeTag() {
@@ -70,6 +98,7 @@ func (w *World) toString() string {
 	str = str + "WorldTag2: " + w.WorldTag2 + "\n"
 	str = str + "TradeTag: " + w.TradeTag + "\n"
 	str = str + "World trade specific: " + pickCargoType(w.TradeSpecifics[0]) + "-2, " + pickCargoType(w.TradeSpecifics[1]) + "-1, " + pickCargoType(w.TradeSpecifics[2]) + "+1, " + pickCargoType(w.TradeSpecifics[3]) + "+2\n"
+	str = str + "World Export:" + w.showExport() + "\n"
 	str = str + "LivingStandard: " + w.LivingStandard + " (" + strconv.Itoa(w.BP) + " BP or " + strconv.Itoa(w.BP*200000) + ")\n"
 	str = str + "Law Level: " + strconv.Itoa(w.LawCode) + "\n"
 	str = str + "\nWorldTag1 (descr): " + describeTag(w.WorldTag1) + "\n"

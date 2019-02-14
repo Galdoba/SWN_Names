@@ -110,10 +110,6 @@ func (unit *Unit) unitStatusStr() string {
 func (army *Army) formCorps() {
 	recruits := army.manpower
 	//var unitList []Unit
-	for i := 0; i < 30; i++ {
-		unit := NewUnit(i)
-		fmt.Println(unit.toString())
-	}
 
 	fmt.Println("Total recruits:", recruits)
 	for recruits/10000000 > 0 {
