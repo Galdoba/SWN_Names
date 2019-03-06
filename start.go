@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"strconv"
@@ -10,47 +11,63 @@ import (
 )
 
 func main() {
-	seed := randomSeed()
-	save := 0
+
 	//makeTagsFunction()
-	fmt.Println("Planet Sugested Name:", GiveName(randomSite(), "Place", -1))
-	fmt.Println("")
-	w := &World{}
-	for save != 1 {
-		seed := randomSeed()
-		fmt.Println("Seed =", seed)
-		w = NewWorld()
-		fmt.Println(w.toString())
-		fmt.Println("w.TotalPopulation()", w.TotalPopulation())
-		fmt.Println(TradeAntagonists(w.TradeTag))
-		fmt.Println(TradeAuthorities(w.TradeTag))
-		leader := NewLeader()
-		army := NewArmy(w.TotalPopulation()/100, w.TechLevelInt())
-		fmt.Println(leader.toString())
-		fmt.Println(army)
-		save, _ = TakeOptions("Save Planet?", "Yes", "No")
+	action := 0
+	action, _ = TakeOptions("Select action", "Create new Planet", "Select Existing Planet")
+	if action == 1 {
+		CreaNewPlanetFile()
 	}
-	fmt.Println("Name Planet:")
-	planetName := InputString()
-	fileOut, err := os.Create(planetName + ".txt")
+	if action == 2 {
+		SelectPlanetFile()
+	}
+}
+
+func SelectPlanetFile() {
+	readCurrentDir()
+}
+
+func readCurrentDir() {
+	file, err := os.Open(".")
 	if err != nil {
-		log.Fatal("Cannot create file", err)
+		log.Fatalf("failed opening directory: %s", err)
 	}
-	defer fileOut.Close()
-	fmt.Fprintf(fileOut, "Seed: "+strconv.Itoa(int(seed))+"\n")
-	fmt.Fprintf(fileOut, "Planet: "+planetName+"\n")
-	fmt.Fprintf(fileOut, w.toString())
-	fmt.Fprintf(fileOut, "Sample Story:\n")
-	r1 := roll1dX(100, 0)
-	fmt.Fprintf(fileOut, Story(r1, w.WorldTag1, w.WorldTag2))
-	fmt.Fprintf(fileOut, " \n")
-	fmt.Fprintf(fileOut, " \n")
-	r2 := roll1dX(100, 0)
-	fmt.Fprintf(fileOut, Story(r2, w.WorldTag1, w.WorldTag2))
-	fmt.Fprintf(fileOut, " \n")
-	fmt.Fprintf(fileOut, " \n")
-	r3 := roll1dX(100, 0)
-	fmt.Fprintf(fileOut, Story(r3, w.WorldTag1, w.WorldTag2))
+	defer file.Close()
+
+	list, _ := file.Readdirnames(0) // 0 to read all files and folders
+	var textList []string
+
+	for _, name := range list {
+		if strings.Contains(name, ".txt") {
+			plntName := strings.Trim(name, ".txt")
+			textList = append(textList, plntName)
+		}
+	}
+	_, selected := TakeOptions("which?", textList...)
+
+	b, err := ioutil.ReadFile(selected + ".txt") // just pass the file name
+	if err != nil {
+		fmt.Print(err)
+	}
+	str := string(b) // convert content to a 'string'
+	fmt.Println(str)
+	lines := strings.Split(str, "\n")
+	fmt.Println("lines[5]")
+	fmt.Println(lines[5])
+	fmt.Println(lines[5])
+
+}
+
+// exists returns whether the given file or directory exists
+func exists(path string) (bool, error) {
+	_, err := os.Stat(path)
+	if err == nil {
+		return true, nil
+	}
+	if os.IsNotExist(err) {
+		return false, nil
+	}
+	return true, err
 }
 
 // file, err := os.Open("tag.txt")
@@ -191,4 +208,48 @@ func makeTagsFunction() {
 		}
 	}
 	fmt.Fprintf(file2, "return tRegulationsTagMap")
+}
+
+func CreaNewPlanetFile() {
+	seed := randomSeed()
+	save := 0
+
+	fmt.Println(RandomColonyReport())
+	w := &World{}
+	for save != 1 {
+		seed := randomSeed()
+		fmt.Println("Seed =", seed)
+		w = NewWorld()
+		fmt.Println(w.toString())
+		fmt.Println("w.TotalPopulation()", w.TotalPopulation())
+		fmt.Println(TradeAntagonists(w.TradeTag))
+		fmt.Println(TradeAuthorities(w.TradeTag))
+		leader := NewLeader()
+		army := NewArmy(w.TotalPopulation()/100, w.TechLevelInt())
+		fmt.Println(leader.toString())
+		fmt.Println(army)
+		save, _ = TakeOptions("Save Planet?", "Yes", "No")
+	}
+	fmt.Println("Name Planet:")
+	planetName := InputString()
+	fileOut, err := os.Create(planetName + ".txt")
+	if err != nil {
+		log.Fatal("Cannot create file", err)
+	}
+	defer fileOut.Close()
+	fmt.Fprintf(fileOut, "Seed: "+strconv.Itoa(int(seed))+"\n")
+	fmt.Fprintf(fileOut, "Planet: "+planetName+"\n")
+	fmt.Fprintf(fileOut, w.toString())
+	fmt.Fprintf(fileOut, "Sample Story:\n")
+	r1 := roll1dX(100, 0)
+	fmt.Fprintf(fileOut, Story(r1, w.WorldTag1, w.WorldTag2))
+	fmt.Fprintf(fileOut, " \n")
+	fmt.Fprintf(fileOut, " \n")
+	r2 := roll1dX(100, 0)
+	fmt.Fprintf(fileOut, Story(r2, w.WorldTag1, w.WorldTag2))
+	fmt.Fprintf(fileOut, " \n")
+	fmt.Fprintf(fileOut, " \n")
+	r3 := roll1dX(100, 0)
+	fmt.Fprintf(fileOut, Story(r3, w.WorldTag1, w.WorldTag2))
+	fmt.Println("Planet Sugested Name:", GiveName(randomSite(), "Place", -1))
 }
