@@ -23,6 +23,7 @@ type World struct {
 	BP             int
 	Export         []Commodite
 	TradeSpecifics []int
+	ColonyReport   string
 }
 
 func NewWorld() *World {
@@ -31,6 +32,9 @@ func NewWorld() *World {
 	world.rollTemperature()
 	world.rollBiosphere()
 	world.Populate()
+	if world.Population == "Failed Colony" {
+		world.ColonyReport = RandomColonyReport()
+	}
 	world.rollTechLevel()
 	world.rollWorldTags()
 	world.rollTradeTag()
@@ -83,13 +87,22 @@ func (w *World) showExport() string {
 }
 
 func commoditieStr(c Commodite) string {
+<<<<<<< HEAD
 	str := "{" + c.name + "} {"
+=======
+	str := "[NAME]  Commoditie Tags:  ["
+>>>>>>> be0d07363bd611b23fcc69e4c9692a4d663af1da
 	for i := range c.tags {
 		str += c.tags[i] + ", "
 	}
+<<<<<<< HEAD
 	str = strings.TrimSuffix(str, ", ")
 	str += "} {priceMod:" + strconv.Itoa(c.pricemod)
 	str += "} {pricePerUnit:" + strconv.Itoa(c.costPerUnit) + "}"
+=======
+	str += "]  priceMod: " + strconv.Itoa(c.pricemod)
+	str += "  pricePerUnit: " + strconv.Itoa(c.costPerUnit)
+>>>>>>> be0d07363bd611b23fcc69e4c9692a4d663af1da
 
 	return str
 }
@@ -118,7 +131,8 @@ func (w *World) toString() string {
 	str = str + "WorldTag1: " + w.WorldTag1 + "\n"
 	str = str + "WorldTag2: " + w.WorldTag2 + "\n"
 	str = str + "TradeTag: " + w.TradeTag + "\n"
-	str = str + "World trade specific: " + pickCargoType(w.TradeSpecifics[0]) + "-2, " + pickCargoType(w.TradeSpecifics[1]) + "-1, " + pickCargoType(w.TradeSpecifics[2]) + "+1, " + pickCargoType(w.TradeSpecifics[3]) + "+2\n"
+	str = str + "World trade specific: " + pickCargoType(w.TradeSpecifics[0]) + " -2, " + pickCargoType(w.TradeSpecifics[1]) + " -1, " + pickCargoType(w.TradeSpecifics[2]) + " +1, " + pickCargoType(w.TradeSpecifics[3]) + " +2\n"
+	str = str + "TradeCode: " + strconv.Itoa(w.TradeSpecifics[0]) + "-" + strconv.Itoa(w.TradeSpecifics[1]) + "-" + strconv.Itoa(w.TradeSpecifics[2]) + "-" + strconv.Itoa(w.TradeSpecifics[3]) + "\n"
 	str = str + "World Export:" + w.showExport() + "\n"
 	str = str + "LivingStandard: " + w.LivingStandard + " (" + strconv.Itoa(w.BP) + " BP or " + strconv.Itoa(w.BP*200000) + ")\n"
 	str = str + "Law Level: " + strconv.Itoa(w.LawCode) + "\n"
@@ -1063,4 +1077,94 @@ func (w *World) TotalPopulation() int {
 		tPop = tPop * 1000000
 	}
 	return tPop
+}
+
+func RandomColonyReport() string {
+	d1 := roll1dX(20, 0)
+	d2 := roll1dX(12, 0)
+	d3 := roll1dX(20, 0)
+	return ColonyReport(d1, d2, d3)
+}
+
+func ColonyReport(d1, d2, d3 int) string {
+	str := "Historical data: "
+	str += developmentQ(d1) + " "
+	str += colonizationReasonQ(d2) + " "
+	str += colonyFailedQ(d3) + "\n"
+	return str
+}
+
+func developmentQ(index int) string {
+	if index < 5 {
+		return "Landing Party. Nothing but the barest survival structures and raw beginnings of a colony.\n"
+	}
+	if index < 11 {
+		return "Outpost. At least one town-sized population center and spaceport."
+	}
+	if index < 16 {
+		return "Young colony. Multiple population centers and farms or other facilities for self-sustaining existence."
+	}
+	if index < 18 {
+		return "Mature colony. Population centers, agricultural	zones, and some industrial facilities."
+	}
+	if index == 18 {
+		return "Frontier world. Hundreds of thousands of residents with supporting industry."
+	}
+	if index == 19 {
+		return "Developed world. Millions of residents and astronautic industries, if the planet had the resources."
+	}
+	if index == 20 {
+		return "Advanced world. Hundreds of millions of citizens and multiple major cities and provinces."
+	}
+	return "Error"
+}
+
+func colonizationReasonQ(index int) string {
+	reazonStr := []string{
+		"It had a vital position in the spike drive trade lanes.",
+		"It was exceptionally rich in rare minerals and ores.",
+		"The climate and biosphere was unusually friendly to human inhabitants.",
+		"It was barely habitable and thus perfect for convicts and exiles.",
+		"Its location was of military importance in holding back aliens or dangerous humans.",
+		"Local flora or fauna were abundant and commercially valuable.",
+		"It was the site of some mysterious, research-worthy natural phenomenon.",
+		"It was very distant from then-inhabited worlds and the locals wanted privacy.",
+		"Aliens natives that may still be around were very friendly toward humans.",
+		"It had the raw resources to produce a type of good that other worlds lacked.",
+		"It was ordained as a new homeworld by some prophet or ideological leader.",
+		"It was accidental, colonized out of desperate need or mistake rather than any choice.",
+	}
+	if index > len(reazonStr)-1 {
+		index = roll1dX(len(reazonStr), -1)
+	}
+	return reazonStr[index]
+}
+
+func colonyFailedQ(index int) string {
+	failReazStr := []string{
+		"A virulent plague wiped out the young colony, but there is reason to believe someone has a vaccine.",
+		"The locals killed each other off in an orgy of political, religious, or ethnic violence.",
+		"The mineral strike or plunder opportunity that brought the original colonists played out and everyone left.",
+		"Pirate raiders hit them repeatedly and drove them beneath a viable population for survival.",
+		"A piece of infrastructure vital for surviving the planet's atmosphere or biosphere broke down.",
+		"Some maltech weapon of mass destruction was unleashed on the planet.",
+		"Hostile alien naval forces wiped them out on their way through the system.",
+		"The population changed voluntarily or otherwise into something rather less than human.",
+		"A psychic rampage during the Scream caused unsurvivable chaos in the colony.",
+		"Solar flares or astronomic conditions rendered the world uninhabitable, but all that's over now. Honest.",
+		"The colonists were slaughtered by indigenous natives, but took their assailants with them.",
+		"The colony was too small for genetic viability without newcomers, and gradually dwindled away to nothing.",
+		"The locals effectively committed suicide in service of some crazed ideology or religious demands",
+		"A bloody anarchy destroyed the colony after they were cut off from the power that was forcing them to cooperate",
+		"The planet was laid waste in the process of unseating a tyrannical ruler, whether local or an offworld warlord",
+		"An unexpected phase of planetary weather or biospheric activity destroyed the unprepared colonists.",
+		"The Mandate or a sector hegemon smashed the world as a rebel or hostile colony.",
+		"Despair at their harsh and hopeless existence after the Scream gradually wore them to nothing",
+		"They gambled on a failed space program or great public work that ended up collapsing their remaining industry.",
+		"They were killed or left to die by their founding world due to politics or a change in the colony's value.",
+	}
+	if index > len(failReazStr)-1 {
+		index = roll1dX(len(failReazStr), -1)
+	}
+	return failReazStr[index]
 }
