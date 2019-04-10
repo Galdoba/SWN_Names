@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 type World struct {
@@ -39,7 +40,15 @@ func NewWorld() *World {
 	world.law()
 
 	world.TradeSpecifics = marketSpecific()
-	world.Export = append(world.Export, *NewCommodityWithTag(pickCargoType(world.TradeSpecifics[0])))
+	again := true
+	for again {
+		newCommoditie := *NewCommodityWithTag(pickCargoType(world.TradeSpecifics[0]))
+		if !newCommoditie.isContainedBy(world.Export) {
+			world.Export = append(world.Export, newCommoditie)
+			again = false
+		}
+	}
+	//world.Export = append(world.Export, *NewCommodityWithTag(pickCargoType(world.TradeSpecifics[0])))
 	world.Export = append(world.Export, *NewCommodityWithTag(pickCargoType(world.TradeSpecifics[0])))
 	world.Export = append(world.Export, *NewCommodityWithTag(pickCargoType(world.TradeSpecifics[1])))
 	normCom := CreateCommodities(7)
@@ -49,6 +58,11 @@ func NewWorld() *World {
 
 	//world.PopulateNum()
 	return world
+}
+
+func NewUniqueCommoditie(commList []Commodite, tag string) *Commodite {
+
+	return NewCommoditie()
 }
 
 func (w *World) rollWorldTags() {
@@ -62,20 +76,27 @@ func (w *World) rollWorldTags() {
 func (w *World) showExport() string {
 	str := ""
 	for i := range w.Export {
-		str += "\n Commoditie " + strconv.Itoa(i) + ":\n"
+		str += "\n Commoditie " + strconv.Itoa(i) + ":"
 		str += commoditieStr(w.Export[i])
 	}
 	return str
 }
 
 func commoditieStr(c Commodite) string {
-	str := "Commoditie Tags: "
+	str := "{" + c.name + "} {"
 	for i := range c.tags {
-		str += c.tags[i] + ","
+		str += c.tags[i] + ", "
 	}
-	str += "\n priceMod:" + strconv.Itoa(c.pricemod)
-	str += " pricePerUnit:" + strconv.Itoa(c.costPerUnit)
+	str = strings.TrimSuffix(str, ", ")
+	str += "} {priceMod:" + strconv.Itoa(c.pricemod)
+	str += "} {pricePerUnit:" + strconv.Itoa(c.costPerUnit) + "}"
 
+	return str
+}
+
+func (comm *Commodite) CommoditeStr() string {
+	str := ""
+	str += comm.tags[0]
 	return str
 }
 

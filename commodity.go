@@ -2,6 +2,7 @@ package main
 
 //Commodite - товар. что-то чем торгуют
 type Commodite struct {
+	name        string
 	costPerUnit int
 	minTech     int
 	tags        []string
@@ -10,7 +11,7 @@ type Commodite struct {
 
 func NewCommoditie() *Commodite {
 	commodity := Commodite{}
-
+	commodity.name = "UNKNOWN"
 	commodity.getTags()
 	size := roll1dX(20, 0)
 	if size == 1 {
@@ -33,7 +34,7 @@ func NewCommoditie() *Commodite {
 
 func NewCommodityWithTag(tag string) *Commodite {
 	commodity := Commodite{}
-
+	commodity.name = "UNKNOWN"
 	commodity.getTags()
 	commodity.tags[0] = tag
 	size := roll1dX(20, 0)
