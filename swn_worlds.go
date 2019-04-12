@@ -53,11 +53,18 @@ func NewWorld() *World {
 		}
 	}
 	//world.Export = append(world.Export, *NewCommodityWithTag(pickCargoType(world.TradeSpecifics[0])))
-	world.Export = append(world.Export, *NewCommodityWithTag(pickCargoType(world.TradeSpecifics[0])))
-	world.Export = append(world.Export, *NewCommodityWithTag(pickCargoType(world.TradeSpecifics[1])))
-	normCom := CreateCommodities(7)
+	//	world.Export = append(world.Export, *NewCommodityWithTag(pickCargoType(world.TradeSpecifics[0])))
+	//	world.Export = append(world.Export, *NewCommodityWithTag(pickCargoType(world.TradeSpecifics[1])))
+	normCom := CreateCommodities(9)
 	for i := range normCom {
 		world.Export = append(world.Export, normCom[i])
+	}
+	for again {
+		newCommoditie := *NewCommodityWithTag(pickCargoType(world.TradeSpecifics[0]))
+		if !newCommoditie.isContainedBy(world.Export) {
+			world.Export = append(world.Export, newCommoditie)
+			again = false
+		}
 	}
 
 	//world.PopulateNum()
@@ -87,22 +94,13 @@ func (w *World) showExport() string {
 }
 
 func commoditieStr(c Commodite) string {
-<<<<<<< HEAD
 	str := "{" + c.name + "} {"
-=======
-	str := "[NAME]  Commoditie Tags:  ["
->>>>>>> be0d07363bd611b23fcc69e4c9692a4d663af1da
 	for i := range c.tags {
 		str += c.tags[i] + ", "
 	}
-<<<<<<< HEAD
 	str = strings.TrimSuffix(str, ", ")
 	str += "} {priceMod:" + strconv.Itoa(c.pricemod)
 	str += "} {pricePerUnit:" + strconv.Itoa(c.costPerUnit) + "}"
-=======
-	str += "]  priceMod: " + strconv.Itoa(c.pricemod)
-	str += "  pricePerUnit: " + strconv.Itoa(c.costPerUnit)
->>>>>>> be0d07363bd611b23fcc69e4c9692a4d663af1da
 
 	return str
 }
@@ -131,7 +129,7 @@ func (w *World) toString() string {
 	str = str + "WorldTag1: " + w.WorldTag1 + "\n"
 	str = str + "WorldTag2: " + w.WorldTag2 + "\n"
 	str = str + "TradeTag: " + w.TradeTag + "\n"
-	str = str + "World trade specific: " + pickCargoType(w.TradeSpecifics[0]) + " -2, " + pickCargoType(w.TradeSpecifics[1]) + " -1, " + pickCargoType(w.TradeSpecifics[2]) + " +1, " + pickCargoType(w.TradeSpecifics[3]) + " +2\n"
+	str = str + "World trade specific: {" + pickCargoType(w.TradeSpecifics[0]) + ": -2} {" + pickCargoType(w.TradeSpecifics[1]) + ": -1} {" + pickCargoType(w.TradeSpecifics[2]) + ": 1} {" + pickCargoType(w.TradeSpecifics[3]) + ": 2}\n"
 	str = str + "TradeCode: " + strconv.Itoa(w.TradeSpecifics[0]) + "-" + strconv.Itoa(w.TradeSpecifics[1]) + "-" + strconv.Itoa(w.TradeSpecifics[2]) + "-" + strconv.Itoa(w.TradeSpecifics[3]) + "\n"
 	str = str + "World Export:" + w.showExport() + "\n"
 	str = str + "LivingStandard: " + w.LivingStandard + " (" + strconv.Itoa(w.BP) + " BP or " + strconv.Itoa(w.BP*200000) + ")\n"

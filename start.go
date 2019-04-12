@@ -46,9 +46,9 @@ func main2() {
 }
 
 func main() {
-
+	seed := randomSeed()
+	save := 0
 	//makeTagsFunction()
-<<<<<<< HEAD
 	fmt.Println("Planet Sugested Name:", GiveName(randomSite(), "Place", -1))
 	fmt.Println("")
 	w := &World{}
@@ -71,28 +71,13 @@ func main() {
 		fmt.Println("d12=", roll1dX(12, 0))
 		fmt.Println("d20=", roll1dX(20, 0))
 		save, _ = TakeOptions("Save Planet?", "Yes", "No")
-=======
-	action := 0
-	action, _ = TakeOptions("Select action", "Create new Planet", "Select Existing Planet")
-	if action == 1 {
-		CreaNewPlanetFile()
->>>>>>> be0d07363bd611b23fcc69e4c9692a4d663af1da
 	}
-	if action == 2 {
-		SelectPlanetFile()
-	}
-}
-
-func SelectPlanetFile() {
-	readCurrentDir()
-}
-
-func readCurrentDir() {
-	file, err := os.Open(".")
+	fmt.Println("Name Planet:")
+	planetName := InputString()
+	fileOut, err := os.Create(planetName + ".txt")
 	if err != nil {
-		log.Fatalf("failed opening directory: %s", err)
+		log.Fatal("Cannot create file", err)
 	}
-<<<<<<< HEAD
 	defer fileOut.Close()
 	fmt.Fprintf(fileOut, "Seed: "+strconv.Itoa(int(seed))+"\n")
 	fmt.Fprintf(fileOut, "Planet: "+planetName+"\n")
@@ -115,44 +100,6 @@ func readCurrentDir() {
 	fmt.Println(roll1dX(10, 0))
 	fmt.Println(roll1dX(12, 0))
 	fmt.Println(roll1dX(20, 0))
-=======
-	defer file.Close()
-
-	list, _ := file.Readdirnames(0) // 0 to read all files and folders
-	var textList []string
-
-	for _, name := range list {
-		if strings.Contains(name, ".txt") {
-			plntName := strings.Trim(name, ".txt")
-			textList = append(textList, plntName)
-		}
-	}
-	_, selected := TakeOptions("which?", textList...)
-
-	b, err := ioutil.ReadFile(selected + ".txt") // just pass the file name
-	if err != nil {
-		fmt.Print(err)
-	}
-	str := string(b) // convert content to a 'string'
-	fmt.Println(str)
-	lines := strings.Split(str, "\n")
-	fmt.Println("lines[5]")
-	fmt.Println(lines[5])
-	fmt.Println(lines[5])
-
-}
-
-// exists returns whether the given file or directory exists
-func exists(path string) (bool, error) {
-	_, err := os.Stat(path)
-	if err == nil {
-		return true, nil
-	}
-	if os.IsNotExist(err) {
-		return false, nil
-	}
-	return true, err
->>>>>>> be0d07363bd611b23fcc69e4c9692a4d663af1da
 }
 
 // file, err := os.Open("tag.txt")
@@ -222,11 +169,6 @@ func exists(path string) (bool, error) {
 // //fmt.Println(oneRollContact())
 
 /*
-
-
-
-
-
  */
 
 func makeTagsFunction() {
@@ -295,192 +237,146 @@ func makeTagsFunction() {
 	fmt.Fprintf(file2, "return tRegulationsTagMap")
 }
 
-<<<<<<< HEAD
-import (
-	// 	"fmt"
-	// 	"strconv"
-	// 	"strings"
-	
-	// 	utils "github.com/Galdoba/utils"
-	// )
-	
-	// func main() {
-	// 	//var allGoods []string
-	// 	var allLots []TradeLot
-	// 	planetNames := utils.FileNames("./", ".txt")
-	// 	for i := range planetNames {
-	// 		planet := strings.TrimSuffix(planetNames[i], ".txt")
-	// 		lines := utils.LinesFromTXT(planetNames[i])
-	// 		for j := range lines {
-	// 			if strings.Contains(lines[j], "Commoditie") {
-	// 				allLots = append(allLots, *NewTradeLot(lines[j], planet))
-	// 			}
-	// 		}
-	// 		for i := range allLots {
-	// 			fmt.Println(allLots[i])
-	// 		}
-	// 		// 	allGoods = append(allGoods, CommoditieList(lines)...)
-	// 		// }
-	// 		// fmt.Println(utils.RollDice("2d6"))
-	// 		// for i := range allGoods {
-	// 		// 	fmt.Println(allGoods[i])
-	// 		// 	fmt.Println(parseLot(allGoods[i]))
-	// 		// 	allLots = append(allLots, *NewTradeLot(allGoods[i], "Planet"))
-	// 		// 	fmt.Println(*NewTradeLot(allGoods[i], "Planet"))
-	// 		// }
-	// 	}
-	// }
-	
-	// func CommoditieList(allLines []string) []string {
-	// 	var resultLines []string
-	// 	for i := range allLines {
-	// 		if strings.Contains(allLines[i], "Commoditie") {
-	// 			resultLines = append(resultLines, allLines[i])
-	// 		}
-	// 	}
-	// 	return resultLines
-	// }
-	
-	// type TradeLot struct {
-	// 	origin    string
-	// 	name      string
-	// 	priceBase int
-	// 	priceMod  int
-	// 	priceReal int
-	// 	tags      []string
-	// 	friction  int
-	// }
-	
-	// func NewTradeLot(commoditie string, planet string) *TradeLot {
-	// 	lot := TradeLot{}
-	// 	lot.name, lot.tags, lot.priceMod, lot.priceBase = parseLot(commoditie)
-	// 	lot.origin = planet
-	// 	return &lot
-	// }
-	
-	// func parseLot(str string) (string, []string, int, int) {
-	// 	//"Commoditie 1:{UNKNOWN} {Livestock, Survival} {priceMod:0} {pricePerUnit:5000}"
-	// 	btStr := []byte(str)
-	// 	var args []string
-	// 	a := 0
-	// 	read := false
-	// 	for i := range btStr {
-	// 		if string(btStr[i]) == "{" {
-	// 			read = true
-	// 			args = append(args, "")
-	// 			continue
-	// 		}
-	// 		if string(btStr[i]) == "}" {
-	// 			read = false
-	// 			a++
-	// 			continue
-	// 		}
-	// 		if read {
-	// 			args[a] += string(btStr[i])
-	// 		}
-	// 	}
-	// 	name := args[0]
-	// 	tags := strings.Split(args[1], ", ")
-	// 	pModS := strings.TrimPrefix(args[2], "priceMod:")
-	// 	priceMod, _ := strconv.Atoi(pModS)
-	// 	pUnitS := strings.TrimPrefix(args[3], "pricePerUnit:")
-	// 	priceUnit, _ := strconv.Atoi(pUnitS)
-	// 	return name, tags, priceMod, priceUnit
-	// }
-	
-	// func salesChart(roll int) float64 {
-	// 	if roll < 2 {
-	// 		roll = 2
-	// 	}
-	// 	if roll > 19 {
-	// 		roll = 19
-	// 	}
-	// 	switch roll {
-	// 	case 2:
-	// 		return 0.1
-	// 	case 3:
-	// 		return 0.3
-	// 	case 4:
-	// 		return 0.4
-	// 	case 5:
-	// 		return 0.5
-	// 	case 6:
-	// 		return 0.6
-	// 	case 7:
-	// 		return 0.7
-	// 	case 8:
-	// 		return 0.8
-	// 	case 9:
-	// 		return 0.9
-	// 	case 10:
-	// 		return 1.0
-	// 	case 11:
-	// 		return 1.0
-	// 	case 12:
-	// 		return 1.1
-	// 	case 13:
-	// 		return 1.2
-	// 	case 14:
-	// 		return 1.4
-	// 	case 15:
-	// 		return 1.6
-	// 	case 16:
-	// 		return 1.8
-	// 	case 17:
-	// 		return 2.0
-	// 	case 18:
-	// 		return 2.5
-	// 	case 19:
-	// 		return 3.0
-	// 	}
-	// 	return 0.0
-	// }
-	
-	// // if strings.Contains(scanner.Text(), "Commoditie ") {
-	// // 	fmt.Println(scanner.Text())
-	// // }
-=======
-func CreaNewPlanetFile() {
-	seed := randomSeed()
-	save := 0
+//import (
+// 	"fmt"
+// 	"strconv"
+// 	"strings"
 
-	fmt.Println(RandomColonyReport())
-	w := &World{}
-	for save != 1 {
-		seed := randomSeed()
-		fmt.Println("Seed =", seed)
-		w = NewWorld()
-		fmt.Println(w.toString())
-		fmt.Println("w.TotalPopulation()", w.TotalPopulation())
-		fmt.Println(TradeAntagonists(w.TradeTag))
-		fmt.Println(TradeAuthorities(w.TradeTag))
-		leader := NewLeader()
-		army := NewArmy(w.TotalPopulation()/100, w.TechLevelInt())
-		fmt.Println(leader.toString())
-		fmt.Println(army)
-		save, _ = TakeOptions("Save Planet?", "Yes", "No")
-	}
-	fmt.Println("Name Planet:")
-	planetName := InputString()
-	fileOut, err := os.Create(planetName + ".txt")
-	if err != nil {
-		log.Fatal("Cannot create file", err)
-	}
-	defer fileOut.Close()
-	fmt.Fprintf(fileOut, "Seed: "+strconv.Itoa(int(seed))+"\n")
-	fmt.Fprintf(fileOut, "Planet: "+planetName+"\n")
-	fmt.Fprintf(fileOut, w.toString())
-	fmt.Fprintf(fileOut, "Sample Story:\n")
-	r1 := roll1dX(100, 0)
-	fmt.Fprintf(fileOut, Story(r1, w.WorldTag1, w.WorldTag2))
-	fmt.Fprintf(fileOut, " \n")
-	fmt.Fprintf(fileOut, " \n")
-	r2 := roll1dX(100, 0)
-	fmt.Fprintf(fileOut, Story(r2, w.WorldTag1, w.WorldTag2))
-	fmt.Fprintf(fileOut, " \n")
-	fmt.Fprintf(fileOut, " \n")
-	r3 := roll1dX(100, 0)
-	fmt.Fprintf(fileOut, Story(r3, w.WorldTag1, w.WorldTag2))
-	fmt.Println("Planet Sugested Name:", GiveName(randomSite(), "Place", -1))
-}
->>>>>>> be0d07363bd611b23fcc69e4c9692a4d663af1da
+// 	utils "github.com/Galdoba/utils"
+// )
+
+// func main() {
+// 	//var allGoods []string
+// 	var allLots []TradeLot
+// 	planetNames := utils.FileNames("./", ".txt")
+// 	for i := range planetNames {
+// 		planet := strings.TrimSuffix(planetNames[i], ".txt")
+// 		lines := utils.LinesFromTXT(planetNames[i])
+// 		for j := range lines {
+// 			if strings.Contains(lines[j], "Commoditie") {
+// 				allLots = append(allLots, *NewTradeLot(lines[j], planet))
+// 			}
+// 		}
+// 		for i := range allLots {
+// 			fmt.Println(allLots[i])
+// 		}
+// 		// 	allGoods = append(allGoods, CommoditieList(lines)...)
+// 		// }
+// 		// fmt.Println(utils.RollDice("2d6"))
+// 		// for i := range allGoods {
+// 		// 	fmt.Println(allGoods[i])
+// 		// 	fmt.Println(parseLot(allGoods[i]))
+// 		// 	allLots = append(allLots, *NewTradeLot(allGoods[i], "Planet"))
+// 		// 	fmt.Println(*NewTradeLot(allGoods[i], "Planet"))
+// 		// }
+// 	}
+// }
+
+// func CommoditieList(allLines []string) []string {
+// 	var resultLines []string
+// 	for i := range allLines {
+// 		if strings.Contains(allLines[i], "Commoditie") {
+// 			resultLines = append(resultLines, allLines[i])
+// 		}
+// 	}
+// 	return resultLines
+// }
+
+// type TradeLot struct {
+// 	origin    string
+// 	name      string
+// 	priceBase int
+// 	priceMod  int
+// 	priceReal int
+// 	tags      []string
+// 	friction  int
+// }
+
+// func NewTradeLot(commoditie string, planet string) *TradeLot {
+// 	lot := TradeLot{}
+// 	lot.name, lot.tags, lot.priceMod, lot.priceBase = parseLot(commoditie)
+// 	lot.origin = planet
+// 	return &lot
+// }
+
+// func parseLot(str string) (string, []string, int, int) {
+// 	//"Commoditie 1:{UNKNOWN} {Livestock, Survival} {priceMod:0} {pricePerUnit:5000}"
+// 	btStr := []byte(str)
+// 	var args []string
+// 	a := 0
+// 	read := false
+// 	for i := range btStr {
+// 		if string(btStr[i]) == "{" {
+// 			read = true
+// 			args = append(args, "")
+// 			continue
+// 		}
+// 		if string(btStr[i]) == "}" {
+// 			read = false
+// 			a++
+// 			continue
+// 		}
+// 		if read {
+// 			args[a] += string(btStr[i])
+// 		}
+// 	}
+// 	name := args[0]
+// 	tags := strings.Split(args[1], ", ")
+// 	pModS := strings.TrimPrefix(args[2], "priceMod:")
+// 	priceMod, _ := strconv.Atoi(pModS)
+// 	pUnitS := strings.TrimPrefix(args[3], "pricePerUnit:")
+// 	priceUnit, _ := strconv.Atoi(pUnitS)
+// 	return name, tags, priceMod, priceUnit
+// }
+
+// func salesChart(roll int) float64 {
+// 	if roll < 2 {
+// 		roll = 2
+// 	}
+// 	if roll > 19 {
+// 		roll = 19
+// 	}
+// 	switch roll {
+// 	case 2:
+// 		return 0.1
+// 	case 3:
+// 		return 0.3
+// 	case 4:
+// 		return 0.4
+// 	case 5:
+// 		return 0.5
+// 	case 6:
+// 		return 0.6
+// 	case 7:
+// 		return 0.7
+// 	case 8:
+// 		return 0.8
+// 	case 9:
+// 		return 0.9
+// 	case 10:
+// 		return 1.0
+// 	case 11:
+// 		return 1.0
+// 	case 12:
+// 		return 1.1
+// 	case 13:
+// 		return 1.2
+// 	case 14:
+// 		return 1.4
+// 	case 15:
+// 		return 1.6
+// 	case 16:
+// 		return 1.8
+// 	case 17:
+// 		return 2.0
+// 	case 18:
+// 		return 2.5
+// 	case 19:
+// 		return 3.0
+// 	}
+// 	return 0.0
+// }
+
+// // if strings.Contains(scanner.Text(), "Commoditie ") {
+// // 	fmt.Println(scanner.Text())
+// // }
