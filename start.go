@@ -8,6 +8,8 @@ import (
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/Galdoba/utils"
 )
 
 func main2() {
@@ -45,15 +47,14 @@ func main2() {
 
 }
 
-func main() {
+func CreatePlanet() {
 	seed := randomSeed()
 	save := 0
-	//makeTagsFunction()
 	fmt.Println("Planet Sugested Name:", GiveName(randomSite(), "Place", -1))
 	fmt.Println("")
 	w := &World{}
 	for save != 1 {
-		seed := randomSeed()
+		//seed := randomSeed()
 		fmt.Println("Seed =", seed)
 		w = NewWorld()
 		fmt.Println(w.toString())
@@ -100,6 +101,19 @@ func main() {
 	fmt.Println(roll1dX(10, 0))
 	fmt.Println(roll1dX(12, 0))
 	fmt.Println(roll1dX(20, 0))
+}
+
+func main() {
+	optInt, optStr := utils.TakeOptions("select action:", "Create New Planet", "Load Planet", "Create NPC")
+	fmt.Println("Selected:", optInt, optStr)
+	switch optInt {
+	case 1:
+		CreatePlanet()
+	case 3:
+		CreateNPC()
+	default:
+		fmt.Println("Program Exit")
+	}
 }
 
 // file, err := os.Open("tag.txt")
