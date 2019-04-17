@@ -12,6 +12,8 @@ import (
 	"github.com/Galdoba/utils"
 )
 
+var seed int64
+
 func main2() {
 	files, err := ioutil.ReadDir("./")
 	if err != nil {
@@ -48,7 +50,7 @@ func main2() {
 }
 
 func CreatePlanet() {
-	seed := randomSeed()
+
 	save := 0
 	fmt.Println("Planet Sugested Name:", GiveName(randomSite(), "Place", -1))
 	fmt.Println("")
@@ -104,6 +106,7 @@ func CreatePlanet() {
 }
 
 func main() {
+	seed = randomSeed()
 	optInt, optStr := utils.TakeOptions("select action:", "Create New Planet", "Load Planet", "Create NPC")
 	fmt.Println("Selected:", optInt, optStr)
 	switch optInt {

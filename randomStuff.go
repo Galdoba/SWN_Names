@@ -87,7 +87,7 @@ func romanNumberStr(i int) string {
 	return res
 }
 
-func getRandomFromSliceStr(sl []string) string {
+func RandomFromSliceStr(sl []string) string {
 	l := len(sl)
 	if l < 1 {
 		return "Null"
