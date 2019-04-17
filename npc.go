@@ -19,6 +19,7 @@ type npc struct {
 	attribute  map[string]int
 	background string
 	skill      map[string]int
+	focus      map[string]int
 	//Strength, Dexterity, Constitution, Intelligence, Wisdom, and Charisma
 }
 
@@ -222,6 +223,7 @@ func CreateNPC() *npc {
 	npc.skill = blankSkillSet()
 	npc.background = backgrounds()[rand.Intn(len(backgrounds()))]
 	npc.backgroundGrowth()
+	npc.class = randomClass()
 	fmt.Println(npc.report())
 	return &npc
 }
@@ -379,6 +381,7 @@ func (npc *npc) report() string {
 		rep += "\n" + atributeNames[i] + ": " + strconv.Itoa(npc.attribute[atributeNames[i]]) + "(" + atrModS(npc.attribute[atributeNames[i]]) + ")"
 	}
 	rep += "\nBackground: " + npc.background
+	rep += "\nClass: " + npc.class
 	rep += "\nSkills:"
 	for key, val := range npc.skill {
 		if val > -1 {
@@ -389,11 +392,62 @@ func (npc *npc) report() string {
 	return rep
 }
 
-//increaseSkill
-//increaseStat
+type focus struct {
+	name  string
+	level int
+	fType string
+}
 
-//AnyStat
-//Physical2
-//Mental2
-//AnySkill
-//AnyCombat
+func expertFocusList() []string {
+	ef := []string{
+		"Alert",
+		"Authority",
+		"Connected",
+		"Diplomat",
+		"Hacker",
+		"Healer",
+		"Henchkeeper",
+		"Specialist",
+		"Star Captain",
+		"Starfarer",
+		"Tinker",
+		"Wanderer",
+		"Unique Gift",
+		"Wild Psychic Talent",
+	}
+	return ef
+}
+
+//ExpertFocus
+/*
+Alert
+Authority
+Connected
+Diplomat
+Hacker
+Healer
+Henchkeeper
+Specialist
+Star Captain
+Starfarer
+Tinker
+Wanderer
+Unique Gift
+Wild Psychic Talent
+*/
+
+//CombatFocus
+/*
+Armsman
+Assassin
+Close Combatant
+Die Hard
+Gunslinger
+Ironhide
+Savage Fray
+Shocking Assault
+Sniper
+Unarmed Combatant
+Unique Gift
+Wild Psychic Talent
+*/
