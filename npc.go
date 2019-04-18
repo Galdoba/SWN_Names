@@ -13,21 +13,40 @@ var physicalAtr = [...]string{"Str", "Dex", "Con"}
 var mentalAtr = [...]string{"Int", "Wis", "Cha"}
 
 type npc struct {
-	name       string
-	lvl        int
-	class      string
-	attribute  map[string]int
-	background string
-	skill      map[string]int
-	focus      map[string]int
+	name             string
+	lvl              int
+	hp               int
+	hpLevelBonusTODO int //это не нужно хранить в структуре - достаточно фукции TODO
+	class            string
+	attribute        map[string]int
+	background       string
+	skill            map[string]int
+	focus            map[string]int
 	//Strength, Dexterity, Constitution, Intelligence, Wisdom, and Charisma
 }
 
-func (npc *npc) Atr(s string) int {
+func (npc *npc) Attribute(s string) int {
 	if val, ok := npc.attribute[s]; ok {
 		return val
 	}
 	return -999
+}
+
+func (npc *npc) hpLevelBonus() int {
+	bonus := 0
+	switch npc.class {
+	case "Warrior":
+		bonus = 2
+	case "Adventurer (W-E)":
+		bonus = 2
+	case "Adventurer (W-P)":
+		bonus = 2
+	}
+	if npc.focus["Die Hard"] > 0 {
+		bonus += 2
+	}
+	bonus += atrMod(npc.Attribute("Con"))
+	return bonus
 }
 
 func (npc *npc) IncreaseSkill(skill string) {
@@ -36,6 +55,35 @@ func (npc *npc) IncreaseSkill(skill string) {
 
 func (npc *npc) IncreaseStat(stat string) {
 	npc.attribute[stat] = npc.attribute[stat] + 1
+}
+
+func (npc *npc) increaseFocus(focus string) {
+	if npc.focus[focus] > 1 || npc.focus[focus] < 0 {
+		fmt.Println("Error increseFocus")
+	}
+	npc.focus[focus] = npc.focus[focus] + 1
+	npc.applyFocusEffects(focus)
+}
+
+func (npc *npc) applyFocusEffects(focusName string) {
+	switch focusName {
+	case "Alert":
+		if npc.focus[focusName] == 1 {
+			npc.develop("Notice")
+		}
+	case "Armsman":
+		if npc.focus[focusName] == 1 {
+			npc.develop("Stab")
+		}
+	case "Assassin":
+		if npc.focus[focusName] == 1 {
+			npc.develop("Sneak")
+		}
+	case "Authority":
+		if npc.focus[focusName] == 1 {
+			npc.develop("Lead")
+		}
+	}
 }
 
 func validSkills() []string {
@@ -177,10 +225,50 @@ func randomClass() string {
 		"Psyhic",
 		"Adventurer (W-E)",
 		"Adventurer (W-E)",
+		"Adventurer (W-E)",
 		"Adventurer (W-P)",
 		"Adventurer (E-P)",
 	}
 	return classArray[rand.Intn(len(classArray))]
+}
+
+func (npc *npc) addClassAbilities() {
+	class := npc.class
+	switch class {
+	case "Warrior":
+		fmt.Println("TODO: addFullWarriorBonus()")
+		npc.addFullWarriorBonus()
+	case "Expert":
+		fmt.Println("TODO: addFullExpertBonus()")
+	case "Psyhic":
+		fmt.Println("TODO: addFullPsyonicBonus()")
+	case "Adventurer (W-E)":
+		fmt.Println("TODO: addPartialWarriorBonus()")
+		fmt.Println("TODO: addPartialExpertBonus()")
+	case "Adventurer (W-P)":
+		fmt.Println("TODO: addPartialWarriorBonus()")
+		fmt.Println("TODO: addPartialPsyonicBonus()")
+	case "Adventurer (E-P)":
+		fmt.Println("TODO: addPartialWarriorBonus()")
+		fmt.Println("TODO: addPartialPsyonicBonus()")
+	}
+}
+
+func (npc *npc) addFullWarriorBonus() {
+	foc := utils.RandomFromList(warriorFocusList())
+	fmt.Println("Debug: add:", foc)
+	npc.increaseFocus(foc)
+	// 1 gain a free level in a combat-related focus associated with your background. The GM decides if a focus qualifies if it’s an ambiguous case
+	// You gain two extra maximum hit points at each character level. //DONE
+}
+
+func (npc *npc) addFullExpertBonus() {
+	//npc.increaseFocus(utils.RandomFromList(expertFocusList()))
+	foc := utils.RandomFromList(expertFocusList())
+	fmt.Println("Debug: add:", foc)
+	npc.increaseFocus(foc)
+	// 1 gain a free level in a combat-related focus associated with your background. The GM decides if a focus qualifies if it’s an ambiguous case
+	// You gain two extra maximum hit points at each character level. //DONE
 }
 
 func rollAtrSet() map[string]int {
@@ -210,6 +298,7 @@ func blankSkillSet() map[string]int {
 }
 
 func CreateNPC() *npc {
+
 	npc := npc{}
 	inputName := utils.InputString("Set Name: \n('-m' for Male Random, '-f' for Female Random )\n")
 	if inputName == "-m" {
@@ -221,9 +310,11 @@ func CreateNPC() *npc {
 	npc.name = inputName
 	npc.attribute = rollAtrSet()
 	npc.skill = blankSkillSet()
+	npc.focus = make(map[string]int)
 	npc.background = backgrounds()[rand.Intn(len(backgrounds()))]
 	npc.backgroundGrowth()
 	npc.class = randomClass()
+	npc.addClassAbilities()
 	fmt.Println(npc.report())
 	return &npc
 }
@@ -367,6 +458,18 @@ func (npc *npc) develop(str string) {
 	case "AnyCombat":
 		skill := combatSkills()[rand.Intn(len(combatSkills()))]
 		npc.IncreaseSkill(skill)
+	case "Str":
+		npc.IncreaseStat(str)
+	case "Dex":
+		npc.IncreaseStat(str)
+	case "Con":
+		npc.IncreaseStat(str)
+	case "Int":
+		npc.IncreaseStat(str)
+	case "Wis":
+		npc.IncreaseStat(str)
+	case "Cha":
+		npc.IncreaseStat(str)
 	default:
 		npc.IncreaseSkill(str)
 
@@ -388,14 +491,14 @@ func (npc *npc) report() string {
 			rep += "\n" + key + "-" + strconv.Itoa(npc.skill[key])
 		}
 	}
+	rep += "\nFocus:"
+	for key, val := range npc.focus {
+		if val > 0 {
+			rep += "\n" + key + ": " + strconv.Itoa(npc.skill[key])
+		}
+	}
 
 	return rep
-}
-
-type focus struct {
-	name  string
-	level int
-	fType string
 }
 
 func expertFocusList() []string {
@@ -417,6 +520,26 @@ func expertFocusList() []string {
 	}
 	return ef
 }
+
+func warriorFocusList() []string {
+	wf := []string{
+		"Armsman",
+		"Assassin",
+		"Close Combatant",
+		"Die Hard",
+		"Gunslinger",
+		"Ironhide",
+		"Savage Fray",
+		"Shocking Assault",
+		"Sniper",
+		"Unarmed Combatant",
+		"Unique Gift",
+		"Wild Psychic Talent",
+	}
+	return wf
+}
+
+//RandFromList(slice)
 
 //ExpertFocus
 /*
