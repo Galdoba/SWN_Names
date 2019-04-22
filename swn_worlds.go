@@ -132,6 +132,7 @@ func (w *World) toString() string {
 	str = str + "World trade specific: {" + pickCargoType(w.TradeSpecifics[0]) + ": -2} {" + pickCargoType(w.TradeSpecifics[1]) + ": -1} {" + pickCargoType(w.TradeSpecifics[2]) + ": 1} {" + pickCargoType(w.TradeSpecifics[3]) + ": 2}\n"
 	str = str + "TradeCode: " + strconv.Itoa(w.TradeSpecifics[0]) + "-" + strconv.Itoa(w.TradeSpecifics[1]) + "-" + strconv.Itoa(w.TradeSpecifics[2]) + "-" + strconv.Itoa(w.TradeSpecifics[3]) + "\n"
 	str = str + "World Export:" + w.showExport() + "\n"
+	str += "Colony can produce " + strconv.Itoa(w.TotalPopulation()/5000) + " tons of commodities\n"
 	str = str + "LivingStandard: " + w.LivingStandard + " (" + strconv.Itoa(w.BP) + " BP or " + strconv.Itoa(w.BP*200000) + ")\n"
 	str = str + "Law Level: " + strconv.Itoa(w.LawCode) + "\n"
 	str = str + "\nWorldTag1 (descr): " + describeTag(w.WorldTag1) + "\n"

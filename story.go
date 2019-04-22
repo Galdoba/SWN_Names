@@ -50,7 +50,7 @@ func Story(index int, t1 string, t2 string) string {
 		"A fierce schism has broken out in the local majority religion, and a " + enemy + " is making a play to take control of the local hierarchy. A " + friend + " is on the side that will lose badly if the " + enemy + " succeeds, and needs a " + thing + " to prove the other group’s error.",
 		"A former " + enemy + " has been given reason to repent his treatment of a " + friend + ", and secretly commissions them to help the " + friend + " overcome a " + complication + ". A different " + enemy + " discovers the connection, and tries to paint the PCs as double agents.",
 		"An alien or a human with extremely peculiar spiritual beliefs seeks to visit a " + place + " for their own reasons. A " + enemy + " of their own kind attempts to stop them before they can reach the " + place + ", and reveal the " + thing + " that was hidden there long ago.",
-		"A " + friend + "’s sibling is an untrained psychic, and has been secretly using his or her powers to protect the " + friend + " from a " + enemy + ". The neural damage has finally overwhelmed their sanity, and they’ve now kidnapped the " + friend + " to keep them safe. The " + enemy + " is taking this opportunity to make sure the " + friend + " “dies at the hands of their maddened sibling”.",
+		"A " + friend + "’s sibling is an untrained psychic, and has been secretly using his or her powers to protect the " + friend + " from a " + enemy + ". The neural damage has finally overwhelmed their sanity, and they’ve now kidnapped the " + friend + " to keep them safe. The " + enemy + " is taking this opportunity to make sure the " + friend + " 'dies at the hands of their maddened sibling'.",
 		"A " + friend + " who is a skilled precognitive has just received a flash of an impending atrocity to be committed by a " + enemy + ". He or she needs the party to help them steal the " + thing + " that will prove the " + enemy + "’s plans while dodging the assassins sent to eliminate the precog.",
 		"A " + friend + " who is an exotic dancer is sought by a " + enemy + " who won’t take no for an answer. The dancer is secretly a Perimeter agent attempting to infiltrate a " + place + " to destroy maltech research, and plots to use the party to help get him or her into the facility under the pretext of striking at the " + enemy + ".",
 		"A young woman on an interplanetary tour needs the hire of local bodyguards. She turns out to be a trained and powerful combat psychic, but touchingly naive about local dangers, causing a social " + complication + " that threatens to get the whole group arrested.",
@@ -64,17 +64,17 @@ func Story(index int, t1 string, t2 string) string {
 		"A " + friend + " is responsible for safeguarding a " + thing + "yet the " + thing + " is suddenly proven to be a fake. The party must find the real object and the " + enemy + " who stole it or else their " + friend + " will be punished as the thief.",
 		"A " + friend + " is bitten by a poisonous local animal while in a remote " + place + ". The only antidote is back at civilization, yet a " + complication + " threatens to delay the group until it is too late.",
 		"A lethal plague has started among the residents of the town, but a " + complication + " is keeping aid from reaching them. A " + enemy + " is taking advantage of the panic to hawk a fake cure at ruinous prices, and a " + friend + " is taken in by him. The " + complication + " must be overcome before help can reach the town.",
-		"A radical political party has started to institute pogroms against “groups hostile to the people”. A " + friend + " is among those groups, and needs to get out of town before a " + enemy + " uses the riot as cover to settle old scores.",
+		"A radical political party has started to institute pogroms against 'groups hostile to the people'. A " + friend + " is among those groups, and needs to get out of town before a " + enemy + " uses the riot as cover to settle old scores.",
 		"A " + enemy + " has sold the party an expensive but worthlessly flawed piece of equipment before lighting out for the back country. He and his plunder are holed up at a remote " + place + ".",
-		"A concert of offworld music is being held in town, and a " + friend + " is slated to be the star performer. Reactionary elements led by a " + enemy + " plot to ruin the “corrupting noise” with sabotage that risks getting performers killed. Meanwhile, a crowd of ignorant offworlder fans have landed and are infuriating the locals.",
+		"A concert of offworld music is being held in town, and a " + friend + " is slated to be the star performer. Reactionary elements led by a " + enemy + " plot to ruin the 'corrupting noise' with sabotage that risks getting performers killed. Meanwhile, a crowd of ignorant offworlder fans have landed and are infuriating the locals.",
 		"A " + enemy + " is wanted on a neighboring world for some heinous act, and a " + friend + " turns up as a bounty hunter ready to bring him in alive. This world refuses to extradite him, so the capture and retrieval has to evade local law enforcement.",
 		"An unanticipated solar storm blocks communications and grounds the poorly-shielded grav vehicle that brought the group to this remote " + place + ". Then people start turning up dead; the storm has awoken a dangerous " + enemy + " beast.",
 		"A " + friend + " has discovered a partially-complete schematic for an ancient pretech refinery unit that produces vast amounts of something precious on this world - water, oxygen, edible compounds, or the like. Several remote " + place + "s on the planet are indicated as having the necessary pretech spare parts required to build the device. When finally assembled, embedded self-modification software in the " + thing + " modifies itself into a pretech combat bot. The salvage from it remains very valuable.",
 		"A " + complication + " ensnares the party where they are in an annoying but seemingly ordinary event. In actuality, a " + enemy + " is using it as cover to strike at a " + friend + " or " + thing + " that happens to be where the PCs are.",
 		"A " + friend + " has a cranky, temperamental artificial heart installed, and the doctor who put it in is the only one who really understands how it works. The heart has recently started to stutter, but the doctor has vanished. A " + enemy + " has snatched him to fit his elite assassins with very unsafe combat mods.",
-		"A local clinic is doing wonders in providing free health care to the poor. In truth, it’s a front for an offworld eugenics cult, with useful “specimens” kidnapped and shipped offworld while ’cremated remains’ are given to the family. A " + friend + " is snatched by them, but the party knows they’d have never consented to cremation as the clinic staff claim.",
+		"A local clinic is doing wonders in providing free health care to the poor. In truth, it’s a front for an offworld eugenics cult, with useful 'specimens' kidnapped and shipped offworld while ’cremated remains’ are given to the family. A " + friend + " is snatched by them, but the party knows they’d have never consented to cremation as the clinic staff claim.",
 		"Space pirates have cut a deal with an isolated backwoods settlement, off loading their plunder to merchants who meet them there. A " + friend + " goes home to family after a long absence, but is kidnapped or killed before they can bring back word of the dealings. Meanwhile, the party is entrusted with a valuable " + thing + " that must be brought to the " + friend + " quickly",
-		"A reclusive psychiatrist is offering treatment for violent mentally ill patients at a remote " + place + ". His treatments seem to work, calming the subjects and returning them to rationality, though major memory loss is involved and some severe social clumsiness ensues. In actuality, he’s removed large portions of their brains to fit them with remote-control units slaved to an AI in his laboratory. He intends to use them as drones to acquire more “subjects”, and eventual control of the town.",
+		"A reclusive psychiatrist is offering treatment for violent mentally ill patients at a remote " + place + ". His treatments seem to work, calming the subjects and returning them to rationality, though major memory loss is involved and some severe social clumsiness ensues. In actuality, he’s removed large portions of their brains to fit them with remote-control units slaved to an AI in his laboratory. He intends to use them as drones to acquire more 'subjects', and eventual control of the town.",
 		"Vital medical supplies against an impending plague have been shipped in from offworld, but the spike drive craft that was due to deliver them misjumped, and has arrived in-system as a lifeless wreck transmitting a blind distress signal. Whoever gets there first can hold the whole planet hostage, and a " + enemy + " means to do just that.",
 		"A " + friend + " has spent a substantial portion of their wealth on an ultra-modern new domicile, and invites the party to enjoy a weekend there. A " + enemy + " has hacked the house’s computer system to trap the inhabitants inside and use the automated fittings to kill them.",
 		"A mud slide, hurricane, earthquake, or other form of disaster strikes a remote settlement. The party is the closest group of responders, and must rescue the locals while dealing with the unearthed, malfunctioning pretech " + thing + " that threatens to cause an even greater calamity if not safely defused.",
@@ -101,16 +101,16 @@ func Story(index int, t1 string, t2 string) string {
 		"Atmospheric disturbances, dust storms, or other particulate clouds suddenly blow into town, leaving the settlement blind. A " + enemy + " commits a murder during the darkness, and attempts to frame the players as convenient scapegoats.",
 		"A " + enemy + " spikes the oxygen supply of an orbital station or unbreathable-atmosphere hab dome with hallucinogens as cover for a theft. Most victims are merely confused and disoriented, but some become violent in their delusions. By chance, the party’s air supply was not contaminated.",
 		"By coincidence, one of the party members is wearing clothing indicative of membership in a violent political group, and thus the party is treated in " + friend + "ly fashion by a local " + enemy + " for no obvious reason. The " + enemy + " assumes that the party will go along with some vicious crime without complaint, and the group isn’t informed of what’s in the offing until they’re in deep.",
-		"A local ruler wishes outworlders to advise him of the quality of his execrable poetry- and is the sort to react very poorly to anything less that evidently sincere and fulsome praise. Failure to amuse the ruler results in the party being dumped in a dangerous " + place + " to “experience truly poetic solitude”.",
+		"A local ruler wishes outworlders to advise him of the quality of his execrable poetry- and is the sort to react very poorly to anything less that evidently sincere and fulsome praise. Failure to amuse the ruler results in the party being dumped in a dangerous " + place + " to 'experience truly poetic solitude'.",
 		"A " + friend + " among the locals is unreasonably convinced that offworlder tech can repair anything, and has blithely promised a powerful local " + enemy + " that the party can easily fix a damaged pretech " + thing + ". The " + enemy + " has invested in many expensive spare parts, but the truly necessary pieces are kept in a still-dangerous pretech installation in a remote " + place + ".",
-		"The party’s offworld comm gear picks up a chance transmission from the local government and automatically descrambles the primitive encryption key. The document is proof that a " + enemy + " in government intends to commit an atrocity against a local village with a group of “deniable” renegades in order to steal a " + thing + " kept in the village.",
+		"The party’s offworld comm gear picks up a chance transmission from the local government and automatically descrambles the primitive encryption key. The document is proof that a " + enemy + " in government intends to commit an atrocity against a local village with a group of 'deniable' renegades in order to steal a " + thing + " kept in the village.",
 		"A " + friend + " belongs to a persecuted faith, ethnicity, or social class, and appeals for the PCs to help a cell of rebels get offworld before the " + enemy + " law enforcement finds them.",
 		"A part on the party’s ship or the only other transport out has failed, and needs immediate replacement. The only available part is held by a " + enemy + ", who will only willingly relinquish it in exchange for a " + thing + " held by an innocent " + friend + " who will refuse to sell at any price.",
 		"Eugenics cultists are making gengineered slaves out of genetic material gathered at a local brothel. Some of the unnaturally tempting slaves are being slipped among the prostitutes as bait to infatuate powerful officials, while others are being sold under the table to less scrupulous elites.",
 		"Evidence has been unearthed at a " + place + " that substantial portions of the planet are actually owned by members of an oppressed and persecuted group. The local courts have no intention of recognizing the rights, but the codes with the ownership evidence would allow someone to bypass a number of antique pretech defenses around the planetary governor’s palace. A " + friend + " wants the codes to pass to his " + friend + "s among the group’s rebels.",
 		"A crop smut threatens the planet’s agriculture, promising large-scale famine. A " + friend + " finds evidence that a secret government research station in the system’s asteroid belt was conducting experiments in disease-resistant crop strains for the planet before the Silence struck and cut off communication with the station. The existing government considers it a wild goose chase, but the party might choose to help. The station has stasis-frozen samples of the crop sufficient to avert the famine, but it also has less pleasant relics….",
 		"A grasping " + enemy + " in local government seizes the party’s ship for some trifling offense. The " + enemy + " wants to end offworld trade, and is trying to scare other traders away. The starship is held within a military cordon, and the " + enemy + " is confident that by the time other elements of the government countermand the order, the free traders will have been spooked off.",
-		"A seemingly useless trinket purchased by a PC turns out to be the security key to a lost pretech facility. It was sold by accident by a bungling and now-dead minion of a local " + enemy + ", who is hot after the party to “reclaim” his property… preferably after the party defeats whatever automatic defenses and bots the facility might still support.",
+		"A seemingly useless trinket purchased by a PC turns out to be the security key to a lost pretech facility. It was sold by accident by a bungling and now-dead minion of a local " + enemy + ", who is hot after the party to 'reclaim' his property… preferably after the party defeats whatever automatic defenses and bots the facility might still support.",
 	}
 	// fmt.Println("Enemy -", enemy)
 	// fmt.Println("Friend -", friend)
@@ -120,8 +120,6 @@ func Story(index int, t1 string, t2 string) string {
 	// fmt.Println("Story index -", index)
 	return allStories[index]
 }
-
-
 
 func Enemy(t1, t2 string) string {
 	var enemySlice []string
@@ -241,7 +239,7 @@ func createFriendsMap() map[string][]string {
 	FriendsTagMap["AlienRuins"] = AlienRuinsslF
 
 	AlteredHumanityslF := []string{}
-	AlteredHumanityslF = append(AlteredHumanityslF, "Local seeking a “cure”")
+	AlteredHumanityslF = append(AlteredHumanityslF, "Local seeking a 'cure'")
 	AlteredHumanityslF = append(AlteredHumanityslF, "Curious xenophiliac")
 	AlteredHumanityslF = append(AlteredHumanityslF, "Anthropological researcher")
 	FriendsTagMap["AlteredHumanity"] = AlteredHumanityslF
@@ -304,8 +302,8 @@ func createFriendsMap() map[string][]string {
 	ColdWarslF = append(ColdWarslF, "Apolitical information broker")
 	ColdWarslF = append(ColdWarslF, "Spy for the other side")
 	ColdWarslF = append(ColdWarslF, "Unjustly accused innocent")
-	ColdWarslF = append(ColdWarslF, "“He’s a bastard")
-	ColdWarslF = append(ColdWarslF, "but he’s our bastard” official")
+	ColdWarslF = append(ColdWarslF, "'He’s a bastard")
+	ColdWarslF = append(ColdWarslF, "but he’s our bastard' official")
 	FriendsTagMap["ColdWar"] = ColdWarslF
 
 	ColonizedPopulationslF := []string{}
@@ -431,7 +429,7 @@ func createFriendsMap() map[string][]string {
 
 	HatredslF := []string{}
 	HatredslF = append(HatredslF, "Intelligence agent needing catspaws")
-	HatredslF = append(HatredslF, "Holodoc producers needing “an inside look”")
+	HatredslF = append(HatredslF, "Holodoc producers needing 'an inside look'")
 	HatredslF = append(HatredslF, "Unlucky offworlder from the hated system")
 	FriendsTagMap["Hatred"] = HatredslF
 
@@ -572,7 +570,7 @@ func createFriendsMap() map[string][]string {
 	PerimeterAgencyslF := []string{}
 	PerimeterAgencyslF = append(PerimeterAgencyslF, "Agent in need of help")
 	PerimeterAgencyslF = append(PerimeterAgencyslF, "Support staffer")
-	PerimeterAgencyslF = append(PerimeterAgencyslF, "“Unjustly” targeted researcher")
+	PerimeterAgencyslF = append(PerimeterAgencyslF, "'Unjustly' targeted researcher")
 	FriendsTagMap["PerimeterAgency"] = PerimeterAgencyslF
 
 	PilgrimageSiteslF := []string{}
@@ -869,7 +867,7 @@ func createEnemiesMap() map[string][]string {
 
 	AnarchistsslE := []string{}
 	AnarchistsslE = append(AnarchistsslE, "Offworlder imperialist")
-	AnarchistsslE = append(AnarchistsslE, "Reformer seeking to impose “good government”")
+	AnarchistsslE = append(AnarchistsslE, "Reformer seeking to impose 'good government'")
 	AnarchistsslE = append(AnarchistsslE, "Exploiter taking advantage of the lack of centralized resistance")
 	EnemyTagMap["Anarchists"] = AnarchistsslE
 
@@ -1131,7 +1129,7 @@ func createEnemiesMap() map[string][]string {
 	MandateBaseslE := []string{}
 	MandateBaseslE = append(MandateBaseslE, "Deranged Mandate monitoring AI")
 	MandateBaseslE = append(MandateBaseslE, "Aspiring sector ruler")
-	MandateBaseslE = append(MandateBaseslE, "Demagogue preaching local superiority over “traitorous rebel worlds”.")
+	MandateBaseslE = append(MandateBaseslE, "Demagogue preaching local superiority over 'traitorous rebel worlds'.")
 	EnemyTagMap["MandateBase"] = MandateBaseslE
 
 	ManeatersslE := []string{}
@@ -1178,7 +1176,7 @@ func createEnemiesMap() map[string][]string {
 
 	OceanicWorldslE := []string{}
 	OceanicWorldslE = append(OceanicWorldslE, "Pirate raider")
-	OceanicWorldslE = append(OceanicWorldslE, "Violent “salvager” gang")
+	OceanicWorldslE = append(OceanicWorldslE, "Violent 'salvager' gang")
 	OceanicWorldslE = append(OceanicWorldslE, "Tentacled sea monster")
 	EnemyTagMap["OceanicWorld"] = OceanicWorldslE
 
@@ -1221,7 +1219,7 @@ func createEnemiesMap() map[string][]string {
 	PostScarcityslE := []string{}
 	PostScarcityslE = append(PostScarcityslE, "Frenzied ideologue fighting over an idea")
 	PostScarcityslE = append(PostScarcityslE, "Paranoid local fearing offworlder influence")
-	PostScarcityslE = append(PostScarcityslE, "Grim reformer seeking the destruction of the “enfeebling” productive tech")
+	PostScarcityslE = append(PostScarcityslE, "Grim reformer seeking the destruction of the 'enfeebling' productive tech")
 	EnemyTagMap["PostScarcity"] = PostScarcityslE
 
 	PreceptorArchiveslE := []string{}
@@ -1304,7 +1302,7 @@ func createEnemiesMap() map[string][]string {
 	RevanchistsslE := []string{}
 	RevanchistsslE = append(RevanchistsslE, "Demagogue whipping the locals on to a hopeless war")
 	RevanchistsslE = append(RevanchistsslE, "Politician seeking to use the resentment for their own ends")
-	RevanchistsslE = append(RevanchistsslE, "Local convinced the PCs are agents of the “thieving” power")
+	RevanchistsslE = append(RevanchistsslE, "Local convinced the PCs are agents of the 'thieving' power")
 	RevanchistsslE = append(RevanchistsslE, "Refugee from the land bitterly demanding it be reclaimed")
 	EnemyTagMap["Revanchists"] = RevanchistsslE
 
@@ -1395,7 +1393,7 @@ func createEnemiesMap() map[string][]string {
 	TabooTreasureslE := []string{}
 	TabooTreasureslE = append(TabooTreasureslE, "Maker of a vile commodity")
 	TabooTreasureslE = append(TabooTreasureslE, "Smuggler for a powerful offworlder")
-	TabooTreasureslE = append(TabooTreasureslE, "Depraved offworlder here for “fun”")
+	TabooTreasureslE = append(TabooTreasureslE, "Depraved offworlder here for 'fun'")
 	TabooTreasureslE = append(TabooTreasureslE, "Local warlord who controls the treasure")
 	EnemyTagMap["TabooTreasure"] = TabooTreasureslE
 
@@ -1442,7 +1440,7 @@ func createEnemiesMap() map[string][]string {
 	UrbanizedSurfaceslE := []string{}
 	UrbanizedSurfaceslE = append(UrbanizedSurfaceslE, "Maintenance AI that hates outsiders")
 	UrbanizedSurfaceslE = append(UrbanizedSurfaceslE, "Tyrant of a habitation block")
-	UrbanizedSurfaceslE = append(UrbanizedSurfaceslE, "Deep-dwelling prophet who considers “the sky” a blasphemy to be quelled")
+	UrbanizedSurfaceslE = append(UrbanizedSurfaceslE, "Deep-dwelling prophet who considers 'the sky' a blasphemy to be quelled")
 	EnemyTagMap["UrbanizedSurface"] = UrbanizedSurfaceslE
 
 	UtopiaslE := []string{}
@@ -1530,7 +1528,7 @@ func createComplicationsMap() map[string][]string {
 	CompicationTagMap["Battleground"] = BattlegroundslC
 
 	BeastmastersslC := []string{}
-	BeastmastersslC = append(BeastmastersslC, "The “animals” are very heavily gengineered humans")
+	BeastmastersslC = append(BeastmastersslC, "The 'animals' are very heavily gengineered humans")
 	BeastmastersslC = append(BeastmastersslC, "The animals actually run the society")
 	BeastmastersslC = append(BeastmastersslC, "The animals have the same rights as humans")
 	CompicationTagMap["Beastmasters"] = BeastmastersslC
@@ -1557,7 +1555,7 @@ func createComplicationsMap() map[string][]string {
 	ColdWarslC := []string{}
 	ColdWarslC = append(ColdWarslC, "Police sweep")
 	ColdWarslC = append(ColdWarslC, "Low-level skirmishing")
-	ColdWarslC = append(ColdWarslC, "“Red scare”")
+	ColdWarslC = append(ColdWarslC, "'Red scare'")
 	CompicationTagMap["ColdWar"] = ColdWarslC
 
 	ColonizedPopulationslC := []string{}
@@ -1628,7 +1626,7 @@ func createComplicationsMap() map[string][]string {
 	CompicationTagMap["FallenHegemon"] = FallenHegemonslC
 
 	FeralWorldslC := []string{}
-	FeralWorldslC = append(FeralWorldslC, "Horrific local “celebration”")
+	FeralWorldslC = append(FeralWorldslC, "Horrific local 'celebration'")
 	FeralWorldslC = append(FeralWorldslC, "Inexplicable and repugnant social rules")
 	FeralWorldslC = append(FeralWorldslC, "Taboo zones and people")
 	CompicationTagMap["FeralWorld"] = FeralWorldslC
@@ -1649,7 +1647,7 @@ func createComplicationsMap() map[string][]string {
 	FormerWarriorsslC := []string{}
 	FormerWarriorsslC = append(FormerWarriorsslC, "Neighboring worlds want them pacified or dead")
 	FormerWarriorsslC = append(FormerWarriorsslC, "They only ever used their arts in self-defense")
-	FormerWarriorsslC = append(FormerWarriorsslC, "The source of their gifts has been “turned off” in a reversible way")
+	FormerWarriorsslC = append(FormerWarriorsslC, "The source of their gifts has been 'turned off' in a reversible way")
 	CompicationTagMap["FormerWarriors"] = FormerWarriorsslC
 
 	FreakGeologyslC := []string{}
@@ -1685,7 +1683,7 @@ func createComplicationsMap() map[string][]string {
 	HatredslC := []string{}
 	HatredslC = append(HatredslC, "The characters are wearing or using items from the hated world")
 	HatredslC = append(HatredslC, "The characters are known to have done business there")
-	HatredslC = append(HatredslC, "The characters “look like” the hated others")
+	HatredslC = append(HatredslC, "The characters 'look like' the hated others")
 	CompicationTagMap["Hatred"] = HatredslC
 
 	HeavyIndustryslC := []string{}
@@ -1766,7 +1764,7 @@ func createComplicationsMap() map[string][]string {
 	CompicationTagMap["Mandarinate"] = MandarinateslC
 
 	MandateBaseslC := []string{}
-	MandateBaseslC = append(MandateBaseslC, "The monitoring system forces the locals to behave in aggressive ways toward “rebel” worlds")
+	MandateBaseslC = append(MandateBaseslC, "The monitoring system forces the locals to behave in aggressive ways toward 'rebel' worlds")
 	MandateBaseslC = append(MandateBaseslC, "The monitoring system severely hinders offworld use of their tech")
 	MandateBaseslC = append(MandateBaseslC, "The original colonists are all dead and have been replaced by outsiders who don’t understand all the details")
 	CompicationTagMap["MandateBase"] = MandateBaseslC
@@ -1794,7 +1792,7 @@ func createComplicationsMap() map[string][]string {
 	MisandryMisogynyslC = append(MisandryMisogynyslC, "The oppressed gender is restive against the customs")
 	MisandryMisogynyslC = append(MisandryMisogynyslC, "The oppressed gender largely supports the customs")
 	MisandryMisogynyslC = append(MisandryMisogynyslC, "The customs relate to some physical quality of the world")
-	MisandryMisogynyslC = append(MisandryMisogynyslC, "The oppressed gender has had maltech gengineering done to “tame” them.")
+	MisandryMisogynyslC = append(MisandryMisogynyslC, "The oppressed gender has had maltech gengineering done to 'tame' them.")
 	CompicationTagMap["MisandryMisogyny"] = MisandryMisogynyslC
 
 	NightWorldslC := []string{}
@@ -1857,8 +1855,8 @@ func createComplicationsMap() map[string][]string {
 
 	PoliceStateslC := []string{}
 	PoliceStateslC = append(PoliceStateslC, "The natives largely believe in the righteousness of the state")
-	PoliceStateslC = append(PoliceStateslC, "The police state is automated and its “rulers” can’t shut it off")
-	PoliceStateslC = append(PoliceStateslC, "The leaders foment a pogrom against “offworlder spies”.")
+	PoliceStateslC = append(PoliceStateslC, "The police state is automated and its 'rulers' can’t shut it off")
+	PoliceStateslC = append(PoliceStateslC, "The leaders foment a pogrom against 'offworlder spies'.")
 	CompicationTagMap["PoliceState"] = PoliceStateslC
 
 	PostScarcityslC := []string{}
@@ -1876,7 +1874,7 @@ func createComplicationsMap() map[string][]string {
 
 	PretechCultistsslC := []string{}
 	PretechCultistsslC = append(PretechCultistsslC, "The cultists can actually replicate certain forms of pretech")
-	PretechCultistsslC = append(PretechCultistsslC, "The cultists abhor use of the devices as “presumption on the holy”")
+	PretechCultistsslC = append(PretechCultistsslC, "The cultists abhor use of the devices as 'presumption on the holy'")
 	PretechCultistsslC = append(PretechCultistsslC, "The cultists mistake the party’s belongings for pretech")
 	CompicationTagMap["PretechCultists"] = PretechCultistsslC
 
@@ -1913,7 +1911,7 @@ func createComplicationsMap() map[string][]string {
 	PsionicsWorshipslC = append(PsionicsWorshipslC, "and the psychics all show significant mental illness")
 	PsionicsWorshipslC = append(PsionicsWorshipslC, "The psychics have developed a unique discipline")
 	PsionicsWorshipslC = append(PsionicsWorshipslC, "The will of a psychic is law")
-	PsionicsWorshipslC = append(PsionicsWorshipslC, "Psychics in the party are forcibly kidnapped for “enlightening”.")
+	PsionicsWorshipslC = append(PsionicsWorshipslC, "Psychics in the party are forcibly kidnapped for 'enlightening'.")
 	CompicationTagMap["PsionicsWorship"] = PsionicsWorshipslC
 
 	QuarantinedWorldslC := []string{}
@@ -2083,7 +2081,7 @@ func createComplicationsMap() map[string][]string {
 	TyrannyslC = append(TyrannyslC, "The tyrant rules with vastly superior technology")
 	TyrannyslC = append(TyrannyslC, "The tyrant is a figurehead for a cabal of powerful men and women")
 	TyrannyslC = append(TyrannyslC, "The people are resigned to their suffering")
-	TyrannyslC = append(TyrannyslC, "The tyrant is hostile to “meddlesome outworlders”.")
+	TyrannyslC = append(TyrannyslC, "The tyrant is hostile to 'meddlesome outworlders'.")
 	CompicationTagMap["Tyranny"] = TyrannyslC
 
 	UnbrakedAIslC := []string{}
@@ -2117,7 +2115,7 @@ func createComplicationsMap() map[string][]string {
 	XenophilesslC := []string{}
 	XenophilesslC = append(XenophilesslC, "The enthusiasm is due to alien psionics or tech")
 	XenophilesslC = append(XenophilesslC, "The enthusiasm is based on a lie")
-	XenophilesslC = append(XenophilesslC, "The aliens strongly dislike their “groupies”")
+	XenophilesslC = append(XenophilesslC, "The aliens strongly dislike their 'groupies'")
 	XenophilesslC = append(XenophilesslC, "The aliens feel obliged to rule humanity for its own good")
 	XenophilesslC = append(XenophilesslC, "Humans badly misunderstand the aliens")
 	CompicationTagMap["Xenophiles"] = XenophilesslC
@@ -2156,7 +2154,7 @@ func createThingsMap() map[string][]string {
 	AlteredHumanityslT := []string{}
 	AlteredHumanityslT = append(AlteredHumanityslT, "Original pretech mutagenic equipment")
 	AlteredHumanityslT = append(AlteredHumanityslT, "Valuable biological byproduct from the mutants")
-	AlteredHumanityslT = append(AlteredHumanityslT, "“Cure” for the altered genes")
+	AlteredHumanityslT = append(AlteredHumanityslT, "'Cure' for the altered genes")
 	AlteredHumanityslT = append(AlteredHumanityslT, "Record of the original colonial genotypes")
 	ThingTagMap["AlteredHumanity"] = AlteredHumanityslT
 
@@ -2168,7 +2166,7 @@ func createThingsMap() map[string][]string {
 
 	AnthropomorphsslT := []string{}
 	AnthropomorphsslT = append(AnthropomorphsslT, "Pretech gengineering tech")
-	AnthropomorphsslT = append(AnthropomorphsslT, "A “cure” that may not be wanted")
+	AnthropomorphsslT = append(AnthropomorphsslT, "A 'cure' that may not be wanted")
 	AnthropomorphsslT = append(AnthropomorphsslT, "Sacred feral totem")
 	ThingTagMap["Anthropomorphs"] = AnthropomorphsslT
 
@@ -2365,7 +2363,7 @@ func createThingsMap() map[string][]string {
 	HivemindslT := []string{}
 	HivemindslT = append(HivemindslT, "Vital tech for maintaining the mind")
 	HivemindslT = append(HivemindslT, "Precious treasure held by now-assimilated outsider")
-	HivemindslT = append(HivemindslT, "Tech that “blinds” the hivemind to the tech’s users")
+	HivemindslT = append(HivemindslT, "Tech that 'blinds' the hivemind to the tech’s users")
 	ThingTagMap["Hivemind"] = HivemindslT
 
 	HolyWarslT := []string{}
@@ -2504,7 +2502,7 @@ func createThingsMap() map[string][]string {
 
 	PoliceStateslT := []string{}
 	PoliceStateslT = append(PoliceStateslT, "List of police informers")
-	PoliceStateslT = append(PoliceStateslT, "Wealth taken from “enemies of the state”")
+	PoliceStateslT = append(PoliceStateslT, "Wealth taken from 'enemies of the state'")
 	PoliceStateslT = append(PoliceStateslT, "Dear Leader’s private stash")
 	ThingTagMap["PoliceState"] = PoliceStateslT
 
@@ -2874,7 +2872,7 @@ func createPlacesMap() map[string][]string {
 
 	DesertWorldslP := []string{}
 	DesertWorldslP = append(DesertWorldslP, "Oasis")
-	DesertWorldslP = append(DesertWorldslP, "“The Empty Quarter” of the desert")
+	DesertWorldslP = append(DesertWorldslP, "'The Empty Quarter' of the desert")
 	DesertWorldslP = append(DesertWorldslP, "Hidden underground cistern")
 	PlaceTagMap["DesertWorld"] = DesertWorldslP
 
@@ -3100,7 +3098,7 @@ func createPlacesMap() map[string][]string {
 	OutpostWorldslP = append(OutpostWorldslP, "Grimy recreation room")
 	OutpostWorldslP = append(OutpostWorldslP, "Refueling station")
 	OutpostWorldslP = append(OutpostWorldslP, "The only building on the planet")
-	OutpostWorldslP = append(OutpostWorldslP, "A “starport” of swept bare rock.")
+	OutpostWorldslP = append(OutpostWorldslP, "A 'starport' of swept bare rock.")
 	PlaceTagMap["OutpostWorld"] = OutpostWorldslP
 
 	PerimeterAgencyslP := []string{}
@@ -3244,7 +3242,7 @@ func createPlacesMap() map[string][]string {
 
 	RobotsslP := []string{}
 	RobotsslP = append(RobotsslP, "Humming robotic factory")
-	RobotsslP = append(RobotsslP, "Stark robotic “barracks”")
+	RobotsslP = append(RobotsslP, "Stark robotic 'barracks'")
 	RobotsslP = append(RobotsslP, "House crowded with robot servants and only one human owner")
 	PlaceTagMap["Robots"] = RobotsslP
 
@@ -3355,7 +3353,7 @@ func createPlacesMap() map[string][]string {
 	UtopiaslP := []string{}
 	UtopiaslP = append(UtopiaslP, "Plaza full of altered humans")
 	UtopiaslP = append(UtopiaslP, "Social ritual site")
-	UtopiaslP = append(UtopiaslP, "Secret office where “normal” humans rule")
+	UtopiaslP = append(UtopiaslP, "Secret office where 'normal' humans rule")
 	PlaceTagMap["Utopia"] = UtopiaslP
 
 	WarlordsslP := []string{}
@@ -4425,7 +4423,7 @@ func describeTag(tag string) string {
 	PleasureWorldDescr := "This world provides delights either rare or impermissible elsewhere. Matchless local beauty, stunningly gengineered natives, a wide variety of local drugs, carnal pleasures unacceptable on other worlds, or some other rare delight is readily available here. Most worlds are fully aware of the value of their offerings, and the prices they demand can be in credits or in less tangible recompense."
 	descriptionTagMap["PleasureWorld"] = PleasureWorldDescr
 
-	PoliceStateDescr := "The world is a totalitarian police state. Any sign of disloyalty to the planet’s rulers is punished severely, and suspicion riddles society. Some worlds might operate by Soviet-style informers and indoctrination, while more technically sophisticated worlds might rely on omnipresent cameras or braked AI “guardian angels”. Outworlders are apt to be treated as a necessary evil at best, and “disappeared” if they become troublesome."
+	PoliceStateDescr := "The world is a totalitarian police state. Any sign of disloyalty to the planet’s rulers is punished severely, and suspicion riddles society. Some worlds might operate by Soviet-style informers and indoctrination, while more technically sophisticated worlds might rely on omnipresent cameras or braked AI 'guardian angels'. Outworlders are apt to be treated as a necessary evil at best, and 'disappeared' if they become troublesome."
 	descriptionTagMap["PoliceState"] = PoliceStateDescr
 
 	PostScarcityDescr := "The locals have maintained sufficient Mandate-era tech to be effectively post-scarcity in their economic structure. Everyone has all the necessities and most of the desires they can imagine. Conflict now exists over the apportionment of services and terrestrial space, since anything else can be had in abundance. Military goods and items of mass destruction may still be restricted, and there is probably some reason that the locals do not export their vast wealth."
@@ -4440,13 +4438,13 @@ func describeTag(tag string) string {
 	PrimitiveAliensDescr := "The world is populated by a large number of sapient aliens that have yet to develop advanced technology. The human colonists may have a friendly or hostile relationship with the aliens, but a certain intrinsic tension is likely. Small human colonies might have been enslaved or otherwise subjugated."
 	descriptionTagMap["PrimitiveAliens"] = PrimitiveAliensDescr
 
-	PrisonPlanetDescr := "This planet is or was intended as a prison. Some such prisons were meant for specific malefactors of the Terran Mandate, while others were to contain entire “dangerous” ethnic groups or alien races. Some may still have warden AIs or automatic systems to prevent any unauthorized person from leaving, and any authorization permits have long since expired."
+	PrisonPlanetDescr := "This planet is or was intended as a prison. Some such prisons were meant for specific malefactors of the Terran Mandate, while others were to contain entire 'dangerous' ethnic groups or alien races. Some may still have warden AIs or automatic systems to prevent any unauthorized person from leaving, and any authorization permits have long since expired."
 	descriptionTagMap["PrisonPlanet"] = PrisonPlanetDescr
 
 	PsionicsAcademyDescr := "This world is one of the few that have managed to redevelop the basics of psychic training. Without this education, a potential psychic is doomed to either madness or death unless they refrain from using their abilities. Psionic academies are rare enough that offworlders are often sent there to study by wealthy patrons. The secrets of psychic mentorship, the protocols and techniques that allow a psychic to successfully train another, are carefully guarded at these academies. Most are closely affiliated with the planetary government."
 	descriptionTagMap["PsionicsAcademy"] = PsionicsAcademyDescr
 
-	PsionicsFearDescr := "The locals are terrified of psychics. Perhaps their history is studded with feral psychics who went on murderous rampages, or perhaps they simply nurse an unreasoning terror of those “mutant freaks”. Psychics demonstrate their powers at risk of their lives."
+	PsionicsFearDescr := "The locals are terrified of psychics. Perhaps their history is studded with feral psychics who went on murderous rampages, or perhaps they simply nurse an unreasoning terror of those 'mutant freaks'. Psychics demonstrate their powers at risk of their lives."
 	descriptionTagMap["PsionicsFear"] = PsionicsFearDescr
 
 	PsionicsWorshipDescr := "These natives view psionic powers as a visible gift of god or sign of superiority. If the world has a functional psychic training academy, psychics occupy almost all major positions of power and are considered the natural and proper rulers of the world. If the world lacks training facilities, it is likely a hodgepodge of demented cults, with each one dedicated to a marginally-coherent feral prophet and their psychopathic ravings."
@@ -4509,7 +4507,7 @@ func describeTag(tag string) string {
 	SoleSupplierDescr := "Some extremely important resource is exported from this world and this world alone. It’s unlikely that the substance is critical for building spike drives unless this world is also the first to begin interstellar flight, but it may be critical to other high-tech processes or devices. The locals make a large amount of money off this trade and control of it is of critical importance to the planet’s rulers, and potentially to outside powers."
 	descriptionTagMap["SoleSupplier"] = SoleSupplierDescr
 
-	TabooTreasureDescr := "The natives here produce something that is both fabulously valuable and strictly forbidden elsewhere in the sector. It may be a lethally addictive drug, forbidden gengineering tech, vat-grown “perfect slaves”, or a useful substance that can only be made through excruciating human suffering. This treasure is freely traded on the world, but bringing it elsewhere is usually an invitation to a long prison stay or worse."
+	TabooTreasureDescr := "The natives here produce something that is both fabulously valuable and strictly forbidden elsewhere in the sector. It may be a lethally addictive drug, forbidden gengineering tech, vat-grown 'perfect slaves', or a useful substance that can only be made through excruciating human suffering. This treasure is freely traded on the world, but bringing it elsewhere is usually an invitation to a long prison stay or worse."
 	descriptionTagMap["TabooTreasure"] = TabooTreasureDescr
 
 	TerraformFailureDescr := "This world was marginal for human habitation when it was discovered, but the Mandate or the early government put in pretech terraforming engines to correct its more extreme qualities. The terraforming did not entirely work, either failing of its own or suffering the destruction of the engines during the Silence. The natives are only partly adapted to the world’s current state, and struggle with the environment."
@@ -4527,13 +4525,13 @@ func describeTag(tag string) string {
 	TyrannyDescr := "The local government is brutal and indifferent to the will of the people. Laws may or may not exist, but the only one that matters is the whim of the rulers on any given day. Their minions swagger through the streets while the common folk live in terror of their appetites. The only people who stay wealthy are friends and servants of the ruling class."
 	descriptionTagMap["Tyranny"] = TyrannyDescr
 
-	UnbrakedAIDescr := "Artificial intelligences are costly and difficult to create, requiring a careful sequence of “growth stages” in order to bring them to sentience before artificial limits on cognition speed and learning development are installed. These “brakes” prevent runaway cognition metastasis. This world has an “unbraked AI” on it, probably with a witting or unwitting corps of servants. Unbraked AIs are quite insane, but they learn and reason with a speed impossible for humans, and can demonstrate a truly distressing subtlety."
+	UnbrakedAIDescr := "Artificial intelligences are costly and difficult to create, requiring a careful sequence of 'growth stages' in order to bring them to sentience before artificial limits on cognition speed and learning development are installed. These 'brakes' prevent runaway cognition metastasis. This world has an 'unbraked AI' on it, probably with a witting or unwitting corps of servants. Unbraked AIs are quite insane, but they learn and reason with a speed impossible for humans, and can demonstrate a truly distressing subtlety."
 	descriptionTagMap["UnbrakedAI"] = UnbrakedAIDescr
 
 	UrbanizedSurfaceDescr := "The world’s land area is covered with buildings that extend downward for multiple levels. Such worlds either have a population in the trillions, extremely little land area, or are largely-abandoned due to some past catastrophe. Agriculture and resource extraction are part of the urban complex, and there may be an advanced maintenance system that may not be entirely under the control of present natives."
 	descriptionTagMap["UrbanizedSurface"] = UrbanizedSurfaceDescr
 
-	UtopiaDescr := "Natural and social conditions on this world have made it a paradise for its inhabitants, a genuine utopia of happiness and fulfillment. This is normally the result of drastic human engineering, including brain-gelding, neurochemical control, personality curbs, or complete “humanity” redefinitions. Even so, the natives are extremely happy with their lot, and may wish to extend that joy to poor, sad outsiders."
+	UtopiaDescr := "Natural and social conditions on this world have made it a paradise for its inhabitants, a genuine utopia of happiness and fulfillment. This is normally the result of drastic human engineering, including brain-gelding, neurochemical control, personality curbs, or complete 'humanity' redefinitions. Even so, the natives are extremely happy with their lot, and may wish to extend that joy to poor, sad outsiders."
 	descriptionTagMap["Utopia"] = UtopiaDescr
 
 	WarlordsDescr := "The world is plagued by warlords. Numerous powerful men and women control private armies sufficiently strong to cow whatever local government may exist. On the lands they claim, their word is law. Most spend their time oppressing their own subjects and murderously pillaging those of their neighbors. Most like to wrap themselves in the mantle of ideology, religious fervor, or an ostensibly legitimate right to rule."

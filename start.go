@@ -112,11 +112,47 @@ func main() {
 	switch optInt {
 	case 1:
 		CreatePlanet()
+	case 2:
+		ReadPlanet()
 	case 3:
 		CreateNPC()
 	default:
 		fmt.Println("Program Exit")
 	}
+}
+
+func ReadPlanet() {
+	var planets []string
+	planetNames := utils.FileNames("./", ".txt")
+	for i := range planetNames {
+		planets = append(planets, strings.TrimSuffix(planetNames[i], ".txt"))
+	}
+	_, currentPlanet := utils.TakeOptions("Choose Planet:", planets...)
+	fmt.Println("Current planet:", currentPlanet)
+	planetLines := utils.LinesFromTXT(currentPlanet + ".txt")
+
+	tag1, tag2, _ := getPlanetTags(planetLines)
+	fmt.Println(Story(utils.RollDice("d100"), tag1, tag2))
+
+}
+
+func getPlanetTags(data []string) (string, string, string) {
+	tag1 := "tag1"
+	tag2 := "tag2"
+	tagTrade := "trade tag"
+	for i := range data {
+		if strings.Contains(data[i], "WorldTag1: ") {
+			tag1 = strings.TrimPrefix(data[i], "WorldTag1: ")
+		}
+		if strings.Contains(data[i], "WorldTag2: ") {
+			tag2 = strings.TrimPrefix(data[i], "WorldTag2: ")
+		}
+		if strings.Contains(data[i], "TradeTag: ") {
+			tagTrade = strings.TrimPrefix(data[i], "TradeTag: ")
+		}
+	}
+
+	return tag1, tag2, tagTrade
 }
 
 // file, err := os.Open("tag.txt")
