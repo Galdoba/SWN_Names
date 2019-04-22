@@ -13,16 +13,37 @@ var physicalAtr = [...]string{"Str", "Dex", "Con"}
 var mentalAtr = [...]string{"Int", "Wis", "Cha"}
 
 type npc struct {
-	name             string
-	lvl              int
-	hp               int
-	hpLevelBonusTODO int //это не нужно хранить в структуре - достаточно фукции TODO
-	class            string
-	attribute        map[string]int
-	background       string
-	skill            map[string]int
-	focus            map[string]int
+	name       string
+	lvl        int
+	hp         int
+	class      string
+	attribute  map[string]int
+	background string
+	skill      map[string]int
+	focus      map[string]int
+	sp         int
+	esp        int
 	//Strength, Dexterity, Constitution, Intelligence, Wisdom, and Charisma
+}
+
+type skill struct {
+	name       string
+	skillType  string
+	skillLevel int
+	spSpent    int
+}
+
+func (sk *skill) spendSP(i int) {
+	sk.spSpent = sk.spSpent + i
+	validData := false
+	for !validData {
+		if sk.spSpent-sk.skillLevel > 1 { // 4 , 4
+			sk.skillLevel++                         // 8, 4
+			sk.spSpent = sk.spSpent - sk.skillLevel // 4,4
+		} else {
+			validData = true
+		}
+	}
 }
 
 func (npc *npc) Attribute(s string) int {
@@ -435,9 +456,65 @@ func CreateNPC() *npc {
 	npc.class = randomClass()
 	npc.addClassAbilities()
 	npc.develop("AnySkill")
-	npc.setStartingHP()
+	//npc.setStartingHP()
+	targLvl := utils.InputInt("User Input 'NPC level': ")
+	if targLvl == 0 {
+		targLvl = utils.RollDice("2d6")
+	}
+	for npc.lvl < targLvl {
+		npc.levelUP()
+	}
 	fmt.Println(npc.report())
 	return &npc
+}
+
+func (npc *npc) levelUP() {
+	// получаем значение нового уровня
+	npc.lvl = npc.lvl + 1
+	// ролим хп для нового уровня
+	npc.rollHP()
+	// получаем сп за уровень
+	npc.sp = npc.sp + 3
+	// вычисляем максимальные значения навыков - TODO: не надо - для каждого уровня значение будет фиксированно
+	// проверяем есть ли новый фокус  - 2, 5, 7, and 10
+	npc.addAddtionalFocus()
+	// пересчитываем спасброски - значение считается от уровня TODO: уточнить есть ли модификаторы на спасброски
+	// пересчитываем модификаторы атаки
+	// пересчитываем Effort
+	learnOptions := glMap()[npc.background+"Learn"]
+	skill := utils.RandomFromList(learnOptions)
+	npc.develop(skill)
+}
+
+func maxSkillLevel(npc *npc) int {
+	if npc.lvl < 3 {
+		return 1
+	}
+	if npc.lvl < 6 {
+		return 2
+	}
+	if npc.lvl < 9 {
+		return 3
+	}
+	return 4
+}
+
+func (npc *npc) addAddtionalFocus() {
+	switch npc.lvl {
+	case 2, 5, 7, 10:
+		npc.increaseFocus(utils.RandomFromList(nonPsyhicFocusList()))
+	}
+}
+
+func (npc *npc) rollHP() {
+	diceQ := strconv.Itoa(npc.lvl)
+	hpMod := npc.hpLevelBonus() * (npc.lvl)
+	newHP := utils.RollDice(diceQ+"d6", hpMod)
+	if npc.hp+1 >= newHP {
+		npc.hp = npc.hp + 1
+	} else {
+		npc.hp = newHP
+	}
 }
 
 func (npc *npc) setStartingHP() {
@@ -630,6 +707,7 @@ func (npc *npc) report() string {
 		}
 	}
 	rep += "\nHP:" + strconv.Itoa(npc.hp)
+	rep += "\nFree SP:" + strconv.Itoa(npc.sp)
 
 	return rep
 }
