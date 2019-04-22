@@ -107,6 +107,8 @@ func CreatePlanet() {
 
 func main() {
 	seed = randomSeed()
+	agency := NewAgency("Figa", 4, 2)
+	fmt.Println(agency.Report())
 	optInt, optStr := utils.TakeOptions("select action:", "Create New Planet", "Load Planet", "Create NPC")
 	fmt.Println("Selected:", optInt, optStr)
 	switch optInt {
