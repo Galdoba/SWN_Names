@@ -125,6 +125,8 @@ func (w *World) toString() string {
 	} else {
 		str = str + "Population: " + w.Population + "\n"
 	}
+	str += "DEBUG: PopINT:" + strconv.Itoa(w.TotalPopulation()) + "\n"
+	str += "DEBUG: PopTier:" + strconv.Itoa(w.popTierCode()) + "\n"
 	str = str + "Tech Level: " + w.TechLevel + "\n"
 	str = str + "WorldTag1: " + w.WorldTag1 + "\n"
 	str = str + "WorldTag2: " + w.WorldTag2 + "\n"

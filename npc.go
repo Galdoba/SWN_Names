@@ -37,7 +37,7 @@ func (sk *skill) spendSP(i int) {
 	sk.spSpent = sk.spSpent + i
 	validData := false
 	for !validData {
-		if sk.spSpent-sk.skillLevel > 1 { // 4 , 4
+		if sk.spSpent-sk.skillLevel > 1 && sk.skillLevel < -2 { // 4 , 4
 			sk.skillLevel++                         // 8, 4
 			sk.spSpent = sk.spSpent - sk.skillLevel // 4,4
 		} else {
@@ -80,7 +80,7 @@ func (npc *npc) IncreaseStat(stat string) {
 
 func (npc *npc) increaseFocus(focus string) {
 	if npc.focus[focus] > 1 || npc.focus[focus] < 0 {
-		fmt.Println("Error increseFocus")
+		fmt.Println("Error increseFocus", focus, npc.focus[focus])
 	}
 	npc.focus[focus] = npc.focus[focus] + 1
 	npc.applyFocusEffects(focus)
@@ -475,6 +475,9 @@ func (npc *npc) levelUP() {
 	npc.rollHP()
 	// получаем сп за уровень
 	npc.sp = npc.sp + 3
+	if npc.class == "Expert" || npc.class == "Adventurer (W-E)" || npc.class == "Adventurer (E-P)" {
+		npc.sp = npc.sp + 1
+	}
 	// вычисляем максимальные значения навыков - TODO: не надо - для каждого уровня значение будет фиксированно
 	// проверяем есть ли новый фокус  - 2, 5, 7, and 10
 	npc.addAddtionalFocus()
@@ -482,6 +485,9 @@ func (npc *npc) levelUP() {
 	// пересчитываем модификаторы атаки
 	// пересчитываем Effort
 	learnOptions := glMap()[npc.background+"Learn"]
+	if npc.class == "Psyhic" {
+		learnOptions = append(learnOptions, psyhicSkills()...)
+	}
 	skill := utils.RandomFromList(learnOptions)
 	npc.develop(skill)
 }

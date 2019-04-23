@@ -50,10 +50,19 @@ func newElementMap() map[string]element {
 	eMap["Tradition"] = element{0, "Security"}
 	eMap["Training"] = element{0, "NULL"}
 	eMap["Transport"] = element{0, "Mobility"}
+	//Cabals
+	eMap["Blood Bonds"] = element{0, "Security"}
+	eMap["Forbidden Arts"] = element{0, "Tech"}
+	eMap["Gengineered Labor"] = element{0, "Resources"}
+	eMap["Godmind Translation"] = element{0, "Mobility"}
+	eMap["Panoptic Servitors"] = element{0, "Infiltration"}
+	eMap["Sinister Influence"] = element{0, "Connections"}
+	eMap["War Slaves"] = element{0, "Muscle"}
+
 	return eMap
 }
 
-func SetElementLevel(name string, lvl int) element {
+func (agency *Agency) SetElementLevel(name string, lvl int) {
 	if lvl > 3 {
 		lvl = 3
 	}
@@ -62,22 +71,22 @@ func SetElementLevel(name string, lvl int) element {
 	}
 	elem := newElementMap()[name]
 	elem.level = lvl
-	return elem
+	agency.Elements[name] = elem
 }
 
 func NewAgency(name string, lvl1, lvl2 int) *Agency {
 	agency := &Agency{}
 	agency.Attributes = newAttributeMap()
 	agency.Elements = newElementMap()
-	for key, val := range agency.Elements {
+	for key, _ := range agency.Elements {
 		if lvl1 > 0 {
 			lvl1--
-			agency.Elements[key] = SetElementLevel(key, 1)
+			agency.SetElementLevel(key, 1)
 			continue
 		}
 		if lvl2 > 0 {
 			lvl2--
-			agency.Elements[key] = SetElementLevel(key, 2)
+			agency.SetElementLevel(key, 2)
 			continue
 		}
 
@@ -87,14 +96,15 @@ func NewAgency(name string, lvl1, lvl2 int) *Agency {
 
 func (ag *Agency) Update() {
 	ag.Attributes = newAttributeMap()
-	for key, val := range ag.Elements {
-		bonusInt := val.level
-		ag[key] = val
+	for _, val := range ag.Elements {
+		if val.level != 0 {
+			ag.Attributes[val.benefitsTo] = ag.Attributes[val.benefitsTo] + ((val.level * 2) - 1)
+		}
 	}
 }
 
 func (ag *Agency) Report() string {
-	str := ""
+	str := "Attributes:\n"
 	str += "Connections = " + strconv.Itoa(ag.Attributes["Connections"]) + "\n"
 	str += "Infiltration = " + strconv.Itoa(ag.Attributes["Infiltration"]) + "\n"
 	str += "Mobility = " + strconv.Itoa(ag.Attributes["Mobility"]) + "\n"
@@ -102,5 +112,11 @@ func (ag *Agency) Report() string {
 	str += "Resources = " + strconv.Itoa(ag.Attributes["Resources"]) + "\n"
 	str += "Security = " + strconv.Itoa(ag.Attributes["Security"]) + "\n"
 	str += "Tech = " + strconv.Itoa(ag.Attributes["Tech"]) + "\n"
+	str += "Elements:\n"
+	for key, val := range ag.Elements {
+		if val.level != 0 {
+			str += key + " level " + strconv.Itoa(ag.Elements[key].level) + "\n"
+		}
+	}
 	return str
 }

@@ -135,6 +135,13 @@ func ReadPlanet() {
 
 	tag1, tag2, _ := getPlanetTags(planetLines)
 	fmt.Println(Story(utils.RollDice("d100"), tag1, tag2))
+	fmt.Println("---------------------------")
+	agency := NewAgency("Name", 4, 2)
+	agency.Update()
+	fmt.Println(agency.Report())
+	agency.SetElementLevel("Assassins", 3)
+	agency.Update()
+	fmt.Println(agency.Report())
 
 }
 
