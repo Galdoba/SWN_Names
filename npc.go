@@ -42,14 +42,12 @@ func (npc *npc) spendSP(skillName string, i int) {
 	sk.spSpent = sk.spSpent + i
 
 	if sk.spSpent+1 > sk.skillLevel { // -1 , 36
-		fmt.Println("sk", sk)
 		// if sk.skillLevel < -1 {
 		// 	break
 		// }
 
 		sk.skillLevel = sk.skillLevel + 1
 		sk.spSpent = sk.spSpent - sk.skillLevel // 4,4
-		fmt.Println("skAFTER", sk)
 	}
 
 	npc.skill[skillName] = sk
@@ -569,7 +567,6 @@ func (npc *npc) learn(learnOptions []string) {
 		pick := utils.RollDice("d"+strconv.Itoa(len(learnOptions)), -1)
 		skillToLearn := learnOptions[pick]
 		if npc.canLearn(skillToLearn) {
-			fmt.Println("LEARN:", npc.skill[skillToLearn], npc.skill[skillToLearn].skillLevel, npc.sp)
 			npc.spendSP(skillToLearn, npc.skill[skillToLearn].skillLevel+1)
 			npc.sp = npc.sp - npc.skill[skillToLearn].skillLevel
 		} else {
@@ -784,6 +781,7 @@ func (npc *npc) develop(str string) {
 		skill := combatSkills()[rand.Intn(len(combatSkills()))]
 		if npc.lvl > 0 {
 			npc.learn(combatSkills())
+
 			return
 		}
 		npc.IncreaseSkill(skill)
@@ -801,7 +799,7 @@ func (npc *npc) develop(str string) {
 		npc.IncreaseStat(str)
 	default:
 		npc.IncreaseSkill(str)
-
+		fmt.Println(str, "==================================")
 	}
 }
 
