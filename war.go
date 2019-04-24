@@ -191,13 +191,13 @@ type Leader struct {
 
 func NewLeader() *Leader {
 	leader := &Leader{}
-	leader.name = RandomName(false)
-	leader.intAtr = rollXdY(3, 6)
-	leader.wisAtr = rollXdY(3, 6)
-	leader.chaAtr = rollXdY(3, 6)
-	leader.leadSkl = setSkill()
-	leader.adminSkl = setSkill()
-
+	npc := CreateNPC()
+	leader.name = npc.name
+	leader.intAtr = npc.attribute["Int"]
+	leader.wisAtr = npc.attribute["Wis"]
+	leader.chaAtr = npc.attribute["Cha"]
+	leader.leadSkl = npc.skill["Lead"].skillLevel
+	leader.adminSkl = npc.skill["Administer"].skillLevel
 	return leader
 }
 func (l *Leader) toString() string {

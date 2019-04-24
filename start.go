@@ -107,9 +107,12 @@ func CreatePlanet() {
 
 func main() {
 	seed = randomSeed()
-	agency := NewAgency("Figa", 4, 2)
-	fmt.Println(agency.Report())
-	optInt, optStr := utils.TakeOptions("select action:", "Create New Planet", "Load Planet", "Create NPC")
+
+	for i := 0; i < 20; i++ {
+		fmt.Println(utils.RandomBool())
+	}
+
+	optInt, optStr := utils.TakeOptions("select action:", "Create New Planet", "Load Planet", "Create NPC", "Create War")
 	fmt.Println("Selected:", optInt, optStr)
 	switch optInt {
 	case 1:
@@ -118,9 +121,18 @@ func main() {
 		ReadPlanet()
 	case 3:
 		CreateNPC()
+	case 4:
+		CreateWar()
 	default:
 		fmt.Println("Program Exit")
 	}
+	fmt.Println("Program Ended")
+}
+
+func CreateWar() {
+	manpower := InputInt("Manpower: ")
+	army1 := NewArmy(manpower, 4)
+	fmt.Println(army1.leader.toString())
 }
 
 func ReadPlanet() {
@@ -134,6 +146,7 @@ func ReadPlanet() {
 	planetLines := utils.LinesFromTXT(currentPlanet + ".txt")
 
 	tag1, tag2, _ := getPlanetTags(planetLines)
+	fmt.Println("---------------------------")
 	fmt.Println(Story(utils.RollDice("d100"), tag1, tag2))
 	fmt.Println("---------------------------")
 	agency := NewAgency("Name", 4, 2)

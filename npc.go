@@ -19,7 +19,7 @@ type npc struct {
 	class      string
 	attribute  map[string]int
 	background string
-	skill      map[string]int
+	skill      map[string]skill
 	focus      map[string]int
 	sp         int
 	esp        int
@@ -33,17 +33,26 @@ type skill struct {
 	spSpent    int
 }
 
-func (sk *skill) spendSP(i int) {
-	sk.spSpent = sk.spSpent + i
-	validData := false
-	for !validData {
-		if sk.spSpent-sk.skillLevel > 1 && sk.skillLevel < -2 { // 4 , 4
-			sk.skillLevel++                         // 8, 4
-			sk.spSpent = sk.spSpent - sk.skillLevel // 4,4
-		} else {
-			validData = true
-		}
+func (npc *npc) spendSP(skillName string, i int) {
+	if !npc.canLearn(skillName) {
+		npc.sp = npc.sp + i
+		return
 	}
+	sk := npc.skill[skillName]
+	sk.spSpent = sk.spSpent + i
+
+	if sk.spSpent+1 > sk.skillLevel { // -1 , 36
+		fmt.Println("sk", sk)
+		// if sk.skillLevel < -1 {
+		// 	break
+		// }
+
+		sk.skillLevel = sk.skillLevel + 1
+		sk.spSpent = sk.spSpent - sk.skillLevel // 4,4
+		fmt.Println("skAFTER", sk)
+	}
+
+	npc.skill[skillName] = sk
 }
 
 func (npc *npc) Attribute(s string) int {
@@ -71,7 +80,9 @@ func (npc *npc) hpLevelBonus() int {
 }
 
 func (npc *npc) IncreaseSkill(skill string) {
-	npc.skill[skill] = npc.skill[skill] + 1
+	curSkill := npc.skill[skill]
+	curSkill.skillLevel = curSkill.skillLevel + 1
+	npc.skill[skill] = curSkill
 }
 
 func (npc *npc) IncreaseStat(stat string) {
@@ -83,6 +94,7 @@ func (npc *npc) increaseFocus(focus string) {
 		fmt.Println("Error increseFocus", focus, npc.focus[focus])
 	}
 	npc.focus[focus] = npc.focus[focus] + 1
+	fmt.Println(npc.focus[focus], "---------")
 	npc.applyFocusEffects(focus)
 }
 
@@ -210,6 +222,36 @@ func validSkills() []string {
 		"Teleportation",
 	}
 	return vs
+}
+
+func validSkillList() []skill {
+	var skillList []skill
+	skillList = append(skillList, skill{"Administer", "Expert", -1, 0})
+	skillList = append(skillList, skill{"Connect", "Expert", -1, 0})
+	skillList = append(skillList, skill{"Exert", "Expert", -1, 0})
+	skillList = append(skillList, skill{"Fix", "Expert", -1, 0})
+	skillList = append(skillList, skill{"Heal", "Expert", -1, 0})
+	skillList = append(skillList, skill{"Know", "Expert", -1, 0})
+	skillList = append(skillList, skill{"Lead", "Expert", -1, 0})
+	skillList = append(skillList, skill{"Notice", "Expert", -1, 0})
+	skillList = append(skillList, skill{"Perform", "Expert", -1, 0})
+	skillList = append(skillList, skill{"Pilot", "Expert", -1, 0})
+	skillList = append(skillList, skill{"Program", "Expert", -1, 0})
+	skillList = append(skillList, skill{"Punch", "Warrior", -1, 0})
+	skillList = append(skillList, skill{"Shoot", "Warrior", -1, 0})
+	skillList = append(skillList, skill{"Sneak", "Expert", -1, 0})
+	skillList = append(skillList, skill{"Stab", "Warrior", -1, 0})
+	skillList = append(skillList, skill{"Survive", "Expert", -1, 0})
+	skillList = append(skillList, skill{"Talk", "Expert", -1, 0})
+	skillList = append(skillList, skill{"Trade", "Expert", -1, 0})
+	skillList = append(skillList, skill{"Work", "Expert", -1, 0})
+	skillList = append(skillList, skill{"Biopsionics", "Psionic", -10, 0})
+	skillList = append(skillList, skill{"Metapsionics", "Psionic", -10, 0})
+	skillList = append(skillList, skill{"Precognition", "Psionic", -10, 0})
+	skillList = append(skillList, skill{"Telekinesis", "Psionic", -10, 0})
+	skillList = append(skillList, skill{"Telepathy", "Psionic", -10, 0})
+	skillList = append(skillList, skill{"Teleportation", "Psionic", -10, 0})
+	return skillList
 }
 
 func nonPsyhicSkills() []string {
@@ -394,6 +436,10 @@ func (npc *npc) addPartialExpertBonus(addFocus bool) {
 }
 
 func (npc *npc) addFullPsyhicBonus() {
+	psySkList := psyhicSkills()
+	for i := range psySkList {
+		npc.unlockPsiSkill(psySkList[i])
+	}
 	skill := utils.RandomFromList(psyhicSkills())
 	npc.develop(skill)
 	d := utils.RollDice("d2")
@@ -405,8 +451,46 @@ func (npc *npc) addFullPsyhicBonus() {
 	// TODO: Effort
 }
 
+func (npc *npc) learningOptions() []string {
+	/*
+		1 скилы из листа Learn
+		2 пси скилы
+		3 уже изученные
+	*/
+	learnOptions := glMap()[npc.background+"Learn"]
+	learnOptions = append(learnOptions, npc.openPsySkills()...)
+	learnOptions = append(learnOptions, npc.knownSkills()...)
+	return learnOptions
+}
+
+func (npc *npc) openPsySkills() []string {
+	var validSkills []string
+	for key, val := range npc.skill {
+		if val.skillLevel > -2 && val.skillType == "Psionic" {
+			validSkills = append(validSkills, key)
+		}
+	}
+	return validSkills
+}
+
+func (npc *npc) knownSkills() []string {
+	var validSkills []string
+	for key, val := range npc.skill {
+		if val.skillLevel > -1 {
+			validSkills = append(validSkills, key)
+		}
+	}
+	return validSkills
+}
+
+func (npc *npc) unlockPsiSkill(skillName string) {
+	sk := skill{skillName, "Psionic", -1, 0}
+	npc.skill[skillName] = sk
+}
+
 func (npc *npc) addPartialPsyhicBonus() {
 	skill := utils.RandomFromList(psyhicSkills())
+	npc.unlockPsiSkill(skill)
 	npc.develop(skill)
 	// TODO: Effort
 }
@@ -429,25 +513,18 @@ func rollAtrSet() map[string]int {
 	return atrSet
 }
 
-func blankSkillSet() map[string]int {
-	skills := make(map[string]int)
-	for i := range validSkills() {
-		skills[validSkills()[i]] = -1
+func blankSkillSet() map[string]skill {
+	skills := make(map[string]skill)
+	for i := range validSkillList() {
+		skillName := validSkillList()[i].name
+		skills[skillName] = validSkillList()[i]
 	}
 	return skills
 }
 
 func CreateNPC() *npc {
-
 	npc := npc{}
-	inputName := utils.InputString("Set Name: \n('-m' for Male Random, '-f' for Female Random )\n")
-	if inputName == "-m" {
-		inputName = RandomName(false)
-	}
-	if inputName == "-f" {
-		inputName = RandomName(true)
-	}
-	npc.name = inputName
+	npc.name = RandomName(utils.RandomBool())
 	npc.attribute = rollAtrSet()
 	npc.skill = blankSkillSet()
 	npc.focus = make(map[string]int)
@@ -456,14 +533,11 @@ func CreateNPC() *npc {
 	npc.class = randomClass()
 	npc.addClassAbilities()
 	npc.develop("AnySkill")
-	//npc.setStartingHP()
-	targLvl := utils.InputInt("User Input 'NPC level': ")
-	if targLvl == 0 {
-		targLvl = utils.RollDice("2d6")
-	}
+	targLvl := utils.RollDice("2d6")
 	for npc.lvl < targLvl {
 		npc.levelUP()
 	}
+	npc.spendSP("Lead", npc.sp)
 	fmt.Println(npc.report())
 	return &npc
 }
@@ -484,12 +558,40 @@ func (npc *npc) levelUP() {
 	// пересчитываем спасброски - значение считается от уровня TODO: уточнить есть ли модификаторы на спасброски
 	// пересчитываем модификаторы атаки
 	// пересчитываем Effort
-	learnOptions := glMap()[npc.background+"Learn"]
-	if npc.class == "Psyhic" {
-		learnOptions = append(learnOptions, psyhicSkills()...)
+	learnOptions := npc.learningOptions()
+	npc.learn(learnOptions)
+
+}
+
+func (npc *npc) learn(learnOptions []string) {
+	fmt.Println("npc.sp", npc.sp)
+	for len(learnOptions) > 0 {
+		pick := utils.RollDice("d"+strconv.Itoa(len(learnOptions)), -1)
+		skillToLearn := learnOptions[pick]
+		if npc.canLearn(skillToLearn) {
+			fmt.Println("LEARN:", npc.skill[skillToLearn], npc.skill[skillToLearn].skillLevel, npc.sp)
+			npc.spendSP(skillToLearn, npc.skill[skillToLearn].skillLevel+1)
+			npc.sp = npc.sp - npc.skill[skillToLearn].skillLevel
+		} else {
+			//a = append(a[:i], a[i+1:]...)
+			learnOptions = append(learnOptions[:pick], learnOptions[pick+1:]...)
+		}
 	}
-	skill := utils.RandomFromList(learnOptions)
-	npc.develop(skill)
+}
+
+func (npc *npc) canLearn(skillName string) bool {
+	canLearn := true
+	if npc.skill[skillName].skillLevel+1 > maxSkillLevel(npc) {
+		canLearn = canLearn && false
+	}
+	if npc.skill[skillName].skillLevel < -1 {
+		canLearn = canLearn && false
+	}
+	if npc.sp < npc.skill[skillName].skillLevel+1 {
+		fmt.Println("CANLEARN?", skillName, "npc.sp", npc.sp)
+		canLearn = canLearn && false
+	}
+	return canLearn
 }
 
 func maxSkillLevel(npc *npc) int {
@@ -666,13 +768,67 @@ func (npc *npc) develop(str string) {
 		}
 	case "AnySkill":
 		skill := nonPsyhicSkills()[rand.Intn(len(nonPsyhicSkills()))]
+		if npc.lvl > 0 {
+			npc.learn(nonPsyhicSkills())
+			return
+		}
+		npc.IncreaseSkill(skill)
+	case "AnyPsyhic":
+		skill := psyhicSkills()[rand.Intn(len(psyhicSkills()))]
+		if npc.lvl > 0 {
+			npc.learn(psyhicSkills())
+			return
+		}
+		npc.IncreaseSkill(skill)
+	case "AnyCombat":
+		skill := combatSkills()[rand.Intn(len(combatSkills()))]
+		if npc.lvl > 0 {
+			npc.learn(combatSkills())
+			return
+		}
+		npc.IncreaseSkill(skill)
+	case "Str":
+		npc.IncreaseStat(str)
+	case "Dex":
+		npc.IncreaseStat(str)
+	case "Con":
+		npc.IncreaseStat(str)
+	case "Int":
+		npc.IncreaseStat(str)
+	case "Wis":
+		npc.IncreaseStat(str)
+	case "Cha":
+		npc.IncreaseStat(str)
+	default:
+		npc.IncreaseSkill(str)
+
+	}
+}
+
+func (npc *npc) developNEW(str string) {
+	switch str {
+	case "AnyStat":
+		stat := atributeNames[rand.Intn(len(atributeNames))]
+		npc.IncreaseStat(stat)
+	case "Physical2":
+		for i := 0; i < 2; i++ {
+			stat := physicalAtr[rand.Intn(len(physicalAtr))]
+			npc.IncreaseStat(stat)
+		}
+	case "Mental2":
+		for i := 0; i < 2; i++ {
+			stat := mentalAtr[rand.Intn(len(mentalAtr))]
+			npc.IncreaseStat(stat)
+		}
+	case "AnySkill":
+		skill := nonPsyhicSkills()[rand.Intn(len(nonPsyhicSkills()))]
 		npc.IncreaseSkill(skill)
 	case "AnyPsyhic":
 		skill := psyhicSkills()[rand.Intn(len(psyhicSkills()))]
 		npc.IncreaseSkill(skill)
 	case "AnyCombat":
-		skill := combatSkills()[rand.Intn(len(combatSkills()))]
-		npc.IncreaseSkill(skill)
+		//skill := combatSkills()[rand.Intn(len(combatSkills()))]
+		npc.learn(combatSkills())
 	case "Str":
 		npc.IncreaseStat(str)
 	case "Dex":
@@ -694,6 +850,7 @@ func (npc *npc) develop(str string) {
 func (npc *npc) report() string {
 	rep := ""
 	rep += "Name: " + npc.name
+	rep += "\nlvl: " + strconv.Itoa(npc.lvl)
 	rep += "\nAttributes:"
 	for i := range atributeNames {
 		rep += "\n" + atributeNames[i] + ": " + strconv.Itoa(npc.attribute[atributeNames[i]]) + "(" + atrModS(npc.attribute[atributeNames[i]]) + ")"
@@ -702,14 +859,14 @@ func (npc *npc) report() string {
 	rep += "\nClass: " + npc.class
 	rep += "\nSkills:"
 	for key, val := range npc.skill {
-		if val > -1 {
-			rep += "\n" + key + "-" + strconv.Itoa(npc.skill[key])
+		if val.skillLevel > -1 {
+			rep += "\n" + key + "-" + strconv.Itoa(npc.skill[key].skillLevel)
 		}
 	}
 	rep += "\nFocus:"
 	for key, val := range npc.focus {
 		if val > 0 {
-			rep += "\n" + key + ": " + strconv.Itoa(npc.skill[key])
+			rep += "\n" + key + ": " + strconv.Itoa(npc.focus[key])
 		}
 	}
 	rep += "\nHP:" + strconv.Itoa(npc.hp)
