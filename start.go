@@ -108,11 +108,7 @@ func CreatePlanet() {
 func main() {
 	seed = randomSeed()
 
-	for i := 0; i < 20; i++ {
-		fmt.Println(utils.RandomBool())
-	}
-
-	optInt, optStr := utils.TakeOptions("select action:", "Create New Planet", "Load Planet", "Create NPC", "Create War")
+	optInt, optStr := utils.TakeOptions("select action:", "Create New Planet", "Load Planet", "Create NPC", "Create War", "Society")
 	fmt.Println("Selected:", optInt, optStr)
 	switch optInt {
 	case 1:
@@ -120,9 +116,12 @@ func main() {
 	case 2:
 		ReadPlanet()
 	case 3:
-		CreateNPC()
+		npc := CreateNPC()
+		fmt.Println(npc.report())
 	case 4:
 		CreateWar()
+	case 5:
+		CreateSociety()
 	default:
 		fmt.Println("Program Exit")
 	}

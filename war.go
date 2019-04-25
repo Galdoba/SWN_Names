@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"strconv"
+
+	"github.com/Galdoba/utils"
 )
 
 type vitalPoint struct {
@@ -32,14 +34,29 @@ func NewArmy(manpower int, tl int) *Army {
 	army.manpower = manpower
 	army.unitScore = army.leader.getCommandScore()
 	army.formCorps()
+
 	return army
+}
+
+func (army *Army) report() string {
+	repo := ""
+	for i := range army.units {
+		repo += "Unit: " + army.units[i].name
+	}
+	return repo
 }
 
 func NewUnit(unitStr int) *Unit {
 	unit := &Unit{}
+
 	unit.condition = unitStr
 	unit.strength = unit.baseScore()
+	unit.name = ""
 	return unit
+}
+
+func (unit *Unit) nameit() {
+
 }
 
 func (unit *Unit) SetModifiedStrengh(newScore int) {
@@ -107,69 +124,105 @@ func (unit *Unit) unitStatusStr() string {
 	return "Unknown"
 }
 
+func (leader *Leader) personalityScore() int {
+	return atrMod(leader.intAtr) + atrMod(leader.wisAtr) + atrMod(leader.chaAtr)
+}
+
 func (army *Army) formCorps() {
 	recruits := army.manpower
-	//var unitList []Unit
+	maxUnits := army.tl + utils.Min(army.leader.leadSkl, army.leader.adminSkl) + army.leader.personalityScore()
+	fmt.Println("maxUnits", maxUnits)
 
 	fmt.Println("Total recruits:", recruits)
 	for recruits/10000000 > 0 {
+		if len(army.units) > maxUnits {
+			return
+		}
 		recruits = recruits - 10000000
 		enlisted := 10000000
 		if recruits < 0 {
 			enlisted = 10000000 + recruits
 
 		}
+		army.units = append(army.units, *NewUnit(28))
 		fmt.Println(enlisted, "men enlisted to Theater (power 16)")
 	}
 	for recruits/2000000 > 0 {
+		if len(army.units) > maxUnits {
+			return
+		}
 		recruits = recruits - 2000000
 		enlisted := 2000000
 		if recruits < 0 {
 			enlisted = 2000000 + recruits
 		}
+		army.units = append(army.units, *NewUnit(24))
 		fmt.Println(enlisted, "men enlisted to Army Front (power 12)")
 	}
 	for recruits/200000 > 0 {
+		if len(army.units) > maxUnits {
+			return
+		}
 		recruits = recruits - 200000
 		enlisted := 200000
 		if recruits < 0 {
 			enlisted = 200000 + recruits
 		}
+		army.units = append(army.units, *NewUnit(20))
 		fmt.Println(enlisted, "men enlisted to Army (power 8)")
 	}
 	for recruits/40000 > 0 {
+		if len(army.units) > maxUnits {
+			return
+		}
 		recruits = recruits - 40000
 		enlisted := 40000
 		if recruits < 0 {
 			enlisted = 40000 + recruits
 		}
+		army.units = append(army.units, *NewUnit(16))
 		fmt.Println(enlisted, "men enlisted to Corps (power 4)")
 	}
 	for recruits/18000 > 0 {
+		if len(army.units) > maxUnits {
+			return
+		}
 		recruits = recruits - 18000
 		enlisted := 18000
 		if recruits < 0 {
 			enlisted = 18000 + recruits
 		}
+		army.units = append(army.units, *NewUnit(12))
 		fmt.Println(enlisted, "men enlisted to Division (power 2)")
 	}
 	for recruits/5000 > 0 {
+		if len(army.units) > maxUnits {
+			return
+		}
 		recruits = recruits - 5000
 		enlisted := 5000
 		if recruits < 0 {
 			enlisted = 5000 + recruits
 		}
+		army.units = append(army.units, *NewUnit(8))
 		fmt.Println(enlisted, "men enlisted to Brigade (power 1)")
 	}
 	for recruits/600 > 0 {
+		if len(army.units) > maxUnits {
+			return
+		}
 		recruits = recruits - 600
 		enlisted := 600
 		if recruits < 0 {
 			enlisted = 600 + recruits
 		}
+		army.units = append(army.units, *NewUnit(4))
 		fmt.Println(enlisted, "men enlisted to Batalion (power 0)")
 	}
-
+	freeScore := maxUnits - len(army.units)
+	for i := 0; i < freeScore; i++ {
+		army.units[0].strength++
+	}
 }
 
 type Leader struct {
@@ -210,6 +263,7 @@ func (l *Leader) toString() string {
 	str = combineStrings(str, "Relevant Skills\n")
 	str = combineStrings(str, "Lead        : "+strconv.Itoa(l.leadSkl)+"\n")
 	str = combineStrings(str, "Admin       : "+strconv.Itoa(l.adminSkl)+"\n")
+	str = combineStrings(str, "Command Score: "+strconv.Itoa(l.commandScore)+"\n")
 	return str
 }
 

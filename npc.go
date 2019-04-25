@@ -92,7 +92,6 @@ func (npc *npc) increaseFocus(focus string) {
 		fmt.Println("Error increseFocus", focus, npc.focus[focus])
 	}
 	npc.focus[focus] = npc.focus[focus] + 1
-	fmt.Println(npc.focus[focus], "---------")
 	npc.applyFocusEffects(focus)
 }
 
@@ -397,7 +396,6 @@ func (npc *npc) addClassAbilities() {
 
 func (npc *npc) addFullWarriorBonus() {
 	foc := utils.RandomFromList(warriorFocusList())
-	fmt.Println("Debug: add:", foc)
 	npc.increaseFocus(foc)
 	// 1 gain a free level in a combat-related focus associated with your background. The GM decides if a focus qualifies if it’s an ambiguous case
 	// You gain two extra maximum hit points at each character level. //DONE
@@ -406,7 +404,6 @@ func (npc *npc) addFullWarriorBonus() {
 func (npc *npc) addPartialWarriorBonus(addFocus bool) {
 	if addFocus {
 		foc := utils.RandomFromList(warriorFocusList())
-		fmt.Println("Debug: add:", foc)
 		npc.increaseFocus(foc)
 	}
 	// 1 gain a free level in a combat-related focus associated with your background. The GM decides if a focus qualifies if it’s an ambiguous case
@@ -416,7 +413,6 @@ func (npc *npc) addPartialWarriorBonus(addFocus bool) {
 func (npc *npc) addFullExpertBonus() {
 	//npc.increaseFocus(utils.RandomFromList(expertFocusList()))
 	foc := utils.RandomFromList(expertFocusList())
-	fmt.Println("Debug: add:", foc)
 	npc.increaseFocus(foc)
 	// 1 gain a free level in a combat-related focus associated with your background. The GM decides if a focus qualifies if it’s an ambiguous case
 	// You gain two extra maximum hit points at each character level. //DONE
@@ -426,7 +422,6 @@ func (npc *npc) addPartialExpertBonus(addFocus bool) {
 	//npc.increaseFocus(utils.RandomFromList(expertFocusList()))
 	if addFocus {
 		foc := utils.RandomFromList(expertFocusList())
-		fmt.Println("Debug: add:", foc)
 		npc.increaseFocus(foc)
 	}
 	// 1 gain a free level in a combat-related focus associated with your background. The GM decides if a focus qualifies if it’s an ambiguous case
@@ -456,6 +451,14 @@ func (npc *npc) learningOptions() []string {
 		3 уже изученные
 	*/
 	learnOptions := glMap()[npc.background+"Learn"]
+	for i := range learnOptions {
+		if learnOptions[i] == "AnySkill" {
+			learnOptions[i] = utils.RandomFromList(nonCombatSkills())
+		}
+		if learnOptions[i] == "AnyCombat" {
+			learnOptions[i] = utils.RandomFromList(combatSkills())
+		}
+	}
 	learnOptions = append(learnOptions, npc.openPsySkills()...)
 	learnOptions = append(learnOptions, npc.knownSkills()...)
 	return learnOptions
@@ -536,7 +539,7 @@ func CreateNPC() *npc {
 		npc.levelUP()
 	}
 	npc.spendSP("Lead", npc.sp)
-	fmt.Println(npc.report())
+
 	return &npc
 }
 
@@ -562,7 +565,6 @@ func (npc *npc) levelUP() {
 }
 
 func (npc *npc) learn(learnOptions []string) {
-	fmt.Println("npc.sp", npc.sp)
 	for len(learnOptions) > 0 {
 		pick := utils.RollDice("d"+strconv.Itoa(len(learnOptions)), -1)
 		skillToLearn := learnOptions[pick]
@@ -585,7 +587,6 @@ func (npc *npc) canLearn(skillName string) bool {
 		canLearn = canLearn && false
 	}
 	if npc.sp < npc.skill[skillName].skillLevel+1 {
-		fmt.Println("CANLEARN?", skillName, "npc.sp", npc.sp)
 		canLearn = canLearn && false
 	}
 	return canLearn
@@ -635,7 +636,6 @@ func growthLearnPatern() []int {
 	for i := 0; i < 3; i++ {
 		patern = append(patern, utils.RollDice("1d2")-1)
 	}
-	fmt.Println(patern)
 	return patern
 }
 
@@ -799,7 +799,6 @@ func (npc *npc) develop(str string) {
 		npc.IncreaseStat(str)
 	default:
 		npc.IncreaseSkill(str)
-		fmt.Println(str, "==================================")
 	}
 }
 
