@@ -60,19 +60,7 @@ func CreatePlanet() {
 		fmt.Println("Seed =", seed)
 		w = NewWorld()
 		fmt.Println(w.toString())
-		fmt.Println("w.TotalPopulation()", w.TotalPopulation())
-		fmt.Println(TradeAntagonists(w.TradeTag))
-		fmt.Println(TradeAuthorities(w.TradeTag))
-		leader := NewLeader()
-		army := NewArmy(w.TotalPopulation()/100, w.TechLevelInt())
-		fmt.Println(leader.toString())
-		fmt.Println(army)
-		fmt.Println("d4=", roll1dX(4, 0))
-		fmt.Println("d6=", roll1dX(6, 0))
-		fmt.Println("d8=", roll1dX(8, 0))
-		fmt.Println("d10=", roll1dX(10, 0))
-		fmt.Println("d12=", roll1dX(12, 0))
-		fmt.Println("d20=", roll1dX(20, 0))
+		w.assembleFleet()
 		save, _ = TakeOptions("Save Planet?", "Yes", "No")
 	}
 	fmt.Println("Name Planet:")
@@ -140,14 +128,20 @@ func ReadPlanet() {
 	for i := range planetNames {
 		planets = append(planets, strings.TrimSuffix(planetNames[i], ".txt"))
 	}
-	_, currentPlanet := utils.TakeOptions("Choose Planet:", planets...)
-	fmt.Println("Current planet:", currentPlanet)
-	planetLines := utils.LinesFromTXT(currentPlanet + ".txt")
+	// _, currentPlanet := utils.TakeOptions("Choose Planet:", planets...)
+	// fmt.Println("Current planet:", currentPlanet)
+	for i := range planets {
+		currentPlanet := planets[i]
+		planetLines := utils.LinesFromTXT(currentPlanet + ".txt")
 
-	tag1, tag2, _ := getPlanetTags(planetLines)
-	fmt.Println("---------------------------")
-	fmt.Println(Story(utils.RollDice("d100"), tag1, tag2))
-	fmt.Println("---------------------------")
+		tag1, tag2, _ := getPlanetTags(planetLines)
+		l := utils.InFileContains(currentPlanet+".txt", "Law Level")
+		newLine := planetLines[l] + " {Change Law: " + strconv.Itoa(utils.RollDice("2d6")) + "%/month}"
+		utils.EditLineInFile(currentPlanet+".txt", l, newLine)
+		fmt.Println("---------------------------")
+		fmt.Println(Story(utils.RollDice("d100"), tag1, tag2))
+		fmt.Println("---------------------------")
+	}
 	agency := NewAgency("Name", 4, 2)
 	agency.Update()
 	fmt.Println(agency.Report())

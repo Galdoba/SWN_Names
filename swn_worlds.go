@@ -23,6 +23,7 @@ type World struct {
 	BP             int
 	Export         []Commodite
 	TradeSpecifics []int
+	FleetPolicy    []string
 	ColonyReport   string
 }
 
@@ -351,6 +352,18 @@ func (w *World) TechLevelInt() int {
 func (w *World) rollTechLevel() {
 	r := rollXdY(2, 6)
 	w.pickTechlevel(r)
+}
+
+func (w *World) friction() int {
+	if w.LawCode < 7 {
+		addon := 7 - w.LawCode
+		return 2 + addon
+
+	}
+	if w.LawCode > 7 {
+		return w.LawCode - 5
+	}
+	return 2
 }
 
 func worldTags() []string {
@@ -1033,29 +1046,6 @@ func oneRollRuled() string {
 	result = result + "Overall society's main trand is " + trend[r] + ". "
 
 	return result
-}
-
-func shipYerlyBP(key string) int {
-	sshipCost := make(map[string]int)
-	sshipCost["Fighter"] = 1
-	sshipCost["Shuttle"] = 2
-	sshipCost["Free Merchant"] = 1
-	sshipCost["Naval Courier"] = 3
-	sshipCost["Patrol Boat"] = 4
-	sshipCost["Frigate"] = 7
-	sshipCost["Bulk Freighter"] = 7
-	sshipCost["Cruiser"] = 29
-	sshipCost["Siege Cruiser"] = 28
-	sshipCost["Troop Transport"] = 13
-	sshipCost["Logistics Ship"] = 23
-	sshipCost["Battleship"] = 239
-	sshipCost["Carrier"] = 363
-	sshipCost["Bannerjee 12"] = 9
-	sshipCost["Peerless"] = 12
-	sshipCost["Shantadurga"] = 41
-	sshipCost["Scutum"] = 78
-	sshipCost["Arx"] = 96
-	return sshipCost[key]
 }
 
 func (w *World) law() {
