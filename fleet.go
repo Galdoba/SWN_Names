@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/Galdoba/utils"
 )
 
@@ -75,7 +73,7 @@ func stationsList() []string {
 }
 
 type ship struct {
-	shipType         string
+	name             string
 	shipHull         string
 	maintainanceCost int
 }
@@ -84,8 +82,6 @@ func (w *World) assembleFleet() {
 	bp := w.BP
 	w.generateFleetPolicy()
 	policy := w.FleetPolicy
-	var Ships []ship
-	site := randomSite()
 	theme := RandomFromSliceStr([]string{"Place", "Sur"})
 	for bp > w.BP*10/100 {
 		shpType := utils.RandomFromList(policy)
@@ -95,16 +91,77 @@ func (w *World) assembleFleet() {
 		funcMap["Stations"] = stationsList()
 		hull := utils.RandomFromList(funcMap[shpType])
 		if bp > shipYerlyBP(hull) {
-			Ships = append(Ships, ship{GiveName(site, theme, -1), hull, shipYerlyBP(hull)})
+			w.Fleet = append(w.Fleet, *NewShip(GiveName(randomSite(), theme, -1), hull))
 			bp = bp - shipYerlyBP(hull)
 		}
-		//fmt.Println(bp, shpType, hull)
 	}
-	totalMaint := w.BP - bp
-	fmt.Println("Total BP spent on maintainance", totalMaint)
-	for i := range Ships {
-		fmt.Println(Ships[i])
-	}
-	fmt.Println(desidionPoolStr("Fleet policy", w.FleetPolicy))
+}
 
+func (w *World) addToFleet(sh ship) {
+	w.Fleet = append(w.Fleet, sh)
+
+}
+
+func NewShip(name string, hull string) *ship {
+	newShip := &ship{}
+	newShip.name = name
+	newShip.shipHull = hull
+	newShip.maintainanceCost = shipYerlyBP(hull)
+	return newShip
+}
+
+func (shp *ship) isStation() bool {
+	list := stationsList()
+	for i := range list {
+		if shp.shipHull == list[i] {
+			return true
+		}
+	}
+	return false
+}
+
+func (shp *ship) isMilitary() bool {
+	list := militaryShipsList()
+	for i := range list {
+		if shp.shipHull == list[i] {
+			return true
+		}
+	}
+	return false
+}
+
+func (shp *ship) isCivilian() bool {
+	list := civilanShipsList()
+	for i := range list {
+		if shp.shipHull == list[i] {
+			return true
+		}
+	}
+	return false
+}
+
+func (w *World) fleetReport() string {
+	report := "Fleet Report: \n"
+	report += "Stations: \n"
+	for i := range w.Fleet {
+		curShip := w.Fleet[i]
+		if curShip.isStation() {
+			report += curShip.name + " (" + curShip.shipHull + ")\n"
+		}
+	}
+	report += "Civilian Ships: \n"
+	for i := range w.Fleet {
+		curShip := w.Fleet[i]
+		if curShip.isCivilian() {
+			report += curShip.name + " (" + curShip.shipHull + ")\n"
+		}
+	}
+	report += "Military Ships: \n"
+	for i := range w.Fleet {
+		curShip := w.Fleet[i]
+		if curShip.isMilitary() {
+			report += curShip.name + " (" + curShip.shipHull + ")\n"
+		}
+	}
+	return report
 }

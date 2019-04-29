@@ -24,7 +24,9 @@ type World struct {
 	Export         []Commodite
 	TradeSpecifics []int
 	FleetPolicy    []string
-	ColonyReport   string
+	Fleet          []ship
+
+	ColonyReport string
 }
 
 func NewWorld() *World {
@@ -67,7 +69,7 @@ func NewWorld() *World {
 			again = false
 		}
 	}
-
+	world.assembleFleet()
 	//world.PopulateNum()
 	return world
 }
@@ -138,6 +140,7 @@ func (w *World) toString() string {
 	str += "Colony can produce " + strconv.Itoa(w.TotalPopulation()/5000) + " tons of commodities\n"
 	str = str + "LivingStandard: " + w.LivingStandard + " (" + strconv.Itoa(w.BP) + " BP or " + strconv.Itoa(w.BP*200000) + ")\n"
 	str = str + "Law Level: " + strconv.Itoa(w.LawCode) + "\n"
+	str += w.fleetReport() + "\n"
 	str = str + "\nWorldTag1 (descr): " + describeTag(w.WorldTag1) + "\n"
 	str = str + "\nWorldTag2 (descr): " + describeTag(w.WorldTag2) + "\n"
 	str = str + "\nTrade Tag (descr): " + describeTradeTag(w.TradeTag) + "\n"
