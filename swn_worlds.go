@@ -4,27 +4,32 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+
+	"github.com/Galdoba/utils"
 )
 
 type World struct {
-	Atmosphere     string
-	Temperature    string
-	Biosphere      string
-	Population     string
-	PopulationNum  int
-	PopCode        int
-	GovCode        int
-	LawCode        int
-	TechLevel      string
-	WorldTag1      string
-	WorldTag2      string
-	TradeTag       string
-	LivingStandard string
-	BP             int
-	Export         []Commodite
-	TradeSpecifics []int
-	FleetPolicy    []string
-	Fleet          []ship
+	Atmosphere        string
+	Temperature       string
+	Biosphere         string
+	Population        string
+	PopulationNum     int
+	PopCode           int
+	GovCode           int
+	GovType           string
+	LawCode           int
+	RestrictionPolicy []string
+	TechLevel         string
+	WorldTag1         string
+	WorldTag2         string
+	TradeTag          string
+	BudgetPolicy      []string
+	LivingStandard    string
+	BP                int
+	Export            []Commodite
+	TradeSpecifics    []int
+	FleetPolicy       []string
+	Fleet             []ship
 
 	ColonyReport string
 }
@@ -42,6 +47,7 @@ func NewWorld() *World {
 	world.rollWorldTags()
 	world.rollTradeTag()
 	world.rollLivingStandard()
+	world.generateBudgetPolicy()
 	world.calculateBP()
 	world.adjustBP()
 	world.law()
@@ -70,7 +76,6 @@ func NewWorld() *World {
 		}
 	}
 	world.assembleFleet()
-	//world.PopulateNum()
 	return world
 }
 
@@ -118,6 +123,11 @@ func (w *World) rollTradeTag() {
 	w.TradeTag = randomTradeTag()
 }
 
+func (w *World) generateBudgetPolicy() {
+	desidionPool, _ := generateDesidionPool(10, "Import", "Export", "Military")
+	w.BudgetPolicy = desidionPool
+}
+
 func (w *World) toString() string {
 	str := ""
 	str = str + "Atmosphere: " + w.Atmosphere + "\n"
@@ -126,10 +136,9 @@ func (w *World) toString() string {
 	if w.PopulationNum != 0 {
 		str = str + "Population: " + strconv.Itoa(w.PopulationNum) + w.Population + "\n"
 	} else {
-		str = str + "Population: " + w.Population + "\n"
+		str = str + "Population: " + w.populationStr() + "\n"
 	}
-	str += "DEBUG: PopINT:" + strconv.Itoa(w.TotalPopulation()) + "\n"
-	str += "DEBUG: PopTier:" + strconv.Itoa(w.popTierCode()) + "\n"
+	str = str + "Population: " + w.populationStr() + "\n"
 	str = str + "Tech Level: " + w.TechLevel + "\n"
 	str = str + "WorldTag1: " + w.WorldTag1 + "\n"
 	str = str + "WorldTag2: " + w.WorldTag2 + "\n"
@@ -137,9 +146,11 @@ func (w *World) toString() string {
 	str = str + "World trade specific: {" + pickCargoType(w.TradeSpecifics[0]) + ": -2} {" + pickCargoType(w.TradeSpecifics[1]) + ": -1} {" + pickCargoType(w.TradeSpecifics[2]) + ": 1} {" + pickCargoType(w.TradeSpecifics[3]) + ": 2}\n"
 	str = str + "TradeCode: " + strconv.Itoa(w.TradeSpecifics[0]) + "-" + strconv.Itoa(w.TradeSpecifics[1]) + "-" + strconv.Itoa(w.TradeSpecifics[2]) + "-" + strconv.Itoa(w.TradeSpecifics[3]) + "\n"
 	str = str + "World Export:" + w.showExport() + "\n"
-	str += "Colony can produce " + strconv.Itoa(w.TotalPopulation()/5000) + " tons of commodities\n"
+	str += "Colony can produce " + strconv.Itoa(w.planetaryTax()*policyShare(w.BudgetPolicy, "Export")/10*2) + " credits worth commodities\n"
+	str += "Colony can consume " + strconv.Itoa(w.planetaryTax()*policyShare(w.BudgetPolicy, "Import")/10) + " credits worth commodities\n"
 	str = str + "LivingStandard: " + w.LivingStandard + " (" + strconv.Itoa(w.BP) + " BP or " + strconv.Itoa(w.BP*200000) + ")\n"
 	str = str + "Law Level: " + strconv.Itoa(w.LawCode) + "\n"
+	str += "Goverment Type: " + w.GovType + "\n"
 	str += w.fleetReport() + "\n"
 	str = str + "\nWorldTag1 (descr): " + describeTag(w.WorldTag1) + "\n"
 	str = str + "\nWorldTag2 (descr): " + describeTag(w.WorldTag2) + "\n"
@@ -160,41 +171,86 @@ func (w *World) Populate() {
 	case 3:
 		w.Population = "Outpost"
 		w.PopCode = 4
-	case 4:
-		w.Population = "K"
-		w.PopulationNum = roll1dX(400, 100)
-		w.PopCode = 5
-	case 5:
-		w.Population = "K"
-		w.PopulationNum = roll1dX(900, 100)
-		w.PopCode = 5
-	case 6:
-		w.Population = "M"
-		w.PopulationNum = roll1dX(10, 0)
-		w.PopCode = 6
-	case 7:
-		w.Population = "M"
-		w.PopulationNum = roll1dX(40, 10)
-		w.PopCode = 7
-	case 8:
-		w.Population = "M"
-		w.PopulationNum = roll1dX(90, 10)
-		w.PopCode = 7
-	case 9:
-		w.Population = "M"
-		w.PopulationNum = roll1dX(400, 100)
-		w.PopCode = 8
-	case 10:
-		w.Population = "M"
-		w.PopulationNum = roll1dX(900, 100)
-		w.PopCode = 8
-	case 11:
-		w.Population = "B"
-		w.PopulationNum = roll1dX(10, 0)
-		w.PopCode = 9
+	// case 4:
+	// 	w.Population = "K"
+	// 	w.PopulationNum = roll1dX(400, 100)
+	// 	w.PopCode = 5
+	// case 5:
+	// 	w.Population = "K"
+	// 	w.PopulationNum = roll1dX(900, 100)
+	// 	w.PopCode = 5
+	// case 6:
+	// 	w.Population = "M"
+	// 	w.PopulationNum = roll1dX(10, 0)
+	// 	w.PopCode = 6
+	// case 7:
+	// 	w.Population = "M"
+	// 	w.PopulationNum = roll1dX(40, 10)
+	// 	w.PopCode = 7
+	// case 8:
+	// 	w.Population = "M"
+	// 	w.PopulationNum = roll1dX(90, 10)
+	// 	w.PopCode = 7
+	// case 9:
+	// 	w.Population = "M"
+	// 	w.PopulationNum = roll1dX(400, 100)
+	// 	w.PopCode = 8
+	// case 10:
+	// 	w.Population = "M"
+	// 	w.PopulationNum = roll1dX(900, 100)
+	// 	w.PopCode = 8
+	// case 11:
+	// 	w.Population = "B"
+	// 	w.PopulationNum = roll1dX(10, 0)
+	// 	w.PopCode = 9
 	case 12:
 		w.Population = "Alien"
+	default:
+		w.PopCode = utils.RollDice("2d6", -2)
+		if w.PopCode < 3 {
+			w.PopCode = 3
+		}
+		w.PopulationNum = 10
+		for i := 1; i < w.PopCode; i++ {
+			w.PopulationNum = w.PopulationNum * 10
+		}
+		w.PopulationNum = w.PopulationNum * utils.RollDice("2d6") / 10
+		pops := w.PopulationNum
+		w.PopCode = 0
+		for pops > 0 {
+			w.PopCode++
+			pops = pops / 10
+		}
 	}
+
+}
+
+func (w *World) populationStr() string {
+	pops := w.PopulationNum
+	suffix := ""
+	if pops/1000 > 0 {
+		suffix = "K"
+	}
+	if pops/1000000 > 0 {
+		suffix = "M"
+	}
+	if pops/1000000000 > 0 {
+		suffix = "B"
+	}
+	if pops/1000000000000 > 0 {
+		suffix = "T"
+	}
+	showNum := 0
+	if suffix == "K" {
+		showNum = pops / 1000
+	}
+	if suffix == "M" {
+		showNum = pops / 1000000
+	}
+	if suffix == "B" {
+		showNum = pops / 1000000000
+	}
+	return strconv.Itoa(showNum) + suffix
 }
 
 func (w *World) rollAtmosphere() {
@@ -523,6 +579,26 @@ func randomTradeTag() string {
 	return pickTradeTag(r)
 }
 
+func (w *World) planetaryTax() int {
+	oneManTax := 1
+	switch w.LivingStandard {
+	case "Slum":
+		oneManTax = 1
+	case "Poor":
+		oneManTax = 2
+	case "Common":
+		oneManTax = 3
+	case "Good":
+		oneManTax = 5
+	case "Elite":
+		oneManTax = 40
+	case "Peerless":
+		oneManTax = 200
+	}
+	totalTax := oneManTax * w.PopulationNum
+	return totalTax
+}
+
 func (w *World) pickLivingStandard(index int) {
 	switch index {
 	case 2:
@@ -566,28 +642,7 @@ func (w *World) adjustBP() {
 		w.BP = w.BP / 8
 	}
 	if w.TechLevel == "TL1" || w.TechLevel == "TL0" {
-		w.BP = 0
-	}
-}
-
-func (w *World) popTierCode() int {
-	switch w.Population {
-	case "K":
-		return 1
-	case "B":
-		return 5
-	default:
-		if w.Population == "Alien" || w.Population == "Outpost" || w.Population == "Failed Colony" {
-			return 0
-		}
-		if w.PopulationNum < 11 {
-			return 2
-		}
-		if w.PopulationNum < 101 {
-
-			return 3
-		}
-		return 4
+		w.BP = w.BP / 16
 	}
 }
 
@@ -609,59 +664,11 @@ func lifestyleCode(lstyle string) int {
 	return 0
 }
 
-func baseBP(w *World) int {
-
-	tier := w.popTierCode()
-	lsCode := lifestyleCode(w.LivingStandard)
-	baseBPCode := tier*10 + lsCode
-	return bpFromMap(baseBPCode)
-}
-
-func nextTierBP(w *World) int {
-
-	tier := w.popTierCode()
-	lsCode := lifestyleCode(w.LivingStandard)
-	baseBPCode := tier*10 + lsCode + 10
-	return bpFromMap(baseBPCode)
-}
-
-func bpFromMap(key int) int {
-	bpMAP := make(map[int]int)
-	bpMAP[11] = 10
-	bpMAP[21] = 50
-	bpMAP[31] = 100
-	bpMAP[41] = 200
-	bpMAP[51] = 300
-	bpMAP[61] = 500
-	bpMAP[12] = 30
-	bpMAP[22] = 100
-	bpMAP[32] = 200
-	bpMAP[42] = 350
-	bpMAP[52] = 500
-	bpMAP[62] = 650
-	bpMAP[13] = 50
-	bpMAP[23] = 150
-	bpMAP[33] = 300
-	bpMAP[43] = 500
-	bpMAP[53] = 700
-	bpMAP[63] = 900
-	bpMAP[14] = 90
-	bpMAP[24] = 250
-	bpMAP[34] = 500
-	bpMAP[44] = 700
-	bpMAP[54] = 1000
-	bpMAP[64] = 1300
-	return bpMAP[key]
-}
-
 func (w *World) calculateBP() {
-	check := w.PopulationNum
-	for check > 100 {
-		check = check / 10
-
-	}
-	dif := nextTierBP(w) - baseBP(w)
-	w.BP = dif*check/100 + baseBP(w)
+	policyMod := policyShare(w.BudgetPolicy, "Military")
+	militaryTax := w.planetaryTax() * 10 / policyMod
+	fmt.Println("DEBUG: TAX", militaryTax, w.planetaryTax())
+	w.BP = militaryTax / 200000
 }
 
 func oneRollContact() string {
@@ -1056,21 +1063,83 @@ func (w *World) law() {
 	if w.GovCode < 0 {
 		w.GovCode = 0
 	}
+
 	w.LawCode = rollXdY(2, 6) - 7 + w.GovCode
 	if w.LawCode < 0 {
 		w.LawCode = 0
 	}
+	w.setGovermentType(w.GovCode)
 }
+
+func restrictionsList() []string {
+	strSl := []string{
+		"Weapons",
+		"Drugs",
+		"Information",
+		"Technology",
+		"Travellers",
+		"Psionics",
+	}
+	return strSl
+}
+
+func (w *World) setGovermentType(i int) {
+	switch i {
+	case 0:
+		w.GovType = "None"
+		w.RestrictionPolicy = generateDesidionPoolSafe(w.LawCode*2, "None")
+	case 1:
+		w.GovType = "Company/corporation"
+		w.RestrictionPolicy = generateDesidionPoolSafe(w.LawCode*2, "Weapons", "Drugs", "Travellers")
+	case 2:
+		w.GovType = "Participating democracy"
+		w.RestrictionPolicy = generateDesidionPoolSafe(w.LawCode*2, "Drugs")
+	case 3:
+		w.GovType = "Self-perpetuating oligarchy"
+		w.RestrictionPolicy = generateDesidionPoolSafe(w.LawCode*2, "Technology", "Weapons", "Travellers")
+	case 4:
+		w.GovType = "Representative democracy"
+		w.RestrictionPolicy = generateDesidionPoolSafe(w.LawCode*2, "Drugs", "Weapons", "Psionics")
+	case 5:
+		w.GovType = "Feudal technocracy"
+		w.RestrictionPolicy = generateDesidionPoolSafe(w.LawCode*2, "Technology", "Weapons", "Information")
+	case 6:
+		w.GovType = "Captive government"
+		w.RestrictionPolicy = generateDesidionPoolSafe(w.LawCode*2, "Weapons", "Technology", "Travellers")
+	case 7:
+		w.GovType = "Balkanisation/Tribalism"
+		restrictionOptions := utils.MaybeSlice(restrictionsList()...)
+		w.RestrictionPolicy = generateDesidionPoolSafe(w.LawCode*2, restrictionOptions...)
+	case 8:
+		w.GovType = "Civil service bureaucracy"
+		w.RestrictionPolicy = generateDesidionPoolSafe(w.LawCode*2, "Drugs", "Weapons")
+	case 9:
+		w.GovType = "Impersonal Bureaucracy"
+		w.RestrictionPolicy = generateDesidionPoolSafe(w.LawCode*2, "Technology", "Weapons", "Drugs", "Travellers", "Psionics")
+	case 10:
+		w.GovType = "Charismatic dictator"
+		w.RestrictionPolicy = generateDesidionPoolSafe(w.LawCode*2, "None")
+	case 11:
+		w.GovType = "Non-charismatic leader"
+		w.RestrictionPolicy = generateDesidionPoolSafe(w.LawCode*2, "Weapons", "Technology", "Information")
+	case 12:
+		w.GovType = "Charismatic oligarchy"
+		w.RestrictionPolicy = generateDesidionPoolSafe(w.LawCode*2, "Weapons")
+	case 13:
+		w.GovType = "Religious dictatorship"
+		restrictionOptions := utils.MaybeSlice(restrictionsList()...)
+		w.RestrictionPolicy = generateDesidionPoolSafe(w.LawCode*2, restrictionOptions...)
+	}
+	fmt.Println(desidionPoolStr("Restrictions:", w.RestrictionPolicy))
+	lawsList := restrictionsList()
+	fmt.Println("Local Laws:")
+	for i := range lawsList {
+		fmt.Println(lawsList[i]+" restrictions:", w.describeRestriction(lawsList[i]))
+	}
+}
+
 func (w *World) TotalPopulation() int {
-	fmt.Println(w.popTierCode())
-	tPop := w.PopulationNum * 1000
-	if w.Population == "M" {
-		tPop = tPop * 1000
-	}
-	if w.Population == "B" {
-		tPop = tPop * 1000000
-	}
-	return tPop
+	return w.PopulationNum
 }
 
 func RandomColonyReport() string {
@@ -1161,4 +1230,189 @@ func colonyFailedQ(index int) string {
 		index = roll1dX(len(failReazStr), -1)
 	}
 	return failReazStr[index]
+}
+
+func policyShare(policy []string, policyType string) int {
+	rang := 0
+	for i := range policy {
+		if policy[i] == policyType {
+			rang++
+		}
+	}
+	return rang
+}
+
+func (w *World) describeRestriction(restr string) string {
+	share := policyShare(w.RestrictionPolicy, restr)
+	switch restr {
+	case "Weapons":
+		return weaponRestriction(share)
+	case "Drugs":
+		return drugsRestriction(share)
+	case "Information":
+		return informationRestriction(share)
+	case "Technology":
+		return technologyRestriction(share)
+	case "Travellers":
+		return travallersRestriction(share)
+	case "Psionics":
+		return psionicRestriction(share)
+	}
+	return "No meaningful restrictions found"
+}
+
+func weaponRestriction(i int) string {
+	switch i {
+	case 0:
+		return "None"
+	case 1:
+		return "Poison gas, explosives, undetectable weapons, WMD"
+	case 2:
+		return "Poison gas, explosives, undetectable weapons, WMD, Portable energy weapons (except ship-mounted weapons)"
+	case 3:
+		return "All Heavy and Mounted Weapons"
+	case 4:
+		return "All Heavy and Mounted Weapons, Light assault weapons and submachine guns"
+	case 5:
+		return "All Firearms except Pistol, Shotguns and Stunners. Consealable waepons Restricted. All weapons must be registered"
+	case 6:
+		return "All Firearms except Shotguns and Stunners. Carring weapons discouraged"
+	case 7:
+		return "All leathal Firearms. Carring weapons is highly discouraged"
+	case 8:
+		return "All Firearms, Bladed weapons and Stunners"
+	default:
+		return "All Weapons"
+	}
+	return "None"
+}
+
+func drugsRestriction(i int) string {
+	switch i {
+	case 0:
+		return "None"
+	case 1:
+		return "Highly addictive and dangerous narcotics"
+	case 2:
+		return "Highly addictive narcotics"
+	case 3:
+		return "Highly addictive narcotics and Combat Drugs"
+	case 4:
+		return "Addictive narcotics and Combat Drugs"
+	case 5:
+		return "Addictive narcotics, Combat Drugs and Anagathics (longevity drugs)"
+	case 6:
+		return "Addictive narcotics, Combat Drugs, Anagathics, Fast and Slow drugs"
+	case 7:
+		return "All narcotics and Combat Drugs"
+	case 8:
+		return "All narcotics, Combat and Medical Drugs"
+	default:
+		return "All Drugs"
+	}
+	return "None"
+}
+
+func informationRestriction(i int) string {
+	switch i {
+	case 0:
+		return "None"
+	case 1:
+		return "Unbracked AI"
+	case 2:
+		return "All AI"
+	case 3:
+		return "AI and Intrusion Programs"
+	case 4:
+		return "AI, Intrusion and Security Programs (combat capable Expert Programs)"
+	case 5:
+		return "All Expert Programs"
+	case 6:
+		return "All Expert Programs, Resent news from outworld"
+	case 7:
+		return "All Expert Programs, Library programs and unfiltered data about other worlds. Free speech curtailed."
+	case 8:
+		return "All Information Technology, any non-critical data from offworld, personal media"
+	default:
+		return "All Information Technology, any data from offworld. No free press."
+	}
+	return "None"
+}
+
+func technologyRestriction(i int) string {
+	switch i {
+	case 0:
+		return "None"
+	case 1:
+		return "Maltech technology"
+	case 2:
+		return "Maltech and Alien technology"
+	case 3:
+		return "Maltech, Alien and Sapient technology. All TL5 combat related items"
+	case 4:
+		return "Maltech, Alien, Sapient and Pretech technology. All Items TL5"
+	case 5:
+		return "Maltech, Alien, Sapient and Pretech technology. All items TL5 and combat related TL4 items"
+	case 6:
+		return "Maltech, Alien, Sapient and Pretech technology. All TL4+ spaceship and combat related items"
+	case 7:
+		return "Maltech, Alien, Sapient, Post-tech and Pretech technology. All items TL4+"
+	case 8:
+		return "Maltech, Alien, Sapient, Astronautic, Post-tech and Pretech technology. All items TL3+"
+	default:
+		return "All non-Lowtech, All items TL3 and above"
+	}
+	return "None"
+}
+
+func travallersRestriction(i int) string {
+	switch i {
+	case 0:
+		return "None"
+	case 1:
+		return "Visitors must contact planetary authorities by radio, landing is permitted anywhere"
+	case 2:
+		return "Visitors must report passenger and cargo manifest by radio, landing is permitted anywhere"
+	case 3:
+		return "Landing is permitted only at starport or other authorised sites"
+	case 4:
+		return "Landing is permitted only at starport"
+	case 5:
+		return "Citizen must register offworld travel. Visitors must register all buisiness"
+	case 6:
+		return "Visits discoureged. Excessive contact with cotizens forbidden"
+	case 7:
+		return "Citizen may not leave planet. Visitors may not leave starport"
+	case 8:
+		return "Landing permitted only to govermen agents"
+	default:
+		return "No offworlders permitted"
+	}
+	return "None"
+}
+
+func psionicRestriction(i int) string {
+	switch i {
+	case 0:
+		return "None"
+	case 1:
+		return "Dangerous talents must be registered."
+	case 2:
+		return "Psionic powers must be registered. Use of dangerous powers forbidden."
+	case 3:
+		return "Psionic powers must be registered. Use of telepathy restricted to government approved psionics."
+	case 4:
+		return "Psionic powers must be registered. Use of telepathy, teleportation and clairvoyance restricted to government approved psionics."
+	case 5:
+		return "Psionic powers must be registered. Use of all psionic powers restricted to government approved psionics."
+	case 6:
+		return "Psionic powers must be registered. Use of all psionic powers restricted to government approved psionics. Possesion of psionic drugs banned."
+	case 7:
+		return "Use of psionic powers is forbidden."
+	case 8:
+		return "Psionic related technology is forbidden."
+	default:
+		return "All Psionics"
+	}
+	return "None"
 }

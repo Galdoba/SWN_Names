@@ -50,6 +50,15 @@ func generateDesidionPool(dPoints int, options ...string) ([]string, error) {
 	return desidionPool, nil
 }
 
+func generateDesidionPoolSafe(dPoints int, options ...string) []string {
+	var desidionPool []string
+	for dPoints > 0 {
+		desidionPool = append(desidionPool, utils.RandomFromList(options))
+		dPoints--
+	}
+	return desidionPool
+}
+
 func desidionPoolStr(policyName string, dPool []string) string {
 	dMap := make(map[string]int)
 	for i := range dPool {
@@ -62,6 +71,16 @@ func desidionPoolStr(policyName string, dPool []string) string {
 	}
 	sort.Sort(Alphabetic(output))
 	return policyName + "  " + strings.Join(output, " ")
+}
+
+func desidionValue(dPool []string, desidion string) int {
+	var val int
+	for i := range dPool {
+		if dPool[i] == desidion {
+			val++
+		}
+	}
+	return val
 }
 
 func randomPolicy() (int, int, int) {

@@ -1,6 +1,8 @@
 package main
 
 import (
+	"strconv"
+
 	"github.com/Galdoba/utils"
 )
 
@@ -90,7 +92,7 @@ func (w *World) assembleFleet() {
 		funcMap["Military Ships"] = militaryShipsList()
 		funcMap["Stations"] = stationsList()
 		hull := utils.RandomFromList(funcMap[shpType])
-		if bp > shipYerlyBP(hull) {
+		if bp >= shipYerlyBP(hull) {
 			w.Fleet = append(w.Fleet, *NewShip(GiveName(randomSite(), theme, -1), hull))
 			bp = bp - shipYerlyBP(hull)
 		}
@@ -143,25 +145,37 @@ func (shp *ship) isCivilian() bool {
 func (w *World) fleetReport() string {
 	report := "Fleet Report: \n"
 	report += "Stations: \n"
+	stationMap := make(map[string]int)
 	for i := range w.Fleet {
 		curShip := w.Fleet[i]
 		if curShip.isStation() {
-			report += curShip.name + " (" + curShip.shipHull + ")\n"
+			stationMap[curShip.shipHull] = stationMap[curShip.shipHull] + 1
 		}
 	}
+	for key, val := range stationMap {
+		report += key + " " + strconv.Itoa(val) + "\n"
+	}
 	report += "Civilian Ships: \n"
+	civilMap := make(map[string]int)
 	for i := range w.Fleet {
 		curShip := w.Fleet[i]
 		if curShip.isCivilian() {
-			report += curShip.name + " (" + curShip.shipHull + ")\n"
+			civilMap[curShip.shipHull] = civilMap[curShip.shipHull] + 1
 		}
 	}
+	for key, val := range civilMap {
+		report += key + " " + strconv.Itoa(val) + "\n"
+	}
 	report += "Military Ships: \n"
+	milMap := make(map[string]int)
 	for i := range w.Fleet {
 		curShip := w.Fleet[i]
 		if curShip.isMilitary() {
-			report += curShip.name + " (" + curShip.shipHull + ")\n"
+			milMap[curShip.shipHull] = milMap[curShip.shipHull] + 1
 		}
+	}
+	for key, val := range milMap {
+		report += key + " " + strconv.Itoa(val) + "\n"
 	}
 	return report
 }

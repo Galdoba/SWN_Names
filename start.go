@@ -60,7 +60,8 @@ func CreatePlanet() {
 		fmt.Println("Seed =", seed)
 		w = NewWorld()
 		fmt.Println(w.toString())
-		w.assembleFleet()
+		//w.assembleFleet()
+		fmt.Println(w.populationStr())
 		save, _ = TakeOptions("Save Planet?", "Yes", "No")
 	}
 	fmt.Println("Name Planet:")

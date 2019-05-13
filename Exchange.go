@@ -24,7 +24,7 @@ func NewPlanet(name string) *planet {
 	return pl
 }
 
-func main() {
+func main9() {
 	expertize = utils.InputInt("Set Trader's Experteese:")
 	fmt.Println("Expertize =", expertize)
 	var planets []string
@@ -144,6 +144,7 @@ func parseLot(str string) (string, []string, int, int) {
 		}
 		if read {
 			btWord = append(btWord, btStr[i])
+			//	fmt.Println(btStr[i], byWord)
 			//args[a] += string(btStr[i])
 		}
 	}
